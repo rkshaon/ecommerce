@@ -2,6 +2,7 @@
   <div class="">
     <!-- <SliderComponent /> -->
     <BannerComponent />
+    <FeaturedCategoryComponent />
     <h1>Home Page</h1>
   </div>
 </template>
@@ -9,14 +10,16 @@
 <script>
 // import SliderComponent from './utility/SliderComponent'
 import BannerComponent from './utility/BannerComponent.vue'
+import FeaturedCategoryComponent from './utility/FeaturedCategoryComponent.vue'
 
 export default {
   name: 'HomeComponent',
   props: {},
   components: {
     // SliderComponent
-    BannerComponent
-  }
+    BannerComponent,
+    FeaturedCategoryComponent,
+}
 }
 </script>
 
