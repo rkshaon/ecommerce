@@ -1,24 +1,24 @@
 <template>
   <div class="">
-    <!-- <SliderComponent /> -->
     <BannerComponent />
     <FeaturedCategoryComponent />
+    <FeaturedProductComponent />
     <h1>Home Page</h1>
   </div>
 </template>
 
 <script>
-// import SliderComponent from './utility/SliderComponent'
-import BannerComponent from './utility/BannerComponent.vue'
-import FeaturedCategoryComponent from './utility/FeaturedCategoryComponent.vue'
+import BannerComponent from '@/components/utility/BannerComponent.vue'
+import FeaturedCategoryComponent from '@/components/utility/FeaturedCategoryComponent.vue'
+import FeaturedProductComponent from '@/components/utility/FeaturedProductComponent.vue'
 
 export default {
   name: 'HomeComponent',
   props: {},
   components: {
-    // SliderComponent
     BannerComponent,
     FeaturedCategoryComponent,
+    FeaturedProductComponent,
 }
 }
 </script>
