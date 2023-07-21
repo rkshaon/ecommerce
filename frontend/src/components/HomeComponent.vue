@@ -1,18 +1,21 @@
 <template>
   <div class="">
-    <SliderComponent />
+    <!-- <SliderComponent /> -->
+    <BannerComponent />
     <h1>Home Page</h1>
   </div>
 </template>
 
 <script>
-import SliderComponent from './utility/SliderComponent'
+// import SliderComponent from './utility/SliderComponent'
+import BannerComponent from './utility/BannerComponent.vue'
 
 export default {
   name: 'HomeComponent',
   props: {},
   components: {
-    SliderComponent
+    // SliderComponent
+    BannerComponent
   }
 }
 </script>
