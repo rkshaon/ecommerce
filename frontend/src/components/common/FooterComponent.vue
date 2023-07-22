@@ -87,7 +87,6 @@ export default {
 </script>
 
 <style>
-.footer-item {}
 .footer-item:hover {
     background-color: #363636;
     transition: 1s;

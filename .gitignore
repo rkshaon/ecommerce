@@ -26,3 +26,4 @@ pnpm-debug.log*
 
 # Backend
 backend/env
+backend/ecommerce/__pycache__
