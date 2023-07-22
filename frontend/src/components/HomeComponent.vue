@@ -3,7 +3,6 @@
     <BannerComponent />
     <FeaturedCategoryComponent />
     <FeaturedProductComponent />
-    <h1>Home Page</h1>
   </div>
 </template>
 
