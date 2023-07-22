@@ -2,7 +2,7 @@
     <div class="container-fluid" style="background-color: #242526; color: aliceblue;">
         <div class="container">
             <div class="row">
-                <div class="col-4 pt-5 pb-5" style="background-color: #151616;">
+                <div class="col-4 pt-5 pb-5 footer-item">
                     <a href="tel:+8801521205142" style="text-decoration: none;" class="text-white">
                         <div>
                             <div class="text-center">
@@ -22,7 +22,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-4 pt-5 pb-5 footer-item" style="background-color: #151616;">
+                <div class="col-4 pt-5 pb-5 footer-item">
                     <a href="https://goo.gl/maps/uvQvRnu3ucRDuamw9" target="_blank" style="text-decoration: none;" class="text-white">
                         <div>
                             <div class="text-center">
@@ -87,7 +87,11 @@ export default {
 </script>
 
 <style>
-.footer-item::hover {
-    background-color: #151616
+.footer-item {}
+.footer-item:hover {
+    background-color: #363636;
+    transition: 1s;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 </style>
