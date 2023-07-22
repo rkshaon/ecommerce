@@ -21,7 +21,15 @@ class CategoryViewSet(ViewSet):
 
     def list(self, request):
         """Return a list of categories."""
-        queryset = self.queryset.filter(is_active=True)
+        query = request.GET.get('query', None)
+        if query and query.lower() == 'only-parent':
+            queryset = self.queryset.filter(
+                is_active=True,
+                parent=None,
+            )
+        else:
+            queryset = self.queryset.filter(is_active=True)
+
         serializer = self.serializer_class(queryset, many=True)
         
         data = {
@@ -30,6 +38,7 @@ class CategoryViewSet(ViewSet):
         }
         
         return Response(data)
+    
 
     def create(self, request):
         """Create a new category."""

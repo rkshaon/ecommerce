@@ -7,12 +7,11 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     title = models.CharField(max_length=255, blank=False, null=False)
     category_slug = models.SlugField(unique=True, blank=True, null=True)
-    # child_categories = models.ManyToManyField('self', blank=True)
     children = models.ManyToManyField(
         to='self',
         related_name='parent',
         symmetrical=False,
-        blank=True
+        blank=True,
     )
     short_title = models.CharField(max_length=255, blank=True, null=True)
     icon = models.CharField(max_length=255, blank=True, null=True)
