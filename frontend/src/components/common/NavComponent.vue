@@ -1,8 +1,15 @@
 <template>
     <div id="top-bar"></div>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg">
             <router-link to="/" class="navbar-brand">E-Commerce</router-link>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -19,8 +26,8 @@
                     </li>
                 </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 </template>
 
 <script>
