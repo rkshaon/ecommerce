@@ -15,18 +15,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- <li class="nav-item" v-for="category in categories" :key="category.id">
+                    <li class="nav-item" v-for="category in categories" :key="category.id">
                         <router-link to="/" class="nav-link" >{{ category.title }}</router-link>
-                        {{ category.title }}
-                    </li> -->
-                    <li class="nav-item">
-                        <router-link to="/" class="nav-link active" aria-current="page">Mobile</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/" class="nav-link">Laptop</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/" class="nav-link">Watch</router-link>
                     </li>
                 </ul>
             </div>
@@ -35,33 +25,19 @@
 </template>
 
 <script>
-
-// import store from '@/store/category';
+import categoryStore from '@/store/category';
 
 export default {
     name: 'NavBarComponent',
-    props: {},
-    // data() {
-    //     return {
-    //         categories: store.state.categories,
-    //     };
-    // },
-    created() {
-        // store.dispatch('getCategories');
-        // this.watchCategories();
-    },
     mounted() {
-        // this.watch('categories', function() {
-        //     this.categories = store.state.categories;
-        // });
-        // this.watchCategories();
+        categoryStore.dispatch('getCategories');
     },
-    // methods: {
-    //     watchCategories() {
-    //         this.categories = store.state.categories;
-    //     },
-    // },
-}
+    computed: {
+        categories() {
+            return categoryStore.state.categories;
+        }
+    },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
