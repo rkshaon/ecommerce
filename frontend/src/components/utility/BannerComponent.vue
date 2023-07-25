@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <img src="/banner.jpg" alt="Banner Image">
+    <div class="container pb-5">
+        <img src="/banner.jpg" alt="Banner Image" style="width: 100%;">
     </div>
 </template>
 
