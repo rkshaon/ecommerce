@@ -31,9 +31,26 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '@/config';
+import axios from 'axios';
+
 export default {
     name: 'NavBarComponent',
-    props: {}
+    props: {},
+    methods: {
+        getCategories() {
+            let URL = API_BASE_URL + '/api/categories/?query=only-parent'
+            axios.get(URL).then((response) => {
+                console.log(response.data);
+                console.log(response.data.data);
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+    },
+    mounted() {
+        this.getCategories();
+    }
 }
 </script>
 
