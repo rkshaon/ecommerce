@@ -15,11 +15,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item" v-for="category in categories" :key="category.id">
+                    <!-- <li class="nav-item" v-for="category in categories" :key="category.id">
                         <router-link to="/" class="nav-link" >{{ category.title }}</router-link>
-                        <!-- {{ category.title }} -->
-                    </li>
-                    <!-- <li class="nav-item">
+                        {{ category.title }}
+                    </li> -->
+                    <li class="nav-item">
                         <router-link to="/" class="nav-link active" aria-current="page">Mobile</router-link>
                     </li>
                     <li class="nav-item">
@@ -27,7 +27,7 @@
                     </li>
                     <li class="nav-item">
                         <router-link to="/" class="nav-link">Watch</router-link>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -36,31 +36,31 @@
 
 <script>
 
-import store from '@/store/category';
+// import store from '@/store/category';
 
 export default {
     name: 'NavBarComponent',
     props: {},
-    data() {
-        return {
-            categories: store.state.categories,
-        };
-    },
+    // data() {
+    //     return {
+    //         categories: store.state.categories,
+    //     };
+    // },
     created() {
-        store.dispatch('getCategories');
-        this.watchCategories();
+        // store.dispatch('getCategories');
+        // this.watchCategories();
     },
     mounted() {
         // this.watch('categories', function() {
         //     this.categories = store.state.categories;
         // });
-        this.watchCategories();
+        // this.watchCategories();
     },
-    methods: {
-        watchCategories() {
-            this.categories = store.state.categories;
-        },
-    },
+    // methods: {
+    //     watchCategories() {
+    //         this.categories = store.state.categories;
+    //     },
+    // },
 }
 </script>
 

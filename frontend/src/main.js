@@ -1,6 +1,7 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 import router from '@/router';
+import categoryStore from '@/store/category';
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -20,6 +21,7 @@ library.add(faEnvelope, faPhone, faMapPin, faFacebook, faTwitter, faYoutube)
 
 const app = createApp(App);
 
+app.store = categoryStore;
 app.use(router);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.mount("#app");

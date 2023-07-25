@@ -10,20 +10,27 @@ export default new Vuex.Store({
     categories: [],
   },
   mutations: {
+    // Update the category list
     setCategories(state, categories) {
       state.categories = categories;
     },
   },
   actions: {
-    getCategories(context) {
+    async getCategories(context) {
+      // Generate API URL
       let URL = API_BASE_URL + "/api/categories/?query=only-parent";
-      axios.get(URL).then((response) => {
-        console.log('In store.js');
+      // Make the APi call
+      const response = await axios.get(URL);
+
+      if (response.status === 200) {
+        console.log("In the store.js", response.data.data);
         context.commit("setCategories", response.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      } else {
+        // Handle the error.
+        const error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
     },
   },
 });
