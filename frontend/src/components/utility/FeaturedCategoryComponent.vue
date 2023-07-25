@@ -21,11 +21,13 @@ export default {
         FeaturedCategoryCardComponent,
     },
     mounted() {
-        categoryStore.dispatch('getCategories');
+        categoryStore.dispatch('getFeaturedCategories');
     },
     computed: {
         categories() {
-            return categoryStore.state.categories;
+            const categories = categoryStore.state.categories.filter(category => category.is_featured);
+            console.log('in featured, ', categories);
+            return categories;
         }
     },
 }

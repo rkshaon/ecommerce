@@ -11,14 +11,21 @@ export default new Vuex.Store({
   },
   mutations: {
     // Update the category list
-    setCategories(state, categories, query = "only-parent") {
-      state.categories = categories;
-      
-      if (query === "only-feature") {
-        state.categories = state.categories.filter(
-          (category) => category.is_featured
-        );
-      }
+    setCategories(state, categories) {
+      const existingCategories = state.categories.filter((existingCategory) =>
+        categories.some(
+          (filteredCategory) => filteredCategory.id === existingCategory.id
+        )
+      );
+
+      const newCategories = categories.filter(
+        (category) =>
+          !existingCategories.some(
+            (existingCategory) => existingCategory.id === category.id
+          )
+      );
+
+      state.categories = [...state.categories, ...newCategories];
     },
   },
   actions: {
@@ -27,7 +34,12 @@ export default new Vuex.Store({
       const response = await axios.get(URL);
 
       if (response.status === 200) {
-        context.commit("setCategories", response.data.data);
+        let data = response.data.data;
+        data.forEach((element) => {
+          element.is_root = true;
+        });
+
+        context.commit("setCategories", data);
       } else {
         const error = new Error(response.statusText);
         error.response = response;
