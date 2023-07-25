@@ -16,7 +16,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item" v-for="category in categories" :key="category.id">
-                        <router-link to="/" class="nav-link" >{{ category.title }}</router-link>
+                        <router-link :to="{ name: 'category', params: {slug: category.category_slug} }" class="nav-link" >{{ category.title }}</router-link>
                     </li>
                 </ul>
             </div>

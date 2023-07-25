@@ -1,18 +1,16 @@
 <template>
   <NavComponent />
-  <HomeComponent />
+  <router-view></router-view>
   <FooterComponent />
 </template>
 
 <script>
-import HomeComponent from '@/components/HomeComponent.vue'
 import NavComponent from '@/components/common/NavComponent.vue';
 import FooterComponent from '@/components/common/FooterComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    HomeComponent,
     NavComponent,
     FooterComponent,
   }

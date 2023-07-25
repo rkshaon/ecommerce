@@ -23,7 +23,6 @@ export default new Vuex.Store({
       const response = await axios.get(URL);
 
       if (response.status === 200) {
-        console.log("In the store.js", response.data.data);
         context.commit("setCategories", response.data.data);
       } else {
         // Handle the error.
