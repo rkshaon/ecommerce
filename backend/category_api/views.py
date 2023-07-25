@@ -27,6 +27,8 @@ class CategoryViewSet(ViewSet):
                 is_active=True,
                 parent=None,
             )
+        elif query and query.lower() == 'only-feature':
+            queryset = self.queryset.filter(is_active=True, is_featured=True)
         else:
             queryset = self.queryset.filter(is_active=True)
 
