@@ -8,24 +8,15 @@ import axios from 'axios';
 export default new Vuex.Store({
   state: {
     categories: [],
+    featureCategories: [],
   },
   mutations: {
-    // Update the category list
     setCategories(state, categories) {
-      const existingCategories = state.categories.filter((existingCategory) =>
-        categories.some(
-          (filteredCategory) => filteredCategory.id === existingCategory.id
-        )
-      );
+      state.categories = categories;
+    },
 
-      const newCategories = categories.filter(
-        (category) =>
-          !existingCategories.some(
-            (existingCategory) => existingCategory.id === category.id
-          )
-      );
-
-      state.categories = [...state.categories, ...newCategories];
+    setFeatureCategories(state, featureCategories) {
+      state.featureCategories = featureCategories;
     },
   },
   actions: {
@@ -52,7 +43,7 @@ export default new Vuex.Store({
       const response = await axios.get(URL);
 
       if (response.status === 200) {
-        context.commit("setCategories", response.data.data);
+        context.commit("setFeatureCategories", response.data.data);
       } else {
         const error = new Error(response.statusText);
         error.response = response;

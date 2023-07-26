@@ -25,8 +25,7 @@ export default {
     },
     computed: {
         categories() {
-            const categories = categoryStore.state.categories.filter(category => category.is_featured);
-            console.log('in featured, ', categories);
+            const categories = categoryStore.state.featureCategories;
             return categories;
         }
     },

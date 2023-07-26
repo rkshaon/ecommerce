@@ -34,8 +34,7 @@ export default {
     },
     computed: {
         categories() {
-            const categories = categoryStore.state.categories.filter(category => category.is_root);
-            console.log('in nav, ', categories);
+            const categories = categoryStore.state.categories.filter(category => category);
             return categories;
         }
     },
