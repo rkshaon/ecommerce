@@ -1,9 +1,7 @@
 <template>
   <router-link :to="{ name: 'category', params: { slug: category.category_slug } }" class="nav-link" >
     <div class="card" style="">
-      <img src="/icon.png" class="card-img-top" alt="Featured-Category-Icon">
-      <!-- <i class="fa-solid fa-desktop"></i> -->
-      <!-- <font-awesome-icon :icon="['fas', 'desktop']" /> -->
+      <img v-if="category" :src="FILE_URL" class="card-img-top" :alt="category.title" style="width: 50%; height: 50%;">
       <div class="card-body">
         <p class="card-text text-center">{{ category.title }}</p>
       </div>
@@ -12,6 +10,8 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '@/config';
+
 export default {
   name: 'FeaturedCategoryCardComponent',
   props: {
@@ -19,6 +19,16 @@ export default {
         type: Object,
         required: true,
     },
+  },
+  data() { },
+  computed: {
+    FILE_URL() {
+      if (this.category.icon) {
+        return API_BASE_URL + this.category.icon;
+      } else {
+        return '/icon.png'
+      }
+    }
   }
 }
 </script>
