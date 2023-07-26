@@ -14,7 +14,9 @@ class Category(models.Model):
         blank=True,
     )
     short_title = models.CharField(max_length=255, blank=True, null=True)
-    icon = models.CharField(max_length=255, blank=True, null=True)
+    # icon = models.CharField(max_length=255, blank=True, null=True)
+    # icon = models.ImageField(upload_to='icon', null=True, blank=True)
+    icon = models.FileField(upload_to='icon', null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     is_featured = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

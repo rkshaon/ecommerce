@@ -14,7 +14,11 @@ import "bootstrap/dist/js/bootstrap.js";
 /* import specific icons */
 import { faEnvelope, faPhone, faMapPin } from '@fortawesome/free-solid-svg-icons'
 // import { faAddressBook } from '@fortawesome/free-regular-svg-icons'
-import { faFacebook, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import {
+  faFacebook,
+  faTwitter,
+  faYoutube
+} from "@fortawesome/free-brands-svg-icons";
 
 /* add icons to the library */
 library.add(faEnvelope, faPhone, faMapPin, faFacebook, faTwitter, faYoutube)
