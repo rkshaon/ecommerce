@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'FeaturedCategoryCardComponent'
+    name: 'ProductCardComponent'
 }
 </script>
 

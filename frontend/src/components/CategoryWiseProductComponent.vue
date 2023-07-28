@@ -1,18 +1,18 @@
 <template>
   <div class="">
     This is Category wise Product List Component
-    <FeaturedProductComponent />
+    <ProductGridViewComponent />
   </div>
 </template>
 
 <script>
-import FeaturedProductComponent from '@/components/utility/FeaturedProductComponent.vue';
+import ProductGridViewComponent from '@/components/utility/ProductGridViewComponent.vue';
 
 export default {
-  name: 'CategoryComponent',
+  name: 'CategoryWiseProductComponent',
   props: {},
   components: {
-    FeaturedProductComponent,
+    ProductGridViewComponent,
   }
 }
 </script>

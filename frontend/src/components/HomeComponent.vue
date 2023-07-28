@@ -2,14 +2,14 @@
   <div class="">
     <BannerComponent />
     <FeaturedCategoryComponent />
-    <FeaturedProductComponent />
+    <ProductGridViewComponent />
   </div>
 </template>
 
 <script>
 import BannerComponent from '@/components/utility/BannerComponent.vue'
 import FeaturedCategoryComponent from '@/components/utility/FeaturedCategoryComponent.vue'
-import FeaturedProductComponent from '@/components/utility/FeaturedProductComponent.vue'
+import ProductGridViewComponent from '@/components/utility/ProductGridViewComponent.vue'
 
 export default {
   name: 'HomeComponent',
@@ -17,7 +17,7 @@ export default {
   components: {
     BannerComponent,
     FeaturedCategoryComponent,
-    FeaturedProductComponent,
+    ProductGridViewComponent,
 }
 }
 </script>
