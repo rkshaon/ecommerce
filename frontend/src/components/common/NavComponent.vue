@@ -1,3 +1,4 @@
+
 <template>
     <div id="top-bar"></div>
     <div class="container">
@@ -9,14 +10,17 @@
         </nav>
     </div>
     <div class="container">
-        <nav class="navbar navbar-expand-lg">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item" v-for="category in categories" :key="category.id">
-                        <router-link :to="{ name: 'category', params: {slug: category.category_slug} }" class="nav-link" >{{ category.title }}</router-link>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <ul class="navbar-nav">
+                    <li v-for="item in categories" :key="item.id" class="nav-item" :class="{ 'dropdown': item.children && item.children.length > 0 }">
+                        <a v-if="item.children && item.children.length > 0" class="nav-link dropdown-toggle" :href="'#' + item.category_slug" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.title }}</a>
+                        <router-link v-else class="nav-link" :to="{ name: 'category', params: { slug: item.category_slug } }">{{ item.title }}</router-link>
+                        <ul v-if="item.children && item.children.length > 0" class="dropdown-menu" :aria-labelledby="'#' + item.category_slug">
+                            <li v-for="child in item.children" :key="child.id">
+                                <router-link class="dropdown-item" :to="{ name: 'category', params: { slug: child.category_slug } }">{{ child.title }}</router-link>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
