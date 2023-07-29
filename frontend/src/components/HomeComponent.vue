@@ -2,7 +2,7 @@
   <div class="">
     <BannerComponent />
     <FeaturedCategoryComponent />
-    <ProductGridViewComponent />
+    <ProductGridViewComponent :category="category" />
   </div>
 </template>
 
@@ -18,7 +18,14 @@ export default {
     BannerComponent,
     FeaturedCategoryComponent,
     ProductGridViewComponent,
-}
+  },
+  data() {
+    return {
+      category: {
+        title: 'Featured'
+      }
+    }
+  },
 }
 </script>
 
