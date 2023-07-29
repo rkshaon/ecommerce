@@ -10,21 +10,16 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        
+        representation['images'] = [
+            ProductImageSerializer(image).data for image in instance.images.all()
+        ]
+        return representation
+
+
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
         fields = '__all__'
-
-        
-# class ProductImageSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ProductImage
-#         fields = ('image',)
-
-
-# class ProductSerializer(serializers.ModelSerializer):
-#     images = ProductImageSerializer(many=True, read_only=True)
-
-#     class Meta:
-#         model = Product
-#         fields = ('id', 'name', 'description', 'images',)
