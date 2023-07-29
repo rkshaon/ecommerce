@@ -29,3 +29,5 @@ backend/env
 backend/ecommerce/__pycache__
 backend/category_api/__pycache__
 backend/category_api/migrations
+backend/product_api/__pycache__
+backend/product_api/migrations
