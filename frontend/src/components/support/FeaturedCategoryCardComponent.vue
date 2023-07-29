@@ -20,7 +20,9 @@ export default {
         required: true,
     },
   },
-  data() { },
+  data() { 
+    return {}
+  },
   computed: {
     FILE_URL() {
       if (this.category.icon) {
