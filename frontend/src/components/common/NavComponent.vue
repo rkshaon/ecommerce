@@ -38,7 +38,9 @@ export default {
     },
     computed: {
         categories() {
-            const categories = categoryStore.state.categories.filter(category => category);
+            // const categories = categoryStore.state.categories.filter(category => category);
+            const categories = categoryStore.state.categories;
+            console.log('In nav length:, ', categories.length);
             return categories;
         }
     },
