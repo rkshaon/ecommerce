@@ -20,12 +20,10 @@ export default {
     components: {
         FeaturedCategoryCardComponent,
     },
-    mounted() {
-        categoryStore.dispatch('getFeaturedCategories');
-    },
     computed: {
         categories() {
-            const categories = categoryStore.state.featureCategories;
+            const categories = categoryStore.state.categories.filter(category => category.is_featured === true);
+            console.log('Featured categories: ', categories);
             return categories;
         }
     },

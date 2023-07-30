@@ -19,9 +19,8 @@ export default {
   setup() {
     const route = useRoute();
     const slug = route.params.slug;
-    // console.log('Category Slug: ',slug);
     const category = categoryStore.state.categories.find(category => category.category_slug === slug);
-    // console.log('Category: ', category);
+    
     return {
       slug,
       category,

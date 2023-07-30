@@ -8,20 +8,21 @@ import axios from 'axios';
 export default new Vuex.Store({
   state: {
     categories: [],
-    featureCategories: [],
+    // featureCategories: [],
   },
   mutations: {
     setCategories(state, categories) {
       state.categories = categories;
     },
 
-    setFeatureCategories(state, featureCategories) {
-      state.featureCategories = featureCategories;
-    },
+    // setFeatureCategories(state, featureCategories) {
+    //   state.featureCategories = featureCategories;
+    // },
   },
   actions: {
     async getCategories(context) {
-      let URL = API_BASE_URL + "/api/categories/?query=only-parent";
+      // let URL = API_BASE_URL + "/api/categories/?query=only-parent";
+      let URL = API_BASE_URL + "/api/categories/";
       const response = await axios.get(URL);
 
       if (response.status === 200) {
@@ -38,17 +39,17 @@ export default new Vuex.Store({
       }
     },
 
-    async getFeaturedCategories(context) {
-      let URL = API_BASE_URL + "/api/categories/?query=only-feature";
-      const response = await axios.get(URL);
+    // async getFeaturedCategories(context) {
+    //   let URL = API_BASE_URL + "/api/categories/?query=only-feature";
+    //   const response = await axios.get(URL);
 
-      if (response.status === 200) {
-        context.commit("setFeatureCategories", response.data.data);
-      } else {
-        const error = new Error(response.statusText);
-        error.response = response;
-        throw error;
-      }
-    },
+    //   if (response.status === 200) {
+    //     context.commit("setFeatureCategories", response.data.data);
+    //   } else {
+    //     const error = new Error(response.statusText);
+    //     error.response = response;
+    //     throw error;
+    //   }
+    // },
   },
 });
