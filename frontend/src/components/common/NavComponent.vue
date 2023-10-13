@@ -13,7 +13,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <ul class="navbar-nav">
-                    <li v-for="category in categories" :key="category.id" class="nav-item">
+                    <li v-for="(category, index) in categories" :key="`${category.id}-${index}`" class="nav-item">
                         <router-link class="nav-link" :to="{ name: 'category', params: { slug: category.category_slug } }">{{ category.title }}</router-link>
                     </li>
                 </ul>
@@ -32,9 +32,7 @@ export default {
     },
     computed: {
         categories() {
-            // const categories = categoryStore.state.categories.filter(category => category);
             const categories = categoryStore.state.categories;
-            console.log('In nav length:, ', categories.length);
             return categories;
         }
     },
