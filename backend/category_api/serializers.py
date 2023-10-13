@@ -11,16 +11,16 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
     
 
-    def get_serializer(self, instance):
-        """Returns a serializer instance for the given instance."""
-        return self.__class__(instance=instance)
+    # def get_serializer(self, instance):
+    #     """Returns a serializer instance for the given instance."""
+    #     return self.__class__(instance=instance)
     
 
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
+    # def to_representation(self, instance):
+    #     representation = super().to_representation(instance)
         
-        representation['children'] = [
-            self.get_serializer(child).data for child in instance.children.all()
-        ]
-        return representation
+    #     representation['children'] = [
+    #         self.get_serializer(child).data for child in instance.children.all()
+    #     ]
+    #     return representation
     
