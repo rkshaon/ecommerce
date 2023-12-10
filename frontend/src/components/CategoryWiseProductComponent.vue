@@ -1,18 +1,27 @@
 <template>
   <div class="container">
     <h1>{{ categoryDetails.title }}</h1>
-    <p>Category Slug: {{ $route.params.category_slug }} {{ $route.params.category_id }}</p>
+    <p>{{ categoryDetails.description }}</p>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'CategoryWiseProductComponent',
   data() {
     return {
       categoryDetails: {
         'title': 'Category Title is coming soon.',
+        "id": null,
+        "category_slug": null,
+        "short_title": null,
+        "icon": null,
+        "description": null,
+        "is_featured": false,
+        "is_active": true,
+        "is_deleted": false,
+        "added_date_time": null,
+        "added_by": null,
       },
       loading: true,
     };
@@ -31,7 +40,6 @@ export default {
   methods: {
     async fetchCategoryDetailsData() {
       let url = `http://127.0.0.1:8000/api/categories/${this.$route.params.category_id}`;
-      console.log(url);
 
       try {
         const response = await fetch(url);
