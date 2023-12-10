@@ -27,9 +27,4 @@ const router = createRouter({
   routes
 });
 
-router.push({
-  name: "category",
-  params: { slug: "category-slug" },
-});
-
 export default router;
