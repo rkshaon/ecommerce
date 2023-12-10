@@ -17,7 +17,13 @@
                     <ul class="navbar-nav">
                         <li v-for="(category, index) in categoriesData" :key="`${category.id}-${index}`" class="nav-item">
                             <router-link v-if="category.category_slug" class="nav-link"
-                                :to="{ name: 'category', params: { slug: category.category_slug } }">
+                                :to="{ 
+                                    name: 'category', 
+                                    params: { 
+                                        category_id: category.id,
+                                        category_slug: category.category_slug,                                        
+                                    } 
+                                }">
                                 {{ category.title }}
                             </router-link>
                             <span v-else class="nav-link">{{ category.title }}</span>

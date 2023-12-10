@@ -12,7 +12,7 @@ const routes = [
     component: HomeComponent,
   },
   {
-    path: "/category/:slug",
+    path: "/category/:category_id/:category_slug",
     name: "category",
     component: CategoryWiseProductComponent,
   },

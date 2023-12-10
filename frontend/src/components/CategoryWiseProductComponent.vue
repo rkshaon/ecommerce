@@ -1,7 +1,7 @@
 <template>
-  <div class="">
+  <div class="container">
     <h1>Category Wise Products</h1>
-    <p>Category Slug: {{ $route.params.slug }}</p>
+    <p>Category Slug: {{ $route.params.category_slug }} {{ $route.params.category_id }}</p>
   </div>
 </template>
 
