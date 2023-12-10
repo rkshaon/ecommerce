@@ -23,7 +23,6 @@ export default {
   async setup() {
     const route = useRoute();
     const slug = route.params.slug;
-    // const category = await categoryStore.fetchCategories();
     const categories = await categoryStore.fetchCategories();
     console.log('Categories: ', categories);
     const category = categoryStore.state.categories.find(category => category.category_slug === slug);

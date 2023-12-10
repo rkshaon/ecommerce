@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HomeComponent from '@/components/HomeComponent';
 import CategoryWiseProductComponent from "@/components/CategoryWiseProductComponent";
+import NotFoundComponent from '@/components/NotFoundComponent';
 
 
 const routes = [
@@ -15,12 +16,16 @@ const routes = [
     name: "category",
     component: CategoryWiseProductComponent,
   },
+  {
+    path: "/:catchAll(.*)",
+    component: NotFoundComponent,
+  },
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
-})
+  history: createWebHistory(),
+  routes
+});
 
 router.push({
   name: "category",

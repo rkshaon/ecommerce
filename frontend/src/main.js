@@ -11,16 +11,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 
-/* import specific icons */
-import { faEnvelope, faPhone, faMapPin } from '@fortawesome/free-solid-svg-icons'
-// import { faAddressBook } from '@fortawesome/free-regular-svg-icons'
+import { faEnvelope, faPhone, faMapPin } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebook,
   faTwitter,
   faYoutube
 } from "@fortawesome/free-brands-svg-icons";
 
-/* add icons to the library */
 library.add(faEnvelope, faPhone, faMapPin, faFacebook, faTwitter, faYoutube)
 
 const app = createApp(App);
@@ -29,3 +26,8 @@ app.store = categoryStore;
 app.use(router);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.mount("#app");
+
+// router.push({
+//   name: "category",
+//   params: { slug: "category-slug" },
+// });
