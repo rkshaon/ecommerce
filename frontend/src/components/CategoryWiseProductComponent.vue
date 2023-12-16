@@ -1,12 +1,19 @@
 <template>
-  <div class="container">
-    <h1>{{ categoryDetails.title }}</h1>
-    <p>{{ categoryDetails.description }}</p>
+  <div class="container mb-3">
+    <h1 class="text-center">{{ categoryDetails.title }} Products</h1>
+    <p class="text-center">{{ categoryDetails.description }}</p>
+    <div class="row">
+      <div class="col-3" v-for="(product, index) in products" :key="index">
+        <ProductCardComponent :product="product" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+import ProductCardComponent from '@/components/support/ProductCardComponent';
+
+export default {  
   name: 'CategoryWiseProductComponent',
   data() {
     return {
@@ -23,21 +30,29 @@ export default {
         "added_date_time": null,
         "added_by": null,
       },
+      products: [],
       loading: true,
     };
   },
   props: {},
   components: {
+    ProductCardComponent,
   },
   mounted() { },
   created() {
     this.fetchCategoryDetailsData();
+    this.fetchProductsCategoryWiseData();
   },
   watch: {
     // Watch for changes in route parameters
-    '$route.params.category_id': 'fetchCategoryDetailsData',
+    '$route.params.category_id': 'handleCategoryChange',
   },
   methods: {
+    handleCategoryChange() {
+      this.fetchCategoryDetailsData();
+      this.fetchProductsCategoryWiseData();
+    },
+
     async fetchCategoryDetailsData() {
       let url = `http://127.0.0.1:8000/api/categories/${this.$route.params.category_id}`;
 
@@ -45,6 +60,19 @@ export default {
         const response = await fetch(url);
         const data = await response.json();
         this.categoryDetails = data.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        this.loading = false;
+      }
+    },
+    async fetchProductsCategoryWiseData() {
+      let url = `http://127.0.0.1:8000/api/products/category/${this.$route.params.category_id}`;
+      
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        this.products = data.data;
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
