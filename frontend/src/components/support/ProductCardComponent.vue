@@ -3,7 +3,6 @@
       <img src="/icon.png" class="card-img-top" alt="Featured-Category-Icon">
       <div class="card-body">
         <h5 class="card-title">{{ product.title }}</h5>
-        <h5 class="card-title">{{ product.id }}</h5>
         <p class="card-text">{{ product.description.slice(0, 90) }}</p>
         <router-link class="nav-link btn btn-primary"
           :to="{

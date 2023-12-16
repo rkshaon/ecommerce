@@ -35,6 +35,21 @@ class ProductViewSet(ViewSet):
         }
         
         return Response(data)
+
+
+    def get(self, request, product_id):
+        """
+        Return a single product details.
+        """
+        product = Product.objects.get(id=product_id)
+        product_serializer = ProductSerializer(product, many=False)
+
+        data = {
+            'status': True,
+            'data': product_serializer.data,
+        }
+
+        return Response(data)
     
 
     def products_category_wise(self, request, category_id):
