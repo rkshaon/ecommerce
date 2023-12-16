@@ -2,7 +2,11 @@
   <div class="container mb-3">
     <h1 class="text-center">{{ categoryDetails.title }} Products</h1>
     <p class="text-center">{{ categoryDetails.description }}</p>
-    <div class="row">
+    <div v-if="loading" class="row">
+      <img src="@/assets/loading.gif" alt="Loading..." />
+      <h1>Loading...</h1>
+    </div>
+    <div v-else class="row">
       <div class="col-3" v-for="(product, index) in products" :key="index">
         <ProductCardComponent :product="product" />
       </div>
