@@ -6,4 +6,7 @@ urlpatterns = [
     path('', views.ProductViewSet.as_view({
         'get': 'list',
     })),
+    path('category/<int:category_id>', views.ProductViewSet.as_view({
+        'get': 'products_category_wise',
+    })),
 ]

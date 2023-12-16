@@ -21,7 +21,10 @@ class ProductViewSet(ViewSet):
     }
 
     def list(self, request):
-        """Return a list of products."""
+        """
+        Return a list of products.
+        """
+
         queryset = self.queryset.filter(is_active=True)
 
         serializer = self.serializer_class(queryset, many=True)
@@ -31,4 +34,20 @@ class ProductViewSet(ViewSet):
             'data': serializer.data,
         }
         
+        return Response(data)
+    
+
+    def products_category_wise(self, request, category_id):
+        """
+        Return a list of products based on Category.
+        """
+
+        products = Product.objects.filter(category__id=category_id)
+        product_serializer = ProductSerializer(products, many=True)
+
+        data = {
+            'status': True,
+            'data': product_serializer.data,
+        }
+
         return Response(data)
