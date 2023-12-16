@@ -70,6 +70,7 @@ export default {
         this.loading = false;
       }
     },
+    
     async fetchProductsCategoryWiseData() {
       let url = `http://127.0.0.1:8000/api/products/category/${this.$route.params.category_id}`;
       
