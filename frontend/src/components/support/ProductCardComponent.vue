@@ -4,7 +4,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ product.title }}</h5>
         <p class="card-text">{{ product.description.slice(0, 90) }}</p>
-        <router-link class="nav-link btn btn-primary"
+        <router-link class="nav-link btn btn-primary" title="Product"
           :to="{
             name: 'product',
             params: {
