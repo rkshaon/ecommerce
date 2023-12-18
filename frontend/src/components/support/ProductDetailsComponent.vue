@@ -45,19 +45,65 @@
                 <h1>{{ productDetails.title }}</h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col-8">
-                <h1>Specification/Details of {{ productDetails.title }}</h1>
+        <div class="row mt-4">
+            <div class="col-8" style="background-color: rgb(255, 251, 243);">
+                <h5>Specification</h5>
+                <h5>Details</h5>
+                <p>{{ productDetails.description }}</p>
             </div>
             <div class="col-4">
                 <h1>Related products</h1>
             </div>            
         </div>
-        <div class="row">
-            <h1>FAQ about {{ productDetails.title }}</h1>
+        <div class="row mt-4">
+            <h5>FAQ about {{ productDetails.title }}</h5>
+            <div>
+                <p><b>Question 1</b> What is this?</p>
+                <p>{{ productDetails.description }}</p>
+                <p><b>Question 2</b> What is this?</p>
+                <p>{{ productDetails.description }}</p>
+                <p><b>Question 3</b> What is this?</p>
+                <p>{{ productDetails.description }}</p>
+            </div>
+            <div>
+                <!-- A modal will appear after clicking the button -->
+                <!-- If user is logged in, then question will be posted as his own -->
+                <!-- User can choose, as they can post the question Anonymously -->
+                <!-- If user is not logged in, then the user can ask the question -->
+                <!-- as anonymous user, but he has to put his e-mail -->
+                <a href="#" class="btn btn-primary">Ask about {{ productDetails.title }}</a>                
+            </div>
         </div>
-        <div class="row">
-            <h1>Review of {{ productDetails.title }}</h1>
+        <div class="row mt-4 mb-4">
+            <h5>Review of {{ productDetails.title }}</h5>
+            <div>
+                <div class="card mb-1">
+                    <div class="card-body">
+                        <img src="#" class="card-img-top" alt="...">
+                        <h5 class="card-title">Anonymous User</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+                <div class="card mb-1">
+                    <div class="card-body">
+                        <img src="#" class="card-img-top" alt="...">
+                        <h5 class="card-title">Rezaul Karim Shaon</h5>
+                        <p class="card-text">Awesome Bike.</p>
+                    </div>
+                </div>
+                <div class="card mb-1">
+                    <div class="card-body">
+                        <img src="#" class="card-img-top" alt="...">
+                        <h5 class="card-title">Anonymous User</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+                <div>
+                    <!-- If user is logged in, then this part will be available. -->
+                    <!-- After cliking on the button, a modal will appear, where user will give rating, and other things. -->
+                    <a href="#" class="btn btn-primary">Give Review</a>                
+                </div>
+            </div>
         </div>
     </div>
 </template>
