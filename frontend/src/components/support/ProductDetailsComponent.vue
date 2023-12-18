@@ -8,7 +8,18 @@
                 <div>
                     <picture>
                         <source srcset="" type="image/svg+xml">
-                        <img :src="`${API_BASE_URL}${productDetails.images[0].image}`" class="img-fluid img-thumbnail" :alt="productDetails.title">
+                        <img
+                            v-if="productDetails.images && productDetails.images.length > 0"
+                            :src="`${API_BASE_URL}${productDetails.images[0].image}`"
+                            class="img-fluid img-thumbnail"
+                            :alt="productDetails.title"
+                        />
+                        <img
+                            v-else
+                            src="/icon.png"
+                            class="img-fluid img-thumbnail"
+                            :alt="productDetails.title"
+                        />
                     </picture>
                 </div>
                 <div></div>
