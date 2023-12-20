@@ -29,7 +29,7 @@
                         <source srcset="" type="image/svg+xml">
                         <img
                             v-if="productDetails.images && productDetails.images.length > 0"
-                            :src="`${API_BASE_URL}${productDetails.images[0].image}`"
+                            :src="`${API_BASE_URL}${primaryImage}`"
                             class="img-fluid img-thumbnail"
                             :alt="productDetails.title"
                         />
@@ -42,15 +42,36 @@
                     </picture>
                 </div>
                 <div>
-                    <picture>
                     <img
                         v-for="(image, index) in productDetails.images"
                         :key="index"
                         :src="`${API_BASE_URL}${image.image}`"
                         :alt="productDetails.title"
                         width="100"
+                        height="100"
+                        class="img-fluid img-thumbnail"
+                        @click="updatePrimaryImage(index)"
                     />
-                    </picture>
+                    <!-- <Swiper :slides-per-view="2" @swiper="onSwiper" @slideChange="onSlideChange">
+                        <SwiperSlide
+                             v-for="(image, index) in productDetails.images"
+                            :key="index"
+                        >
+                        <img :src="`${API_BASE_URL}${image.image}`" width="100" />
+                        </SwiperSlide>
+                    </Swiper> -->
+                    <!-- <Swiper
+                        :slides-per-view="3"
+                        :space-between="50"
+                        @swiper="onSwiper"
+                        @slideChange="onSlideChange"
+                    >
+                        <SwiperSlide>Slide 1</SwiperSlide>
+                        <SwiperSlide>Slide 2</SwiperSlide>
+                        <SwiperSlide>Slide 3</SwiperSlide>
+                        <SwiperSlide>Slide 4</SwiperSlide>
+                        <SwiperSlide>Slide 5</SwiperSlide>
+                    </Swiper> -->
                 </div>
             </div>
             <div class="col-7">
@@ -140,6 +161,9 @@
 
 <script>
 import { API_BASE_URL } from '@/config';
+// import { Swiper, SwiperSlide } from 'swiper/vue';
+// import 'swiper/css';
+// import 'swiper/css/swiper.css';
 
 export default {
     name: 'ProductDetailsComponent',
@@ -155,10 +179,26 @@ export default {
                 'category_slug': 'category',
             },
             loading: true,
+            primaryImage: '',
         }
     },
     props: {},
-    components: {},
+    components: {
+        // Swiper,
+        // SwiperSlide,
+    },
+    setup() {
+        // const onSwiper = (swiper) => {
+        //     console.log(swiper);
+        // };
+        // const onSlideChange = () => {
+        //     console.log('slide change');
+        // };
+        // return {
+        //     onSwiper,
+        //     onSlideChange,
+        // };
+    },
     mounted() {},
     async created() { 
         await this.fetchProductDetailsData();
@@ -181,6 +221,10 @@ export default {
                 const response = await fetch(url);
                 const data = await response.json();
                 this.productDetails = data.data;
+
+                if (this.productDetails.images.length > 0) {
+                    this.primaryImage = this.productDetails.images[0].image;
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -205,6 +249,10 @@ export default {
             } finally {
                 this.loading = false;
             }
+        },
+
+        updatePrimaryImage(index) {
+            this.primaryImage = this.productDetails.images[index].image;
         },
     },
 }
