@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <!-- Product Path -->
         <div class="mt-3 mb-3 d-flex align-items-center">
             <router-link to="/" class="me-3"><font-awesome-icon :icon="['fas', 'house']" class="text-dark" /></router-link>
             <font-awesome-icon :icon="['fas', 'right-long']" />
@@ -20,6 +21,7 @@
                 }
             }" class="navbar-brand">{{ productDetails.title }}</router-link>
         </div>
+        <!-- Product Image Gallery -->
         <div class="row">            
             <div class="col-5">
                 <div>
@@ -39,7 +41,17 @@
                         />
                     </picture>
                 </div>
-                <div></div>
+                <div>
+                    <picture>
+                    <img
+                        v-for="(image, index) in productDetails.images"
+                        :key="index"
+                        :src="`${API_BASE_URL}${image.image}`"
+                        :alt="productDetails.title"
+                        width="100"
+                    />
+                    </picture>
+                </div>
             </div>
             <div class="col-7">
                 <h1>{{ productDetails.title }}</h1>
@@ -79,26 +91,44 @@
             <div>
                 <div class="card mb-1">
                     <div class="card-body">
-                        <img src="#" class="card-img-top" alt="...">
-                        <h5 class="card-title">Anonymous User</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="row">
+                            <div class="col-1">
+                                <img src="@/assets/profile.jpg" style="border-radius: 50%;" height="50" width="50" class="" alt="User">
+                            </div>
+                            <div class="col-11">
+                                <h5 class="card-title">Anonymous User</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Honda, the Japanese two-wheeler maker has finally launched the production version of the Honda 150SS in the Thailand market, named Honda CB150R ExMotion. This motorcycle has been designed on Honda’s latest ‘ExMotion…Life in Exciting Motion’ design concept. It is based on the 150SS Raceer concept, which was showcased at the 2017 Bangkok Motor Show. This global product would suit our market conditions. This motorcycle is powered by a 149cc DOHC 4-valve engine with fuel injection and liquid-cooling.</p>
+                            </div>
+                        </div>    
                     </div>
                 </div>
                 <div class="card mb-1">
                     <div class="card-body">
-                        <img src="#" class="card-img-top" alt="...">
-                        <h5 class="card-title">Rezaul Karim Shaon</h5>
-                        <p class="card-text">Awesome Bike.</p>
+                        <div class="row">
+                            <div class="col-1">
+                                <img src="@/assets/profile.jpg" style="border-radius: 50%;" height="50" width="50" class="" alt="User">
+                            </div>
+                            <div class="col-11">
+                                <h5 class="card-title">Anonymous User</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card mb-1">
                     <div class="card-body">
-                        <img src="#" class="card-img-top" alt="...">
-                        <h5 class="card-title">Anonymous User</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <div class="row">
+                            <div class="col-1">
+                                <img src="@/assets/profile.jpg" style="border-radius: 50%;" height="50" width="50" class="" alt="User">
+                            </div>
+                            <div class="col-11">
+                                <h5 class="card-title">Anonymous User</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
+                <div class="mt-3">
                     <!-- If user is logged in, then this part will be available. -->
                     <!-- After cliking on the button, a modal will appear, where user will give rating, and other things. -->
                     <a href="#" class="btn btn-primary">Give Review</a>                
