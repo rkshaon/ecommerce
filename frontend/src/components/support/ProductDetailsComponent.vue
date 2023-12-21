@@ -143,7 +143,13 @@
                 <!-- User can choose, as they can post the question Anonymously -->
                 <!-- If user is not logged in, then the user can ask the question -->
                 <!-- as anonymous user, but he has to put his e-mail -->
-                <a href="#" class="btn btn-primary">Ask about {{ productDetails.title }}</a>                
+                <a href="#" class="btn btn-primary">Ask about {{ productDetails.title }}</a>
+                <div>
+                    <b-button v-b-modal.modal-1>Launch demo modal</b-button>
+                    <b-modal id="modal-1" title="BootstrapVue">
+                        <p class="my-4">Hello from modal!</p>
+                    </b-modal>
+                </div>
             </div>
         </div>
         <div class="row mt-4 mb-4">
