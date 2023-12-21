@@ -75,7 +75,46 @@
                 </div>
             </div>
             <div class="col-7">
-                <h1>{{ productDetails.title }}</h1>
+                <h3>{{ productDetails.title }}</h3>
+                <div>
+                    <span class="badge rounded-pill bg-secondary">#motorbike</span>
+                    <span class="badge rounded-pill bg-secondary">#honda</span>
+                    <span class="badge rounded-pill bg-secondary">#exmotion</span>
+                </div>
+                <div class="mt-3">
+                    <button type="button" class="btn btn-primary">
+                        <span class="badge rounded-pill">Brand: </span>
+                        <span class="badge rounded-pill bg-secondary">Honda</span>
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <span class="badge rounded-pill">Price: </span>
+                        <span class="badge rounded-pill bg-secondary">4,00,000 BDT</span>
+                    </button>
+                    <button type="button" class="btn btn-primary position-relative">
+                        <span class="badge rounded-pill">Offer Price: </span>
+                        <span class="badge rounded-pill bg-secondary">3,50,000 BDT</span>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            Save 50,000 BDT
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <span class="badge rounded-pill">Status: </span>
+                        <span class="badge rounded-pill bg-secondary">In Stock</span>
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <span class="badge rounded-pill">Code: </span>
+                        <span class="badge rounded-pill bg-secondary">#A13</span>
+                    </button>
+                </div>
+                <div class="mt-3">
+                    <h5>Key Features</h5>
+                    <p><b>Model:</b> Q3</p>
+                    <p><b>Layout:</b> 87% or TKL</p>
+                    <p><b>Switch:</b> Brown Switch</p>
+                    <p><b>Connectivity:</b> Bluetooth and Type-C</p>
+                    <p><b>Features:</b> RGB, CNC Aluminum body</p>
+                </div>
             </div>
         </div>
         <div class="row mt-4">
