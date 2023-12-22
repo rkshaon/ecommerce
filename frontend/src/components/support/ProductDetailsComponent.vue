@@ -1,31 +1,31 @@
 <template>
     <div class="container">
         <!-- Product Path -->
-        <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <router-link to="/" class="me-3"><font-awesome-icon :icon="['fas', 'house']" class="text-dark" /></router-link>
-            </li>
-            <li class="breadcrumb-item">
-                <router-link v-if="categoryDetails.category_slug && categoryDetails.id > 0" class="text-decoration-none text-dark"
-                    :to="{
-                        name: 'category',
+        <nav aria-label="breadcrumb" class="mt-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <router-link to="/" class="me-3"><font-awesome-icon :icon="['fas', 'house']" class="text-dark" /></router-link>
+                </li>
+                <li class="breadcrumb-item">
+                    <router-link v-if="categoryDetails.category_slug && categoryDetails.id > 0" class="text-decoration-none text-dark"
+                        :to="{
+                            name: 'category',
+                            params: {
+                                category_id: categoryDetails.id,
+                                category_slug: categoryDetails.category_slug,
+                            }
+                        }">{{ categoryDetails.title }}</router-link>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <router-link :to="{
+                        name: 'product',
                         params: {
-                            category_id: categoryDetails.id,
-                            category_slug: categoryDetails.category_slug,
+                            product_id: productDetails.id,
+                            product_slug: productDetails.product_slug,
                         }
-                    }">{{ categoryDetails.title }}</router-link>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                <router-link :to="{
-                    name: 'product',
-                    params: {
-                        product_id: productDetails.id,
-                        product_slug: productDetails.product_slug,
-                    }
-                }" class="navbar-brand">{{ productDetails.title }}</router-link>
-            </li>
-        </ol>
+                    }" class="navbar-brand">{{ productDetails.title }}</router-link>
+                </li>
+            </ol>
         </nav>
         <!-- Product Image Gallery -->
         <div class="row">            
@@ -44,7 +44,8 @@
                             v-else
                             src="/icon.png"
                             class="img-fluid img-thumbnail"
-                            :alt="productDetails.title"                            
+                            :alt="productDetails.title"
+                            style="height: 515px;"
                         />
                     </picture>
                 </div>
@@ -83,35 +84,32 @@
             </div>
             <div class="col-7">
                 <h3>{{ productDetails.title }}</h3>
-                <div>
-                    <span class="badge rounded-pill bg-secondary">#motorbike</span>
-                    <span class="badge rounded-pill bg-secondary">#honda</span>
-                    <span class="badge rounded-pill bg-secondary">#exmotion</span>
+                <!-- Product Tags -->
+                <div class="d-flex">
+                    <span class="badge bg-secondary me-2">#motorbike</span>
+                    <span class="badge bg-secondary me-2">#honda</span>
+                    <span class="badge bg-secondary me-2">#exmotion</span>
                 </div>
+                <!-- Product Price and related details -->
                 <div class="mt-3">
-                    <button type="button" class="btn btn-primary">
-                        <span class="badge rounded-pill">Brand: </span>
-                        <span class="badge rounded-pill bg-secondary">Honda</span>
+                    <button type="button" class="btn btn-outline-secondary me-2 btn-sm">
+                        Brand: <b>Honda</b>
                     </button>
-                    <button type="button" class="btn btn-primary">
-                        <span class="badge rounded-pill">Price: </span>
-                        <span class="badge rounded-pill bg-secondary">4,00,000 BDT</span>
+                    <button type="button" class="btn btn-outline-secondary me-2 btn-sm">
+                        Price: <b>4,00,000 BDT</b>
                     </button>
-                    <button type="button" class="btn btn-primary position-relative">
-                        <span class="badge rounded-pill">Offer Price: </span>
-                        <span class="badge rounded-pill bg-secondary">3,50,000 BDT</span>
+                    <button type="button" class="btn btn-outline-secondary position-relative me-2 btn-sm">
+                        Offer Price: <b>3.50,000 BDT</b>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             Save 50,000 BDT
                             <span class="visually-hidden">unread messages</span>
                         </span>
                     </button>
-                    <button type="button" class="btn btn-primary">
-                        <span class="badge rounded-pill">Status: </span>
-                        <span class="badge rounded-pill bg-secondary">In Stock</span>
+                    <button type="button" class="btn btn-outline-secondary me-2 btn-sm">
+                        Status: <b>In stock</b>
                     </button>
-                    <button type="button" class="btn btn-primary">
-                        <span class="badge rounded-pill">Code: </span>
-                        <span class="badge rounded-pill bg-secondary">#A13</span>
+                    <button type="button" class="btn btn-outline-secondary me-2 btn-sm">
+                        Code: <b>#A13</b>
                     </button>
                 </div>
                 <div class="mt-3">
