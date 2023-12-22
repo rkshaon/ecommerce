@@ -1,26 +1,32 @@
 <template>
     <div class="container">
         <!-- Product Path -->
-        <div class="mt-3 mb-3 d-flex align-items-center">
-            <router-link to="/" class="me-3"><font-awesome-icon :icon="['fas', 'house']" class="text-dark" /></router-link>
-            <font-awesome-icon :icon="['fas', 'right-long']" />
-            <router-link v-if="categoryDetails.category_slug && categoryDetails.id > 0" class="nav-link me-3"
-                :to="{
-                    name: 'category',
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <router-link to="/" class="me-3"><font-awesome-icon :icon="['fas', 'house']" class="text-dark" /></router-link>
+            </li>
+            <li class="breadcrumb-item">
+                <router-link v-if="categoryDetails.category_slug && categoryDetails.id > 0" class="text-decoration-none text-dark"
+                    :to="{
+                        name: 'category',
+                        params: {
+                            category_id: categoryDetails.id,
+                            category_slug: categoryDetails.category_slug,
+                        }
+                    }">{{ categoryDetails.title }}</router-link>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <router-link :to="{
+                    name: 'product',
                     params: {
-                        category_id: categoryDetails.id,
-                        category_slug: categoryDetails.category_slug,
+                        product_id: productDetails.id,
+                        product_slug: productDetails.product_slug,
                     }
-            }">{{ categoryDetails.title }}</router-link>
-            <font-awesome-icon :icon="['fas', 'right-long']" />
-            <router-link :to="{
-                name: 'product',
-                params: {
-                    product_id: productDetails.id,
-                    product_slug: productDetails.product_slug,
-                }
-            }" class="navbar-brand">{{ productDetails.title }}</router-link>
-        </div>
+                }" class="navbar-brand">{{ productDetails.title }}</router-link>
+            </li>
+        </ol>
+        </nav>
         <!-- Product Image Gallery -->
         <div class="row">            
             <div class="col-5">
