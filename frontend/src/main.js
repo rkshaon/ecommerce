@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 
-import { faEnvelope, faPhone, faMapPin, faHouse, faRightLong } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faPhone, faMapPin, faHouse, faRightLong, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebook,
   faTwitter,
@@ -26,7 +26,9 @@ library.add(
   faRightLong,
   faFacebook,
   faTwitter,
-  faYoutube
+  faYoutube,
+  faPlus,
+  faMinus
 );
 
 const app = createApp(App);
