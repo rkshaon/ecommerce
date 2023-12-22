@@ -173,22 +173,37 @@
                         <p><b>Question 3</b> What is this?</p>
                         <p>{{ productDetails.description }}</p>
                     </div>
-                    <div>
+                    <div class="text-end">
                         <!-- A modal will appear after clicking the button -->
                         <!-- If user is logged in, then question will be posted as his own -->
                         <!-- User can choose, as they can post the question Anonymously -->
                         <!-- If user is not logged in, then the user can ask the question -->
                         <!-- as anonymous user, but he has to put his e-mail -->
-                        <a href="#" class="btn btn-primary">Ask about {{ productDetails.title }}</a>
-                        <div>
-                            <b-button v-b-modal.modal-1>Launch demo modal</b-button>
-                            <b-modal id="modal-1" title="BootstrapVue">
-                                <p class="my-4">Hello from modal!</p>
-                            </b-modal>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Ask about {{ productDetails.title }}
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                <div class="modal-body text-start">
+                                    ...
+                                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="">
+                <div class="mt-3">
                     <h5>Review of {{ productDetails.title }}</h5>
                     <div>
                         <div class="card mb-1">
@@ -230,10 +245,30 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-3">
+                        <div class="mt-3 text-end">
                             <!-- If user is logged in, then this part will be available. -->
                             <!-- After cliking on the button, a modal will appear, where user will give rating, and other things. -->
-                            <a href="#" class="btn btn-primary">Give Review</a>                
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Write review {{ productDetails.title }}
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                    <div class="modal-body text-start">
+                                        ...
+                                    </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -283,14 +318,6 @@ export default {
             await this.fetchProductDetailsData();
             this.fetchCategoryDetailsData();
         },
-
-        decrementProductQuantity() {
-            this.productQuantity -= 1;
-        },
-
-        incrementProductQuantity() {
-            this.productQuantity += 1;
-        },
         
         async fetchProductDetailsData() {
             let url = `${API_BASE_URL}/api/products/${this.$route.params.product_id}`;
@@ -331,6 +358,14 @@ export default {
 
         updatePrimaryImage(index) {
             this.primaryImage = this.productDetails.images[index].image;
+        },
+
+        decrementProductQuantity() {
+            this.productQuantity -= 1;
+        },
+
+        incrementProductQuantity() {
+            this.productQuantity += 1;
         },
     },
 }
