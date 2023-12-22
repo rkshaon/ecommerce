@@ -38,12 +38,13 @@
                             :src="`${API_BASE_URL}${primaryImage}`"
                             class="img-fluid img-thumbnail"
                             :alt="productDetails.title"
+                            style="height: 515px;"
                         />
                         <img
                             v-else
                             src="/icon.png"
                             class="img-fluid img-thumbnail"
-                            :alt="productDetails.title"
+                            :alt="productDetails.title"                            
                         />
                     </picture>
                 </div>
