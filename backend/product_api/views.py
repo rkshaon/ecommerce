@@ -68,21 +68,19 @@ class ProductViewSet(ViewSet):
         
         return Response(data)
 
-# views.py
 
-
-class RelatedProductList(generics.ListAPIView):
-    # Update this based on your serializer structure
+class RelatedProductList(ViewSet):
     serializer_class = ProductSerializer
 
-    def get_queryset(self):
-        product_id = self.kwargs['product_id']
-
-        # Get the category of the given product
+    def get_queryset(self, request, product_id):
         product_category = Product.objects.get(id=product_id).category_id
 
-        # Get the top 5 products from the same category
         related_products = Product.objects.filter(
             category=product_category, is_active=True, is_deleted=False).exclude(id=product_id)[:5]
 
-        return related_products
+        data = {
+            'status': True,
+            'data': self.serializer_class(related_products, many=True).data,
+        }
+
+        return Response(data, status=status.HTTP_200_OK)

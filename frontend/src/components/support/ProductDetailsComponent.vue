@@ -296,6 +296,7 @@ export default {
                 'title': 'category',
                 'category_slug': 'category',
             },
+            relatedProducts: [],
             loading: true,
             primaryImage: '',
             productQuantity: 1,
@@ -308,6 +309,7 @@ export default {
     async created() { 
         await this.fetchProductDetailsData();
         this.fetchCategoryDetailsData();
+        await this.fetchRelatedProductsData();
     },
     watch: {
         // Watch for changes in route parameters
@@ -317,6 +319,7 @@ export default {
         async handleProductChange() {
             await this.fetchProductDetailsData();
             this.fetchCategoryDetailsData();
+            await this.fetchRelatedProductsData();
         },
         
         async fetchProductDetailsData() {
@@ -349,6 +352,21 @@ export default {
                 const response = await fetch(url);
                 const data = await response.json();
                 this.categoryDetails = data.data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        async fetchRelatedProductsData() {
+            let url = `${API_BASE_URL}/api/products/related-products/${this.$route.params.product_id}`;
+            console.log(url);
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                this.relatedProducts = data.data;
+                console.log(data.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
