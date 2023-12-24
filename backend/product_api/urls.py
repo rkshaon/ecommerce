@@ -12,4 +12,6 @@ urlpatterns = [
     path('category/<int:category_id>', views.ProductViewSet.as_view({
         'get': 'products_category_wise',
     })),
+    path('related-products/<int:product_id>/',
+         views.RelatedProductList.as_view(), name='related-products'),
 ]

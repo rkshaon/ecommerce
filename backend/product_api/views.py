@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics
 
 from product_api.models import Product
 from product_api.models import ProductImage
@@ -66,3 +67,22 @@ class ProductViewSet(ViewSet):
         }
         
         return Response(data)
+
+# views.py
+
+
+class RelatedProductList(generics.ListAPIView):
+    # Update this based on your serializer structure
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        product_id = self.kwargs['product_id']
+
+        # Get the category of the given product
+        product_category = Product.objects.get(id=product_id).category_id
+
+        # Get the top 5 products from the same category
+        related_products = Product.objects.filter(
+            category=product_category, is_active=True, is_deleted=False).exclude(id=product_id)[:5]
+
+        return related_products
