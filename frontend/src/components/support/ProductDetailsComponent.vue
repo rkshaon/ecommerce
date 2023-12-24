@@ -274,7 +274,37 @@
                 </div>
             </div>
             <div class="col-4">
-                <h1>Related products</h1>
+                <h5>Related products</h5>
+                <div v-for="(product, index) in relatedProducts" :key="index" class="card pt-2 d-flex flex-row">
+                    <picture class="col-4">
+                        <source srcset="" type="image/svg+xml">
+                        <img
+                            v-if="product.images && product.images.length > 0"
+                            :src="`${API_BASE_URL}${product.images[0].image}`"
+                            class="img-fluid img-thumbnail"
+                            :alt="product.title"
+                            style="width: 100%"
+                        />
+                        <img
+                            v-else
+                            src="/icon.png"
+                            class="img-fluid img-thumbnail"
+                            :alt="product.title"
+                        />
+                    </picture>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <router-link class="btn btn-primary" title="Product"
+                            :to="{
+                                name: 'product',
+                                params: {
+                                    product_id: product.id,
+                                    product_slug: product.product_slug,
+                                }
+                            }">$ 100.50
+                        </router-link>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -361,12 +391,11 @@ export default {
 
         async fetchRelatedProductsData() {
             let url = `${API_BASE_URL}/api/products/related-products/${this.$route.params.product_id}`;
-            console.log(url);
+            
             try {
                 const response = await fetch(url);
                 const data = await response.json();
                 this.relatedProducts = data.data;
-                console.log(data.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
