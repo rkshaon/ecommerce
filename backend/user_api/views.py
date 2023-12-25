@@ -1,6 +1,12 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from django.contrib.auth import authenticate
+
+from user_api.models import User
 
 from user_api.serializers import UserSerializer
 
@@ -12,9 +18,55 @@ class UserRegistrationView(APIView):
 
         if serializer.is_valid():
             user = serializer.save()
-            # Generate an authentication token here (e.g., using DRF's TokenAuthentication or JWT)
+
             return Response({
+                'status': True,
                 'message': 'User registered successfully',
             })
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserLoginView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email')
+        username = request.data.get('username')
+        password = request.data.get('password')
+        
+        if not email and not username:
+            return Response({
+                'success': False,
+                'errors': ['Please provide either email or username for login.'],
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            try:
+                user = User.objects.get(email=email)
+            except:
+                user = User.objects.get(cell_no=username)
+        except:
+            user = None
+
+        if user is None:
+            return Response({
+                'success': False,
+                'errors': ['User not found.'],
+            }, status=status.HTTP_404_NOT_FOUND)
+
+        if not user.check_password(password):
+            return Response({
+                'success': False,
+                'errors': ['Password is invalid'],
+            }, status=status.HTTP_401_UNAUTHORIZED)
+        
+        if user is not None:
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'status': True,
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            })
+        else:
+            return Response({'detail': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
