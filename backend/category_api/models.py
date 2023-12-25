@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 
@@ -19,7 +20,8 @@ class Category(models.Model):
     is_featured = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_deleted = models.BooleanField(default=False)
-    added_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    # added_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     added_date_time = models.DateTimeField(auto_now_add=True)
 
 
