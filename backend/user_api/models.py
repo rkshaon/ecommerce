@@ -38,5 +38,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'role']
 
+    def save(self, *args, **kwargs):
+        # Only hash the password if it's a new user (not an update)
+        if not self.pk:
+            self.set_password(self.password)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.email
