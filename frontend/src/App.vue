@@ -1,18 +1,14 @@
 <template>
-  <NavComponent />
-  <router-view></router-view>
-  <FooterComponent />
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import NavComponent from '@/components/common/NavComponent.vue';
-import FooterComponent from '@/components/common/FooterComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    NavComponent,
-    FooterComponent,
   }
 }
 </script>

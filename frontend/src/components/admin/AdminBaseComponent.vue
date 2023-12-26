@@ -1,5 +1,5 @@
 <template>
-    <div>Admin...
+    <div>Admin Base Component
         <router-view></router-view>
     </div>
 </template>
