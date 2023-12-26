@@ -1,14 +1,18 @@
 <template>
-    <div>Admin Base Component
-        <router-view></router-view>
+    <div>
+        <AdminSidebarComponent />
+        <router-view></router-view>        
     </div>
 </template>
 
 <script>
+import AdminSidebarComponent from '@/components/admin/AdminSidebarComponent.vue';
 
 export default {
     name: 'AdminBaseComponent',
-    components: {},
+    components: {
+        AdminSidebarComponent,
+    },
 }
 </script>
 
