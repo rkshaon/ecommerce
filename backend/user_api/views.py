@@ -40,7 +40,7 @@ class UserLoginView(APIView):
                 'success': False,
                 'errors': ['Please provide either email or username for login.'],
             }, status=status.HTTP_400_BAD_REQUEST)
-        
+
         try:
             try:
                 user = User.objects.get(email=email)
