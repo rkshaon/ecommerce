@@ -4,9 +4,12 @@ import BaseLayout from '@/BaseLayout';
 import HomeComponent from '@/components/HomeComponent';
 import CategoryWiseProductComponent from "@/components/CategoryWiseProductComponent";
 import ProductDetailsComponent from "@/components/support/ProductDetailsComponent";
+
 import NotFoundComponent from '@/components/NotFoundComponent';
+
 import AdminBaseComponent from "@/components/admin/AdminBaseComponent";
 import AdminDashboardComponent from '@/components/admin/AdminDashboardComponent';
+import AdminLoginComponent from '@/components/admin/AdminLoginComponent.vue';
 
 
 const routes = [
@@ -39,11 +42,13 @@ const routes = [
         path: "",
         name: "admin",
         component: AdminDashboardComponent,
-        meta: {
-          title: 'Admin',
-        },
       },
     ],
+  },
+  {
+    path: "/admin/login",
+    name: "admin-login",
+    component: AdminLoginComponent,
   },
   {
     path: "/:catchAll(.*)",
