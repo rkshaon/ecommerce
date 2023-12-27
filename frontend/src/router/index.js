@@ -39,6 +39,9 @@ const routes = [
         path: "",
         name: "admin",
         component: AdminDashboardComponent,
+        meta: {
+          title: 'Admin',
+        },
       },
     ],
   },
