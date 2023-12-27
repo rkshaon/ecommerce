@@ -1,41 +1,41 @@
 <template>
     <div class="shadow-lg rounded">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <a href="/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <img src="@/assets/company-logo.png" alt="Company Logo" height="" width="75" />
                 <span class="fs-4">E-Commerce</span>
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    <router-link to="/admin" class="nav-link active">
+                        <font-awesome-icon :icon="['fas', 'house']" class="text-white pe-3" />
                         Home
-                    </a>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                    <router-link to="/admin" class="nav-link link-dark">
+                        <font-awesome-icon :icon="['fas', 'gauge']" class="pe-3" />
                         Dashboard
-                    </a>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                    <router-link to="/admin" class="nav-link link-dark">
+                        <font-awesome-icon :icon="['fas', 'table-cells-large']" class="pe-3" />
                         Orders
-                    </a>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                    <router-link to="/admin" class="nav-link link-dark">
+                        <font-awesome-icon :icon="['fab', 'product-hunt']" class="pe-3" />
                         Products
-                    </a>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                    <router-link to="/admin" class="nav-link link-dark">
+                        <font-awesome-icon :icon="['fas', 'address-card']" class="pe-3" />
                         Customers
-                    </a>
+                    </router-link>
                 </li>
             </ul>
             <hr>

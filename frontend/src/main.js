@@ -11,24 +11,18 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
 
-import { faEnvelope, faPhone, faMapPin, faHouse, faRightLong, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import {
-  faFacebook,
-  faTwitter,
-  faYoutube
+  faEnvelope, faPhone, faMapPin, faHouse, faRightLong, faPlus,
+  faMinus, faGauge, faTableCellsLarge, faAddressCard
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faFacebook,faTwitter,faYoutube,faProductHunt
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
-  faEnvelope,
-  faPhone,
-  faMapPin,
-  faHouse,
-  faRightLong,
-  faFacebook,
-  faTwitter,
-  faYoutube,
-  faPlus,
-  faMinus
+  faEnvelope, faPhone, faMapPin, faHouse, faRightLong, faFacebook,
+  faTwitter, faYoutube, faPlus, faMinus, faGauge, faTableCellsLarge,
+  faProductHunt, faAddressCard
 );
 
 const app = createApp(App);
