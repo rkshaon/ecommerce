@@ -13,16 +13,28 @@ import "bootstrap/dist/js/bootstrap.js";
 
 import {
   faEnvelope, faPhone, faMapPin, faHouse, faRightLong, faPlus,
-  faMinus, faGauge, faTableCellsLarge, faAddressCard
+  faMinus, faGauge, faTableCellsLarge, faAddressCard, faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebook,faTwitter,faYoutube,faProductHunt
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
-  faEnvelope, faPhone, faMapPin, faHouse, faRightLong, faFacebook,
-  faTwitter, faYoutube, faPlus, faMinus, faGauge, faTableCellsLarge,
-  faProductHunt, faAddressCard
+  faEnvelope,
+  faPhone,
+  faMapPin,
+  faHouse,
+  faRightLong,
+  faFacebook,
+  faTwitter,
+  faYoutube,
+  faPlus,
+  faMinus,
+  faGauge,
+  faTableCellsLarge,
+  faProductHunt,
+  faAddressCard,
+  faArrowRight
 );
 
 const app = createApp(App);
