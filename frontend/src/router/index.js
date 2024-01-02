@@ -37,6 +37,7 @@ const routes = [
   {
     path: "/admin",
     component: AdminBaseComponent,
+    meta: { requiresAuth: true }, // Add meta field to indicate that authentication is required for admin routes
     children: [
       {
         path: "",
@@ -60,5 +61,25 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 });
+
+// Navigation guard to check if authentication is required for admin routes
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth) && !isAdminLoggedIn()) {
+    // If the route requires authentication and the user is not logged in, redirect to admin login
+    next('/admin/login');
+  } else {
+    next();
+  }
+});
+
+// Function to check if the user is logged in (replace this with your actual authentication check)
+function isAdminLoggedIn() {
+  console.log("Checking...");
+  // Implement your authentication logic here
+  // For example, you can check if there's a user session or token
+  // return /* your authentication check */;
+  // return true;
+  return false;
+}
 
 export default router;
