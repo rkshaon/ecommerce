@@ -36,7 +36,7 @@ class UserLoginView(APIView):
         
         if not user_credential:
             return Response({
-                'success': False,
+                'status': False,
                 'errors': ['Please provide either email or username for login.'],
             }, status=status.HTTP_400_BAD_REQUEST)
 
@@ -53,13 +53,13 @@ class UserLoginView(APIView):
 
         if user is None:
             return Response({
-                'success': False,
+                'status': False,
                 'errors': ['User not found.'],
             }, status=status.HTTP_404_NOT_FOUND)
 
         if not user.check_password(password):
             return Response({
-                'success': False,
+                'status': False,
                 'errors': ['Password is invalid'],
             }, status=status.HTTP_401_UNAUTHORIZED)
         
@@ -67,8 +67,10 @@ class UserLoginView(APIView):
             refresh = RefreshToken.for_user(user)
             return Response({
                 'status': True,
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
+                'data': {
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                },                
             })
         else:
             return Response({'detail': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)

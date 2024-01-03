@@ -17,7 +17,7 @@
                                 id="username" 
                                 placeholder="Username / Cell no / E-mail" 
                                 class="form-control mb-3"      
-                                v-model="user_credential"                          
+                                v-model="user_credential" required
                             >
                             <input 
                                 type="password" 
@@ -25,7 +25,7 @@
                                 id="password" 
                                 placeholder="Password" 
                                 class="form-control mb-5"
-                                v-model="password"
+                                v-model="password" required
                             >
                             <button 
                                 type="submit" 
@@ -43,6 +43,9 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '@/config';
+import axios from 'axios';
+
 export default {
     name: 'AdminLoginComponent',
     data() {
@@ -53,8 +56,26 @@ export default {
     },
     methods: {
         async adminLogin() {
-            console.log('Handler: ', this.user_credential);
-            console.log('Password: ', this.password);
+            const url = API_BASE_URL + '/api/users/login';
+
+            try {
+                const response = await axios.post(url, {
+                    user_credential: this.user_credential,
+                    password: this.password,
+                });
+
+                if (response.status === 200) {
+                    alert('Successfull.');
+                } else {
+                    alert('Unauthorized');
+                }
+            } catch (error) {
+                if (error.response.status === 404) {
+                    alert('User not found!');
+                } else if (error.response.status === 401) {
+                    alert('Unauthorized');
+                }
+            }
         },
     }
 }
