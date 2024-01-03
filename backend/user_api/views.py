@@ -31,11 +31,10 @@ class UserLoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        email = request.data.get('email')
-        username = request.data.get('username')
+        user_credential = request.data.get('user_credential')
         password = request.data.get('password')
         
-        if not email and not username:
+        if not user_credential:
             return Response({
                 'success': False,
                 'errors': ['Please provide either email or username for login.'],
@@ -43,11 +42,14 @@ class UserLoginView(APIView):
 
         try:
             try:
-                user = User.objects.get(email=email)
+                user = User.objects.get(email=user_credential)
             except:
-                user = User.objects.get(cell_no=username)
+                user = User.objects.get(cell_no=user_credential)
         except:
-            user = None
+            try:
+                user = User.objects.get(username=user_credential)
+            except:
+                user = None
 
         if user is None:
             return Response({

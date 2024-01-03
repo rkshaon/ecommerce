@@ -10,9 +10,23 @@
                     </div>  
                     <div class="col-7 text-white">
                         <h1 class="pt-3 pb-5 text-center">E-Commerce Admin Login</h1>
-                        <form action="">
-                            <input type="text" name="username" id="username" placeholder="Username" class="form-control mb-3">
-                            <input type="password" name="password" id="password" placeholder="Password" class="form-control mb-3">
+                        <form @submit.prevent="adminLogin">
+                            <input 
+                                type="text" 
+                                name="username" 
+                                id="username" 
+                                placeholder="Username / Cell no / E-mail" 
+                                class="form-control mb-3"      
+                                v-model="user_credential"                          
+                            >
+                            <input 
+                                type="password" 
+                                name="password" 
+                                id="password" 
+                                placeholder="Password" 
+                                class="form-control mb-5"
+                                v-model="password"
+                            >
                             <button 
                                 type="submit" 
                                 class="btn btn-success"
@@ -31,6 +45,18 @@
 <script>
 export default {
     name: 'AdminLoginComponent',
+    data() {
+        return {
+            user_credential: '',
+            password: '',
+        };
+    },
+    methods: {
+        async adminLogin() {
+            console.log('Handler: ', this.user_credential);
+            console.log('Password: ', this.password);
+        },
+    }
 }
 </script>
 
