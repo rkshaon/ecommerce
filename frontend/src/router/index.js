@@ -74,12 +74,11 @@ router.beforeEach((to, from, next) => {
 
 // Function to check if the user is logged in (replace this with your actual authentication check)
 function isAdminLoggedIn() {
-  console.log("Checking...");
-  // Implement your authentication logic here
-  // For example, you can check if there's a user session or token
-  // return /* your authentication check */;
-  // return true;
-  return false;
+  if (!localStorage.getItem('accessToken') && !localStorage.getItem('refreshToken')) {
+    return false;
+  }
+  
+  return true;
 }
 
 export default router;

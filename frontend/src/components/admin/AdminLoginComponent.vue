@@ -9,6 +9,9 @@
                     <div class="col-1" style="border-left: 3px solid #051B11; height: auto;">
                     </div>  
                     <div class="col-7 text-white">
+                        <div v-if="errorMessage" class="alert alert-dark text-danger" role="alert">
+                            {{ errorMessage }}
+                        </div>
                         <h1 class="pt-3 pb-5 text-center">E-Commerce Admin Login</h1>
                         <form @submit.prevent="adminLogin">
                             <input 
@@ -52,6 +55,8 @@ export default {
         return {
             user_credential: '',
             password: '',
+            errorMessage: '',
+            successMessage: '',
         };
     },
     methods: {
@@ -65,15 +70,26 @@ export default {
                 });
 
                 if (response.status === 200) {
-                    alert('Successfull.');
+                    console.log(response.data.data);
+                    localStorage.setItem('accessToken', response.data.data.access);
+                    localStorage.setItem('refreshToken', response.data.data.refresh);
+                    alert('Successfull.');                    
+                    // Redirect to protected page
+                    this.$router.push('/admin');
                 } else {
                     alert('Unauthorized');
                 }
             } catch (error) {
                 if (error.response.status === 404) {
-                    alert('User not found!');
+                    this.errorMessage = 'User not found!';
+                    setTimeout(() => { 
+                        this.errorMessage = '';
+                    }, 3000);
                 } else if (error.response.status === 401) {
-                    alert('Unauthorized');
+                    this.errorMessage = 'Unauthorized';
+                    setTimeout(() => {
+                        this.errorMessage = '';
+                    }, 3000);
                 }
             }
         },
