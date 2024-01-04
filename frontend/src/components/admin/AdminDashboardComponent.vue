@@ -1,4 +1,4 @@
-<template>
+<template>    
     <div>Admin Dash Board Component</div>
 </template>
 
@@ -9,4 +9,5 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+</style>

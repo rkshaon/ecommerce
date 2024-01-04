@@ -12,6 +12,9 @@
                         <div v-if="errorMessage" class="alert alert-dark text-danger" role="alert">
                             {{ errorMessage }}
                         </div>
+                        <div v-if="successMessage" class="alert alert-dark text-success" role="alert">
+                            {{ successMessage }}
+                        </div>
                         <h1 class="pt-3 pb-5 text-center">E-Commerce Admin Login</h1>
                         <form @submit.prevent="adminLogin">
                             <input 
@@ -70,11 +73,12 @@ export default {
                 });
 
                 if (response.status === 200) {
-                    console.log(response.data.data);
                     localStorage.setItem('accessToken', response.data.data.access);
                     localStorage.setItem('refreshToken', response.data.data.refresh);
-                    alert('Successfull.');                    
-                    // Redirect to protected page
+                    this.successMessage = 'Successfully logged in!';
+                    setTimeout(() => {
+                        this.successMessage = '';
+                    }, 3000);
                     this.$router.push('/admin');
                 } else {
                     alert('Unauthorized');
