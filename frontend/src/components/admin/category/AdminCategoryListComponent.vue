@@ -28,7 +28,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputText2" class="form-label">Description</label>
-                                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                                <textarea class="form-control" id="exampleTextarea" rows="3" v-model="categoryForm.description" maxlength="255">                                    
+                                </textarea>
+                                <div class="ms-3 text-end">
+                                    <span class="text-muted small">{{ categoryForm.description.length }} / 255</span>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -97,6 +101,12 @@ export default {
     name: "AdminCategoryListComponent",
     data() {
         return {
+            categoryForm: {
+                title: '',
+                short_title: '',
+                icon: '',
+                description: '',
+            }
         }
     },
     methods: {
