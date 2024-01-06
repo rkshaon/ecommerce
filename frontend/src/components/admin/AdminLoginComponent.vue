@@ -64,10 +64,10 @@ export default {
     },
     methods: {
         async adminLogin() {
-            const url = API_BASE_URL + '/api/users/login';
+            const URL = API_BASE_URL + '/api/users/login';
 
             try {
-                const response = await axios.post(url, {
+                const response = await axios.post(URL, {
                     user_credential: this.user_credential,
                     password: this.password,
                 });

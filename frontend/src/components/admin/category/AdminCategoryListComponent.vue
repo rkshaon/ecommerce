@@ -23,12 +23,12 @@
                                 <input type="text" class="form-control" id="exampleInputText2">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputText2" class="form-label">Icon</label>
-                                <input type="text" class="form-control" id="exampleInputText2">
+                                <label for="exampleInputText3" class="form-label">Icon</label>
+                                <input type="file" class="form-control" id="exampleInputText3">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputText2" class="form-label">Description</label>
-                                <textarea class="form-control" id="exampleTextarea" rows="3" v-model="categoryForm.description" maxlength="255">                                    
+                                <label for="exampleTextarea" class="form-label">Description</label>
+                                <textarea class="form-control" id="exampleTextarea" rows="3" v-model="categoryForm.description" maxlength="255">
                                 </textarea>
                                 <div class="ms-3 text-end">
                                     <span class="text-muted small">{{ categoryForm.description.length }} / 255</span>
@@ -38,7 +38,11 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button 
+                            type="button" 
+                            class="btn btn-primary"
+                            @click="saveCategory"
+                        >Save changes</button>
                     </div>
                 </div>
             </div>
@@ -97,6 +101,8 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '@/config';
+
 export default {
     name: "AdminCategoryListComponent",
     data() {
@@ -110,6 +116,11 @@ export default {
         }
     },
     methods: {
+        async saveCategory() {
+            const URL = API_BASE_URL + '/api/categories';
+            console.log(URL);
+            console.log('Category insert', this.categoryForm);
+        },
     }
 }
 </script>
