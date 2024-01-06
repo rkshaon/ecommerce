@@ -17,12 +17,7 @@ class CategoryViewSet(ViewSet):
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-
-    actions = {
-        'get': 'list',
-        'post': 'create',
-    }
-
+    
     def list(self, request):
         """Return a list of categories."""
         query = request.GET.get('query', None)
@@ -47,7 +42,15 @@ class CategoryViewSet(ViewSet):
     
 
     def create(self, request):
-        """Create a new category."""
+        """
+        Create a new category.
+        """
+        if not request.auth:
+            return Response({
+                'error': 'Authentication credentials were not provided.'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+
+        request.data['added_by'] = request.user.id
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
