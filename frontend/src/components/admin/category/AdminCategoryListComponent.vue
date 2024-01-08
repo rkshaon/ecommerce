@@ -118,8 +118,25 @@ export default {
     methods: {
         async saveCategory() {
             const URL = API_BASE_URL + '/api/categories';
-            console.log(URL);
-            console.log('Category insert', this.categoryForm);
+            const requestConfig = {
+                url: URL,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.categoryForm),
+            };
+
+            try {
+                const response = await this.$store.dispatch('auth/callApi', requestConfig);
+                console.log(response);
+                // Handle successful response
+                // ...
+            } catch (error) {
+                // Handle errors gracefully
+                console.error('Error saving category:', error);
+                // Display appropriate error messages to the user
+            }
         },
     }
 }
