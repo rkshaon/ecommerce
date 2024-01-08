@@ -15,7 +15,13 @@
                         <form action="">
                             <div class="mb-3">
                                 <label for="exampleInputText1" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="exampleInputText1" aria-describedby="textHelp1">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="exampleInputText1" 
+                                    aria-describedby="textHelp1"
+                                    autofocus
+                                >
                                 <div id="textHelp1" class="form-text">Category name must be unique.</div>
                             </div>
                             <div class="mb-3">
@@ -101,8 +107,9 @@
 </template>
 
 <script>
-import { API_BASE_URL } from '@/config';
 import axios from "axios";
+import { API_BASE_URL } from '@/config';
+import { refreshToken } from "@/services/refreshToken";
 
 export default {
     name: "AdminCategoryListComponent",
@@ -165,6 +172,7 @@ export default {
                 if (error.response.status === 401) {
                     console.log('Unauthorized');
                     console.log('Obtain new access Token, and self hit again.');
+                    refreshToken();
                 }
             })
         },
