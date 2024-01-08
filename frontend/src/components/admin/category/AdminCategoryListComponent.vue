@@ -102,6 +102,7 @@
 
 <script>
 import { API_BASE_URL } from '@/config';
+import store from '@/store';
 
 export default {
     name: "AdminCategoryListComponent",
@@ -112,7 +113,8 @@ export default {
                 short_title: '',
                 icon: '',
                 description: '',
-            }
+            },
+            store: store,
         }
     },
     methods: {
@@ -127,8 +129,11 @@ export default {
                 body: JSON.stringify(this.categoryForm),
             };
 
+            console.log(requestConfig);
+            
             try {
                 const response = await this.$store.dispatch('auth/callApi', requestConfig);
+                // const response = await store.dispatch('auth/callApi', requestConfig);
                 console.log(response);
                 // Handle successful response
                 // ...
