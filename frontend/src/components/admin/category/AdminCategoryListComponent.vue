@@ -102,7 +102,7 @@
 
 <script>
 import { API_BASE_URL } from '@/config';
-import store from '@/store';
+import axios from "axios";
 
 export default {
     name: "AdminCategoryListComponent",
@@ -114,34 +114,59 @@ export default {
                 icon: '',
                 description: '',
             },
-            store: store,
         }
     },
     methods: {
         async saveCategory() {
-            const URL = API_BASE_URL + '/api/categories';
-            const requestConfig = {
-                url: URL,
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.categoryForm),
-            };
+            const URL = API_BASE_URL + '/api/categories/';
+            // const requestConfig = {
+            //     url: URL,
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(this.categoryForm),
+            // };
 
-            console.log(requestConfig);
-            
-            try {
-                const response = await this.$store.dispatch('auth/callApi', requestConfig);
-                // const response = await store.dispatch('auth/callApi', requestConfig);
-                console.log(response);
-                // Handle successful response
-                // ...
-            } catch (error) {
-                // Handle errors gracefully
-                console.error('Error saving category:', error);
-                // Display appropriate error messages to the user
-            }
+            // console.log(requestConfig);
+
+            // try {
+            //     // console.log('Try');
+            //     const response = await axios.post(
+            //         URL,
+            //         JSON.stringify(this.categoryForm),
+            //         {
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //             }
+            //         },
+            //     )
+            // } catch (error) {
+            //     // Handle errors gracefully
+            //     console.error('Error saving category:', error);
+            //     // Display appropriate error messages to the user
+            // }
+            await axios.post(
+                URL,
+                JSON.stringify(this.categoryForm),
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                    }
+                },
+            ).then(response => {
+                console.log('Success', response);
+            }).catch(error => {
+                // console.log('Failed', error);
+                console.log('Failed');
+                console.log(error.response.status);
+                // console.log(error.response.error);
+                if (error.response.status === 401) {
+                    console.log('Unauthorized');
+                    console.log('Obtain new access Token, and self hit again.');
+                }
+            })
         },
     }
 }
