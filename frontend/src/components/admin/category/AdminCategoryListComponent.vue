@@ -1,5 +1,11 @@
 <template>
     <div class="container mt-5">
+        <div v-if="successMessage" class="alert alert-success mt-3">
+            {{ successMessage }}
+        </div>
+        <div v-if="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+        </div>
         <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
             Add Category
@@ -20,17 +26,26 @@
                                     class="form-control" 
                                     id="exampleInputText1" 
                                     aria-describedby="textHelp1"
-                                    autofocus
+                                    v-model="categoryForm.title"
                                 >
                                 <div id="textHelp1" class="form-text">Category name must be unique.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputText2" class="form-label">Short Title</label>
-                                <input type="text" class="form-control" id="exampleInputText2">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="exampleInputText2"
+                                    v-model="categoryForm.short_title"
+                                >
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputText3" class="form-label">Icon</label>
-                                <input type="file" class="form-control" id="exampleInputText3">
+                                <input 
+                                    type="file" 
+                                    class="form-control" 
+                                    id="exampleInputText3"
+                                >
                             </div>
                             <div class="mb-3">
                                 <label for="exampleTextarea" class="form-label">Description</label>
@@ -118,41 +133,19 @@ export default {
             categoryForm: {
                 title: '',
                 short_title: '',
-                icon: '',
+                // icon: '',
                 description: '',
             },
+            errorMessage: '',
+            successMessage: '',
         }
     },
     methods: {
         async saveCategory() {
             const URL = API_BASE_URL + '/api/categories/';
-            // const requestConfig = {
-            //     url: URL,
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(this.categoryForm),
-            // };
 
-            // console.log(requestConfig);
+            console.log(this.categoryForm);
 
-            // try {
-            //     // console.log('Try');
-            //     const response = await axios.post(
-            //         URL,
-            //         JSON.stringify(this.categoryForm),
-            //         {
-            //             headers: {
-            //                 'Content-Type': 'application/json',
-            //             }
-            //         },
-            //     )
-            // } catch (error) {
-            //     // Handle errors gracefully
-            //     console.error('Error saving category:', error);
-            //     // Display appropriate error messages to the user
-            // }
             await axios.post(
                 URL,
                 JSON.stringify(this.categoryForm),
@@ -164,15 +157,18 @@ export default {
                 },
             ).then(response => {
                 console.log('Success', response);
+                this.successMessage = 'Category created successfully!'; // Set success message
             }).catch(error => {
-                // console.log('Failed', error);
                 console.log('Failed');
                 console.log(error.response.status);
-                // console.log(error.response.error);
+                // console.log(error.response.errors);
+                console.log(error.response);
+                console.log('Data: ', this.categoryForm);
                 if (error.response.status === 401) {
-                    console.log('Unauthorized');
-                    console.log('Obtain new access Token, and self hit again.');
                     refreshToken();
+                    this.saveCategory();
+                } else if (error.response.status === 500) {
+                    this.errorMessage = 'Server issue';
                 }
             })
         },

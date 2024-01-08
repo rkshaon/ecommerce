@@ -4,9 +4,6 @@ import { API_BASE_URL } from "@/config";
 export async function refreshToken() {
   try {
     const URL = API_BASE_URL + '/api/users/refresh';
-
-    console.log('Refresh token', URL);
-    // console.log('Refresh', localStorage.getItem("refreshToken"));
     
     const response = await axios.post(URL, {
       refresh: localStorage.getItem("refreshToken"),
@@ -16,13 +13,9 @@ export async function refreshToken() {
     const refreshToken = response.data.refreshToken;
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
-    console.log('Access', accessToken);
-    console.log('Refresh', refreshToken);
+    
     return accessToken;
   } catch (error) {
-    console.error(error);
-    console.log(error.response.status);
-
     if (error.response.status === 401) {
       console.log("Refresh Token is Invalid");
       console.log("Log out");
