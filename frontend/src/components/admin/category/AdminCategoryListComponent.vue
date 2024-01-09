@@ -39,7 +39,12 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputText3" class="form-label">Icon</label>
-                                <input type="file" class="form-control" id="exampleInputText3">
+                                <input 
+                                    type="file" 
+                                    class="form-control" 
+                                    id="exampleInputText3"
+                                    @change="handleFileChange"
+                                >
                             </div>
                             <div class="mb-3">
                                 <label for="exampleTextarea" class="form-label">Description</label>
@@ -124,7 +129,7 @@ export default {
             categoryForm: {
                 title: '',
                 short_title: '',
-                // icon: '',
+                icon: null,
                 description: '',
             },
             errorMessages: [],
@@ -132,18 +137,27 @@ export default {
         }
     },
     methods: {
+        handleFileChange(event) {
+            this.categoryForm.icon = event.target.files[0];
+        },
+
         async saveCategory() {
             const URL = API_BASE_URL + '/api/categories/';
+            const headers = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                }
+            }
+            const formData = new FormData();
+
+            formData.append('title', this.categoryForm.title);
+            formData.append('short_title', this.categoryForm.short_title);
+            formData.append('description', this.categoryForm.description);
+            formData.append('icon', this.categoryForm.icon);
 
             await axios.post(
-                URL,
-                JSON.stringify(this.categoryForm),
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-                    }
-                },
+                URL, formData, headers,
             ).then(response => {
                 console.log('Success', response);
                 this.successMessage = 'Category created successfully!'; // Set success message
