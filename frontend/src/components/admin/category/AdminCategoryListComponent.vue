@@ -1,8 +1,8 @@
 <template>
     <div class="container mt-5">
-        <!-- <div v-if="successMessage" class="alert alert-success mt-3">
+        <div v-if="successMessage" class="alert alert-success mt-3">
             {{ successMessage }}
-        </div> -->
+        </div>
         <div v-if="errorMessages.length > 0" class="">
             <ul class="list-unstyled">
                 <li v-for="message in errorMessages" :key="message">
@@ -124,18 +124,16 @@ export default {
             categoryForm: {
                 title: '',
                 short_title: '',
-                icon: '',
+                // icon: '',
                 description: '',
             },
             errorMessages: [],
-            successMessage: {},
+            successMessage: '',
         }
     },
     methods: {
         async saveCategory() {
             const URL = API_BASE_URL + '/api/categories/';
-
-            console.log(this.categoryForm);
 
             await axios.post(
                 URL,
