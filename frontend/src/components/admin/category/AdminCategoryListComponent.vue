@@ -1,10 +1,17 @@
 <template>
     <div class="container mt-5">
-        <div v-if="successMessage" class="alert alert-success mt-3">
+        <!-- <div v-if="successMessage" class="alert alert-success mt-3">
             {{ successMessage }}
-        </div>
-        <div v-if="errorMessage" class="alert alert-danger mt-3">
-            {{ errorMessage }}
+        </div> -->
+        <div v-if="errorMessages.length > 0" class="">
+            <ul class="list-unstyled">
+                <li v-for="message in errorMessages" :key="message">
+                    <div class="alert alert-danger">
+                        <h5 class="text-capitalize">{{ message.title }}</h5>
+                        <p>{{ message.message }}</p>
+                    </div>
+                </li>
+            </ul>
         </div>
         <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
@@ -21,35 +28,23 @@
                         <form action="">
                             <div class="mb-3">
                                 <label for="exampleInputText1" class="form-label">Title</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    id="exampleInputText1" 
-                                    aria-describedby="textHelp1"
-                                    v-model="categoryForm.title"
-                                >
+                                <input type="text" class="form-control" id="exampleInputText1" aria-describedby="textHelp1"
+                                    v-model="categoryForm.title">
                                 <div id="textHelp1" class="form-text">Category name must be unique.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputText2" class="form-label">Short Title</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    id="exampleInputText2"
-                                    v-model="categoryForm.short_title"
-                                >
+                                <input type="text" class="form-control" id="exampleInputText2"
+                                    v-model="categoryForm.short_title">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputText3" class="form-label">Icon</label>
-                                <input 
-                                    type="file" 
-                                    class="form-control" 
-                                    id="exampleInputText3"
-                                >
+                                <input type="file" class="form-control" id="exampleInputText3">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleTextarea" class="form-label">Description</label>
-                                <textarea class="form-control" id="exampleTextarea" rows="3" v-model="categoryForm.description" maxlength="255">
+                                <textarea class="form-control" id="exampleTextarea" rows="3"
+                                    v-model="categoryForm.description" maxlength="255">
                                 </textarea>
                                 <div class="ms-3 text-end">
                                     <span class="text-muted small">{{ categoryForm.description.length }} / 255</span>
@@ -59,11 +54,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button 
-                            type="button" 
-                            class="btn btn-primary"
-                            @click="saveCategory"
-                        >Save changes</button>
+                        <button type="button" class="btn btn-primary" @click="saveCategory">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -133,11 +124,11 @@ export default {
             categoryForm: {
                 title: '',
                 short_title: '',
-                // icon: '',
+                icon: '',
                 description: '',
             },
-            errorMessage: '',
-            successMessage: '',
+            errorMessages: [],
+            successMessage: {},
         }
     },
     methods: {
@@ -159,18 +150,20 @@ export default {
                 console.log('Success', response);
                 this.successMessage = 'Category created successfully!'; // Set success message
             }).catch(error => {
-                console.log('Failed');
-                console.log(error.response.status);
-                // console.log(error.response.errors);
-                console.log(error.response);
-                console.log('Data: ', this.categoryForm);
                 if (error.response.status === 401) {
                     refreshToken();
                     this.saveCategory();
                 } else if (error.response.status === 500) {
-                    this.errorMessage = 'Server issue';
+                    this.errorMessages = 'Server issue';
+                } else {
+                    for (const [field, messages] of Object.entries(error.response.data.errors)) {
+                        this.errorMessages.push({
+                            'title': field,
+                            'message': messages[0],
+                        })
+                    }
                 }
-            })
+            });
         },
     }
 }
