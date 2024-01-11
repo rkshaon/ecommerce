@@ -182,7 +182,12 @@ export default {
             formData.append('title', this.categoryForm.title);
             formData.append('short_title', this.categoryForm.short_title);
             formData.append('description', this.categoryForm.description);
-            formData.append('icon', this.categoryForm.icon);
+
+            if (this.categoryForm.icon) {
+                console.log('Icon is not empty.');
+                formData.append('icon', this.categoryForm.icon);
+            }
+            
             formData.append('is_active', true);
 
             await axios.post(

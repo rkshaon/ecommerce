@@ -6,6 +6,8 @@ from category_api.models import Category
 
 class CategorySerializer(serializers.ModelSerializer):
     """Serializer for the Category model."""
+    icon = serializers.FileField(required=False)
+    
     class Meta:
         model = Category
         fields = '__all__'

@@ -52,10 +52,9 @@ class CategoryViewSet(ViewSet):
                 'error': 'Authentication credentials were not provided.'
             }, status=status.HTTP_401_UNAUTHORIZED)
 
-        request_data = copy.deepcopy(request.data)
-        
+        request_data = copy.deepcopy(request.data)        
         request_data['added_by'] = request.user.id
-        print(request_data)
+
         serializer = self.serializer_class(data=request_data)
 
         if serializer.is_valid():
