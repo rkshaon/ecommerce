@@ -39,12 +39,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputText3" class="form-label">Icon</label>
-                                <input 
-                                    type="file" 
-                                    class="form-control" 
-                                    id="exampleInputText3"
-                                    @change="handleFileChange"
-                                >
+                                <input type="file" class="form-control" id="exampleInputText3" @change="handleFileChange">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleTextarea" class="form-label">Description</label>
@@ -114,6 +109,39 @@
                 </div>
             </div>
         </div>
+        <div class="pt-5">
+            <table class="table caption-top table-hover table-bordered">
+                <caption>List of categories</caption>
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -155,6 +183,7 @@ export default {
             formData.append('short_title', this.categoryForm.short_title);
             formData.append('description', this.categoryForm.description);
             formData.append('icon', this.categoryForm.icon);
+            formData.append('is_active', true);
 
             await axios.post(
                 URL, formData, headers,
