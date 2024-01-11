@@ -4,6 +4,8 @@ from rest_framework import status
 
 from django.shortcuts import get_object_or_404
 
+import copy
+
 from category_api.models import Category
 from product_api.models import Product
 
@@ -50,8 +52,11 @@ class CategoryViewSet(ViewSet):
                 'error': 'Authentication credentials were not provided.'
             }, status=status.HTTP_401_UNAUTHORIZED)
 
-        request.data['added_by'] = request.user.id
-        serializer = self.serializer_class(data=request.data)
+        request_data = copy.deepcopy(request.data)
+        
+        request_data['added_by'] = request.user.id
+        print(request_data)
+        serializer = self.serializer_class(data=request_data)
 
         if serializer.is_valid():
             serializer.save()

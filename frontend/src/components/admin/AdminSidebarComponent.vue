@@ -20,7 +20,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="{ name: 'admin-category'}" class="nav-link link-dark">
+                    <router-link :to="{ name: 'admin-category' }" class="nav-link link-dark">
                         <font-awesome-icon :icon="['fas', 'list']" class="pe-3" />
                         Category
                     </router-link>
@@ -136,7 +136,9 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li>
+                        <button class="dropdown-item" @click="logOut()">Sign out</button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -144,8 +146,18 @@
 </template>
 
 <script>
+// import { logOut } from '@/services/logOutService';
+
 export default {
     name: 'AdminSidebarComponent',
     watch: {},
+    methods: {
+        logOut() {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            console.log('Now remove accessToken and refreshToken.');
+            window.location.reload();
+        },
+    },
 }
 </script>
