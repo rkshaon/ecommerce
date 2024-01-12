@@ -162,7 +162,11 @@ export default {
             },
             errorMessages: [],
             successMessage: '',
+            cagetoryList: [],
         }
+    },
+    created() {
+        this.getCategoryList();
     },
     methods: {
         handleFileChange(event) {
@@ -210,6 +214,33 @@ export default {
                     }
                 }
             });
+        },
+
+        async getCategoryList() {
+            const URL = API_BASE_URL + '/api/categories/';
+            const headers = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                }
+            }
+            console.log(URL);
+            console.log(headers);
+
+            await axios.get(
+                URL, headers
+            ).then(response => {
+                console.log('Success', response);
+                console.log(response.data);
+                // this.successMessage = 'Category created successfully!'; // Set success message
+            }).catch(error => { 
+                if (error.response.status === 401) {
+                    refreshToken();
+                    this.saveCategory();
+                } else if (error.response.status === 500) {
+                    this.errorMessages = 'Server issue';
+                }
+            })
         },
     }
 }

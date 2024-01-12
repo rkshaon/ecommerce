@@ -22,6 +22,8 @@ class CategoryViewSet(ViewSet):
     
     def list(self, request):
         """Return a list of categories."""
+        print(request.user)
+        
         query = request.GET.get('query', None)
         if query and query.lower() == 'only-parent':
             queryset = self.queryset.filter(
