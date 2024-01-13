@@ -115,29 +115,32 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Icon</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
+                    <tr v-for="(category, index) in categoryList" :key="index">
+                        <th scope="row">{{ index + 1 }}</th>
+                        <td>{{ category.title }}</td>
+                        <td>{{ category.description }}</td>
+                        <td>
+                            <div class="alert alert-warning" role="alert">
+                                Active: {{ category.is_active }}
+                            </div>
+                            <div class="alert alert-danger" role="alert">
+                                Delete: {{ category.is_deleted }}
+                            </div>                            
+                        </td>
+                        <td>
+                            <img v-if="category.icon" :src="`${API_BASE_URL}${category.icon}`" :alt="category.title"
+                                height="50" />
+                            <div v-else>Upload Icon</div>
+                        </td>
+                        <td><font-awesome-icon :icon="['fas', 'file-pen']" /> <font-awesome-icon :icon="['fas', 'trash']" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -154,6 +157,7 @@ export default {
     name: "AdminCategoryListComponent",
     data() {
         return {
+            API_BASE_URL: API_BASE_URL,
             categoryForm: {
                 title: '',
                 short_title: '',
@@ -162,7 +166,7 @@ export default {
             },
             errorMessages: [],
             successMessage: '',
-            cagetoryList: [],
+            categoryList: [],
         }
     },
     created() {
@@ -191,14 +195,14 @@ export default {
                 console.log('Icon is not empty.');
                 formData.append('icon', this.categoryForm.icon);
             }
-            
+
             formData.append('is_active', true);
 
             await axios.post(
                 URL, formData, headers,
             ).then(response => {
                 console.log('Success', response);
-                this.successMessage = 'Category created successfully!'; // Set success message
+                this.successMessage = 'Category created successfully!';
             }).catch(error => {
                 if (error.response.status === 401) {
                     refreshToken();
@@ -224,16 +228,14 @@ export default {
                     'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
                 }
             }
-            console.log(URL);
-            console.log(headers);
 
             await axios.get(
                 URL, headers
             ).then(response => {
-                console.log('Success', response);
-                console.log(response.data);
-                // this.successMessage = 'Category created successfully!'; // Set success message
-            }).catch(error => { 
+                if (response.status === 200) {
+                    this.categoryList = response.data.data;
+                }
+            }).catch(error => {
                 if (error.response.status === 401) {
                     refreshToken();
                     this.saveCategory();

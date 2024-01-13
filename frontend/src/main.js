@@ -14,7 +14,7 @@ import "bootstrap/dist/js/bootstrap.js";
 import {
   faEnvelope, faPhone, faMapPin, faHouse, faRightLong, faPlus,
   faMinus, faGauge, faTableCellsLarge, faAddressCard, faArrowRight,
-  faList, faEllipsisVertical,
+  faList, faEllipsisVertical, faTrash, faFilePen
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebook,faTwitter,faYoutube,faProductHunt
@@ -38,6 +38,8 @@ library.add(
   faArrowRight,
   faList,
   faEllipsisVertical,
+  faTrash,
+  faFilePen,
 );
 
 const app = createApp(App);
