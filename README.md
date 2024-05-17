@@ -6,8 +6,9 @@ Clone the project on project directory.
 ```
 git clone git@github.com:rkshaon/ecommerce.git
 ```
-### [For Backend](./backend/)
-### [For Frontend](./frontend/)
+[To complete Backend install and setup](./backend/)
+
+[To complete Frontend install and setup](./frontend/)
 
 ## Project Idea
 To see whole project idea, click [here](./IDEA.md).
