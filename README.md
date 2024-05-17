@@ -8,3 +8,5 @@ git clone git@github.com:rkshaon/ecommerce.git
 ```
 ### [For Backend](./backend/)
 ### [For Frontend](./frontend/)
+
+## [Project Idea](IDEA.md)
