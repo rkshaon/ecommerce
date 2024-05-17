@@ -1,8 +1,6 @@
-# E-Commerce Bankend
+# E-Commerce Backend
 
-### Step 0:
-Open your terminal
-
+## Project Setup
 ### Step 1:
 Go to the backend directory.
 ```
