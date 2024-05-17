@@ -1,6 +1,12 @@
 # E-Commerce Backend
 
-## Project Setup
+## Project requirement
+Python version
+```
+Python 3.10.12
+```
+
+## Project setup
 ### Step 1:
 Go to the backend directory.
 ```
