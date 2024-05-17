@@ -1,17 +1,17 @@
 # Project Ideas
 
 ## Features
-- [FEAT#1] Authentication System
-    - [FEAT#1.1] Admin panel
-    - [FEAT#1.2] User panel
-- [FEAT#2] Category
-    - [FEAT#2.1] Add category from admin panel
-    - [FEAT#2.2] Edit category from admin panel
-    - [FEAT#2.3] Delete category from admin panel
-- [FEAT#3] Product
-    - [FEAT#3.1] Add product from admin panel
-    - [FEAT#3.2] Edit product from admin panel
-    - [FEAT#3.3] Delete product from admin panel
+- feat # 1: Authentication System
+    - feat # 1.1 Admin panel
+    - feat # 1.2 User panel
+- feat # 2: Category
+    - feat # 2.1: Add category from admin panel
+    - feat # 2.2: Edit category from admin panel
+    - feat #2.3: Delete category from admin panel
+- feat # 3: Product
+    - feat # 3.1: Add product from admin panel
+    - feat #3.2: Edit product from admin panel
+    - feat # 3.3: Delete product from admin panel
 
 <!-- - [FEAT#4] Order
     - [FEAT#4.1] Add order from admin panel

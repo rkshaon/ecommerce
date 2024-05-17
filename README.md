@@ -12,7 +12,7 @@ git clone git@github.com:rkshaon/ecommerce.git
 ## Project Idea
 To see whole project idea, click [here](./IDEA.md).
 
-## Contribution
+## Contributing
 Contributions are always welcomed. Feel free to raise new issues, implement new features and file new PRs. 
 
 Consider giving it a star and fork this repo!
