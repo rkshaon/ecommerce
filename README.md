@@ -13,4 +13,4 @@ git clone git@github.com:rkshaon/ecommerce.git
 To see whole project idea, click [here](./IDEA.md).
 
 ## License
-[Apache License]()
+[Apache License](./LICENSE)
