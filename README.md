@@ -1,10 +1,10 @@
 # E-Commerce
+E-Commerce platform for all solutions.
 
-Clone the project
+## Install
+Clone the project on project directory.
 ```
-git clone https://github.com/rkshaon/ecommerce
+git clone git@github.com:rkshaon/ecommerce.git
 ```
-
-## [Backend](./backend/)
-
-## [Frontend](./frontend/)
+### [For Backend](./backend/)
+### [For Frontend](./frontend/)

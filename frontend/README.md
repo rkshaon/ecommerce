@@ -1,15 +1,25 @@
-# ecommerce
+# E-Commerce Frontend
 
 ## Project setup
+### Step 1:
+Go to the frontend directory.
+
+```
+cd frontend
+```
+
+### Step 2:
+Install dependencies.
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Step 3:
+Run frontend server.
 ```
 npm run serve
 ```
-
+<!-- 
 ### Compiles and minifies for production
 ```
 npm run build
@@ -21,4 +31,4 @@ npm run lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Configuration Reference](https://cli.vuejs.org/config/). -->
