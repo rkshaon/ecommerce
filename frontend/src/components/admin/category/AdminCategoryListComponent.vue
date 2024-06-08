@@ -13,34 +13,13 @@
                 </li>
             </ul>
         </div>
-        <!-- Delete Confirmation Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <!-- Add category modal -->
+        <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure you want to delete this category?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" @click="deleteCategory">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Add category Modal -->
-        <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
-            Add Category
-        </button>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                        <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-start">
@@ -79,6 +58,33 @@
                 </div>
             </div>
         </div>
+        <!-- Add category modal -->
+        <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-start">
+                        <div class="mb-3">
+                            <label for="exampleInputText1" class="form-label">Are you sure?</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" @click="deleteCategory">Yes, delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add category button -->
+        <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal"
+            data-bs-target="#addCategoryModal">
+            <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
+            Add Category
+        </button>
         <div class="row">
             <div class="col-md-4">
                 <div class="shadow-lg">
@@ -162,7 +168,9 @@
                         </td>
                         <td>
                             <font-awesome-icon :icon="['fas', 'file-pen']" style="" />
-                            <font-awesome-icon :icon="['fas', 'trash']" style="padding-left: 10px;" />
+                            <font-awesome-icon :icon="['fas', 'trash']" style="padding-left: 10px;"
+                                data-bs-toggle="modal" data-bs-target="#deleteCategoryModal"
+                                @click="setDeleteCategoryId(category.id)" />
                         </td>
                     </tr>
                 </tbody>
@@ -190,6 +198,7 @@ export default {
             errorMessages: [],
             successMessage: '',
             categoryList: [],
+            deleteCategoryId: null,
         }
     },
     created() {
@@ -268,6 +277,46 @@ export default {
             })
         },
 
+        setDeleteCategoryId(id) {
+            this.deleteCategoryId = id;
+        },
+
+        async deleteCategory() { 
+            if (!this.deleteCategoryId) {
+                console.error('Category ID is not set');
+                return;
+            }
+
+            const URL = `${this.API_BASE_URL}/api/v1/categories/${this.deleteCategoryId}`;
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+            };
+
+            console.log('Delete...', this.deleteCategoryId);
+            console.log(URL);
+            console.log(headers);
+
+            try {
+                const response = await axios.delete(URL, { headers });
+                if (response.status === 204) {
+                    this.successMessage = 'Category deleted successfully!';
+                    this.getCategoryList();
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 401) {
+                    refreshToken();
+                    this.deleteCategory();
+                } else if (error.response && error.response.status === 500) {
+                    this.errorMessages = 'Server issue';
+                } else {
+                    this.errorMessages.push({
+                        'title': 'Error',
+                        'message': 'Could not delete the category',
+                    });
+                }
+            }
+        },
         
     }
 }
