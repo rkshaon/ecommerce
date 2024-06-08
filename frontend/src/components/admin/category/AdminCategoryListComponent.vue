@@ -178,7 +178,7 @@ export default {
         },
 
         async saveCategory() {
-            const URL = API_BASE_URL + '/api/categories/';
+            const URL = API_BASE_URL + '/api/v1/categories/';
             const headers = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -221,7 +221,7 @@ export default {
         },
 
         async getCategoryList() {
-            const URL = API_BASE_URL + '/api/categories/';
+            const URL = API_BASE_URL + '/api/v1/categories/';
             const headers = {
                 headers: {
                     'Content-Type': 'application/json',

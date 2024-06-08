@@ -3,7 +3,7 @@ import { API_BASE_URL } from "@/config";
 
 export async function refreshToken() {
   try {
-    const URL = API_BASE_URL + '/api/users/refresh';
+    const URL = API_BASE_URL + '/api/v1/users/refresh';
     
     const response = await axios.post(URL, {
       refresh: localStorage.getItem("refreshToken"),

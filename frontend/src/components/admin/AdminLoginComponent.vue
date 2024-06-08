@@ -64,7 +64,7 @@ export default {
     },
     methods: {
         async adminLogin() {
-            const URL = API_BASE_URL + '/api/users/login';
+            const URL = API_BASE_URL + '/api/v1/users/login';
 
             try {
                 const response = await axios.post(URL, {
