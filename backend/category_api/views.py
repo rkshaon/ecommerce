@@ -76,29 +76,62 @@ class CategoryViewSet(ViewSet):
             }, status=status.HTTP_400_BAD_REQUEST)
     
 
-    def details(self, request, category_id):
-        data = {
-            'status': True,
-        }
+    # def details(self, request, category_id):
+    #     data = {
+    #         'status': True,
+    #     }
 
-        category = get_object_or_404(Category, id=category_id)
-        category_serializer = CategorySerializer(category, many=False)
+    #     category = get_object_or_404(Category, id=category_id)
+    #     category_serializer = CategorySerializer(category, many=False)
 
-        data['data'] = category_serializer.data
+    #     data['data'] = category_serializer.data
         
-        return Response(data, status=status.HTTP_200_OK)
+    #     return Response(data, status=status.HTTP_200_OK)
 
 
     # def delete(self, request, *args, **kwargs):
     #     return 
 
 
-class CategoryView(APIView):
+class CategoryView(APIView):    
+    serializer_class = CategorySerializer
     authentication_classes = [SessionAuthentication, JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    serializer_class = CategorySerializer
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
+
+        if pk:
+            try:
+                data = self.serializer_class(Category.objects.get(pk=pk)).data
+                return Response(data)
+            except Category.DoesNotExist:
+                return Response({
+                    'error': 'Category does not exist.'
+                }, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({
+            'message': 'category list will be there.',
+        })
 
 
     def delete(self, request, *args, **kwargs):
-        # category = get_object_or_404(Category)
-        return Response({})
+        pk = kwargs.get('pk', None)
+
+        if not pk:
+            return Response({
+                'error': 'Category ID is required to delete.'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            category = Category.objects.get(pk=pk, is_deleted=False)
+            category.is_deleted = True
+            category.save()
+        except Category.DoesNotExist:
+            return Response({
+                'error': 'Category does not exist.'
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        return Response({
+            'message': 'Successfully deleted.',
+        }, status=status.HTTP_202_ACCEPTED)
