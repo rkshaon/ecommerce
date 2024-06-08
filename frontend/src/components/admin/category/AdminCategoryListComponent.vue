@@ -183,6 +183,7 @@
 import axios from "axios";
 import { API_BASE_URL } from '@/config';
 import { refreshToken } from "@/services/refreshToken";
+// import { Modal } from 'bootstrap';
 
 export default {
     name: "AdminCategoryListComponent",
@@ -299,7 +300,8 @@ export default {
 
             try {
                 const response = await axios.delete(URL, { headers });
-                if (response.status === 204) {
+                console.log(response.status);
+                if (response.status === 202) {
                     this.successMessage = 'Category deleted successfully!';
                     this.getCategoryList();
                 }
@@ -316,6 +318,9 @@ export default {
                     });
                 }
             }
+
+            // let deleteModal = Modal.getInstance(document.getElementById('deleteCategoryModal'));
+            // deleteModal.hide();
         },
         
     }
