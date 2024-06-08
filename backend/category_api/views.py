@@ -1,6 +1,10 @@
 from rest_framework.viewsets import ViewSet
+from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from django.shortcuts import get_object_or_404
 
@@ -83,3 +87,13 @@ class CategoryViewSet(ViewSet):
         data['data'] = category_serializer.data
         
         return Response(data, status=status.HTTP_200_OK)
+
+
+    # def delete(self, request, *args, **kwargs):
+    #     return 
+
+
+class CategoryView(APIView):
+    authentication_classes = [SessionAuthentication, JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = CategorySerializer

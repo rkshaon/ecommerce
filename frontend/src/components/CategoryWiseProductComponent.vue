@@ -16,6 +16,7 @@
 
 <script>
 import ProductCardComponent from '@/components/support/ProductCardComponent';
+import { API_BASE_URL } from '@/config';
 
 export default {  
   name: 'CategoryWiseProductComponent',
@@ -58,10 +59,11 @@ export default {
     },
 
     async fetchCategoryDetailsData() {
-      let url = `http://127.0.0.1:8000/api/categories/${this.$route.params.category_id}`;
+      // const URL = API_BASE_URL + '/api/categories/';
+      const URL = API_BASE_URL + `/api/v1/categories/${this.$route.params.category_id}`;
 
       try {
-        const response = await fetch(url);
+        const response = await fetch(URL);
         const data = await response.json();
         this.categoryDetails = data.data;
       } catch (error) {
@@ -72,10 +74,10 @@ export default {
     },
     
     async fetchProductsCategoryWiseData() {
-      let url = `http://127.0.0.1:8000/api/products/category/${this.$route.params.category_id}`;
+      const URL = API_BASE_URL + `/api/v1/products/category/${this.$route.params.category_id}`;
       
       try {
-        const response = await fetch(url);
+        const response = await fetch(URL);
         const data = await response.json();
         this.products = data.data;
       } catch (error) {
