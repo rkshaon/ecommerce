@@ -124,7 +124,7 @@ class CategoryView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         try:
-            category = Category.objects.get(pk=pk, is_deleted=False)
+            category = Category.objects.get(pk=pk, is_active=True, is_deleted=False)
             category.is_deleted = True
             category.save()
         except Category.DoesNotExist:
