@@ -353,10 +353,10 @@ export default {
         },
         
         async fetchProductDetailsData() {
-            let url = `${API_BASE_URL}/api/products/${this.$route.params.product_id}`;
+            const URL = `${API_BASE_URL}/api/v1/products/${this.$route.params.product_id}`;
             
             try {
-                const response = await fetch(url);
+                const response = await fetch(URL);
                 const data = await response.json();
                 this.productDetails = data.data;
 

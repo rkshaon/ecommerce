@@ -69,6 +69,8 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '@/config';
+
 export default {
     name: 'NavBarComponent',
     data() {
@@ -102,7 +104,8 @@ export default {
     methods: {
         async fetchData() {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/categories/');
+                const URL = API_BASE_URL + '/api/v1/categories/'
+                const response = await fetch(URL);
                 const data = await response.json();
                 this.categoriesData = data.data;
             } catch (error) {
