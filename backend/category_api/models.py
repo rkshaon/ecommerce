@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
 
-import itertools
-
 from user_api.models import User
 
 
@@ -22,15 +20,6 @@ class Category(models.Model):
     
 
     def save(self, *args, **kwargs):
-        if not self.category_slug:
-            self.category_slug = slugify(self.title)
-
-        original_slug = self.category_slug
-        for x in itertools.count(1):
-            if not Category.objects.filter(category_slug=self.category_slug).exists():
-                break
-            self.category_slug = f'{original_slug}-{x}'
-
         super().save(*args, **kwargs)
 
 
