@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ViewSet
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import permission_classes, authentication_classes
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
@@ -94,9 +95,7 @@ class CategoryViewSet(ViewSet):
 
 
 class CategoryView(APIView):    
-    serializer_class = CategorySerializer
-    authentication_classes = [SessionAuthentication, JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    serializer_class = CategorySerializer    
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
@@ -114,7 +113,8 @@ class CategoryView(APIView):
             'message': 'category list will be there.',
         })
 
-
+    @authentication_classes([SessionAuthentication, JWTAuthentication])
+    @permission_classes([IsAuthenticated])
     def delete(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
 

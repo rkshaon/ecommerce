@@ -65,7 +65,7 @@ export default {
       try {
         const response = await fetch(URL);
         const data = await response.json();
-        this.categoryDetails = data.data;
+        this.categoryDetails = data;
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {

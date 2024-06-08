@@ -13,6 +13,25 @@
                 </li>
             </ul>
         </div>
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this category?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" @click="deleteCategory">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add category Modal -->
         <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
             Add Category
@@ -28,8 +47,8 @@
                         <form action="">
                             <div class="mb-3">
                                 <label for="exampleInputText1" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="exampleInputText1" aria-describedby="textHelp1"
-                                    v-model="categoryForm.title">
+                                <input type="text" class="form-control" id="exampleInputText1"
+                                    aria-describedby="textHelp1" v-model="categoryForm.title">
                                 <div id="textHelp1" class="form-text">Category name must be unique.</div>
                             </div>
                             <div class="mb-3">
@@ -39,7 +58,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputText3" class="form-label">Icon</label>
-                                <input type="file" class="form-control" id="exampleInputText3" @change="handleFileChange">
+                                <input type="file" class="form-control" id="exampleInputText3"
+                                    @change="handleFileChange">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleTextarea" class="form-label">Description</label>
@@ -133,14 +153,17 @@
                             </div>
                             <div class="alert alert-danger" role="alert">
                                 Delete: {{ category.is_deleted }}
-                            </div>                            
+                            </div>
                         </td>
                         <td>
                             <img v-if="category.icon" :src="`${API_BASE_URL}${category.icon}`" :alt="category.title"
                                 height="50" />
                             <div v-else>Upload Icon</div>
                         </td>
-                        <td><font-awesome-icon :icon="['fas', 'file-pen']" /> <font-awesome-icon :icon="['fas', 'trash']" /></td>
+                        <td>
+                            <font-awesome-icon :icon="['fas', 'file-pen']" style="" />
+                            <font-awesome-icon :icon="['fas', 'trash']" style="padding-left: 10px;" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -244,6 +267,8 @@ export default {
                 }
             })
         },
+
+        
     }
 }
 </script>
