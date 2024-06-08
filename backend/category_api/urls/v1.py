@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:category_id>', views.CategoryViewSet.as_view({
         'get': 'details',
     })),
+    path('<int:category_id>', views.CategoryView.as_view()),
 ]

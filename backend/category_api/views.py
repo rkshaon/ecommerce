@@ -97,3 +97,8 @@ class CategoryView(APIView):
     authentication_classes = [SessionAuthentication, JWTAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = CategorySerializer
+
+
+    def delete(self, request, *args, **kwargs):
+        # category = get_object_or_404(Category)
+        return Response({})
