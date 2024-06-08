@@ -376,12 +376,12 @@ export default {
                 return;
             }
 
-            let url = `${API_BASE_URL}/api/categories/${this.productDetails.category}`;
+            let url = `${API_BASE_URL}/api/v1/categories/${this.productDetails.category}`;
             
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                this.categoryDetails = data.data;
+                this.categoryDetails = data;
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {

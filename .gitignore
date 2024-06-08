@@ -28,10 +28,14 @@ pnpm-debug.log*
 backend/env
 backend/ecommerce/__pycache__
 backend/category_api/__pycache__
+backend/category_api/urls/__pycache__
+backend/category_api/utilities/__pycache__
 backend/category_api/migrations
 backend/product_api/__pycache__
+backend/product_api/urls/__pycache__
 backend/product_api/migrations
 backend/user_api/__pycache__
+backend/user_api/urls/__pycache__
 backend/user_api/migrations
 backend/db.sqlite3
 backend/media

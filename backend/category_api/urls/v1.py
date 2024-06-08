@@ -9,7 +9,8 @@ urlpatterns = [
         'get': 'list',
         'post': 'create',
     })),
-    path('<int:category_id>', views.CategoryViewSet.as_view({
-        'get': 'details',
-    })),
+    # path('<int:category_id>', views.CategoryViewSet.as_view({
+    #     'get': 'details',
+    # })),
+    path('<int:pk>', views.CategoryView.as_view()),
 ]

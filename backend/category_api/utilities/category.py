@@ -1,5 +1,7 @@
 from django.utils.text import slugify
 
+import os
+
 
 
 def unique_categoyr_slug_generator(instance, new_slug=None) -> str:
@@ -40,3 +42,9 @@ def unique_categoyr_slug_generator(instance, new_slug=None) -> str:
         return unique_categoyr_slug_generator(instance, new_slug=new_slug)
     
     return slug
+
+
+def delete_icon_file(instance) -> None:
+    if instance.icon:
+        if os.path.isfile(instance.icon.path):
+            os.remove(instance.icon.path)

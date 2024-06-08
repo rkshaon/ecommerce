@@ -13,23 +13,21 @@
                 </li>
             </ul>
         </div>
-        <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
-            Add Category
-        </button>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Add category modal -->
+        <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                        <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-start">
                         <form action="">
                             <div class="mb-3">
                                 <label for="exampleInputText1" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="exampleInputText1" aria-describedby="textHelp1"
-                                    v-model="categoryForm.title">
+                                <input type="text" class="form-control" id="exampleInputText1"
+                                    aria-describedby="textHelp1" v-model="categoryForm.title">
                                 <div id="textHelp1" class="form-text">Category name must be unique.</div>
                             </div>
                             <div class="mb-3">
@@ -39,7 +37,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputText3" class="form-label">Icon</label>
-                                <input type="file" class="form-control" id="exampleInputText3" @change="handleFileChange">
+                                <input type="file" class="form-control" id="exampleInputText3"
+                                    @change="handleFileChange">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleTextarea" class="form-label">Description</label>
@@ -59,6 +58,33 @@
                 </div>
             </div>
         </div>
+        <!-- Add category modal -->
+        <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-start">
+                        <div class="mb-3">
+                            <label for="exampleInputText1" class="form-label">Are you sure?</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" @click="deleteCategory">Yes, delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add category button -->
+        <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal"
+            data-bs-target="#addCategoryModal">
+            <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
+            Add Category
+        </button>
         <div class="row">
             <div class="col-md-4">
                 <div class="shadow-lg">
@@ -133,14 +159,19 @@
                             </div>
                             <div class="alert alert-danger" role="alert">
                                 Delete: {{ category.is_deleted }}
-                            </div>                            
+                            </div>
                         </td>
                         <td>
                             <img v-if="category.icon" :src="`${API_BASE_URL}${category.icon}`" :alt="category.title"
                                 height="50" />
                             <div v-else>Upload Icon</div>
                         </td>
-                        <td><font-awesome-icon :icon="['fas', 'file-pen']" /> <font-awesome-icon :icon="['fas', 'trash']" /></td>
+                        <td>
+                            <font-awesome-icon :icon="['fas', 'file-pen']" style="" />
+                            <font-awesome-icon :icon="['fas', 'trash']" style="padding-left: 10px;"
+                                data-bs-toggle="modal" data-bs-target="#deleteCategoryModal"
+                                @click="setDeleteCategoryId(category.id)" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -152,6 +183,7 @@
 import axios from "axios";
 import { API_BASE_URL } from '@/config';
 import { refreshToken } from "@/services/refreshToken";
+// import { Modal } from 'bootstrap';
 
 export default {
     name: "AdminCategoryListComponent",
@@ -167,6 +199,7 @@ export default {
             errorMessages: [],
             successMessage: '',
             categoryList: [],
+            deleteCategoryId: null,
         }
     },
     created() {
@@ -178,7 +211,7 @@ export default {
         },
 
         async saveCategory() {
-            const URL = API_BASE_URL + '/api/categories/';
+            const URL = API_BASE_URL + '/api/v1/categories/';
             const headers = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -221,7 +254,7 @@ export default {
         },
 
         async getCategoryList() {
-            const URL = API_BASE_URL + '/api/categories/';
+            const URL = API_BASE_URL + '/api/v1/categories/';
             const headers = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -244,6 +277,52 @@ export default {
                 }
             })
         },
+
+        setDeleteCategoryId(id) {
+            this.deleteCategoryId = id;
+        },
+
+        async deleteCategory() { 
+            if (!this.deleteCategoryId) {
+                console.error('Category ID is not set');
+                return;
+            }
+
+            const URL = `${this.API_BASE_URL}/api/v1/categories/${this.deleteCategoryId}`;
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+            };
+
+            console.log('Delete...', this.deleteCategoryId);
+            console.log(URL);
+            console.log(headers);
+
+            try {
+                const response = await axios.delete(URL, { headers });
+                console.log(response.status);
+                if (response.status === 202) {
+                    this.successMessage = 'Category deleted successfully!';
+                    this.getCategoryList();
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 401) {
+                    refreshToken();
+                    this.deleteCategory();
+                } else if (error.response && error.response.status === 500) {
+                    this.errorMessages = 'Server issue';
+                } else {
+                    this.errorMessages.push({
+                        'title': 'Error',
+                        'message': 'Could not delete the category',
+                    });
+                }
+            }
+
+            // let deleteModal = Modal.getInstance(document.getElementById('deleteCategoryModal'));
+            // deleteModal.hide();
+        },
+        
     }
 }
 </script>
