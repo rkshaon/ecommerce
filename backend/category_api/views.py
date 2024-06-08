@@ -36,9 +36,9 @@ class CategoryViewSet(ViewSet):
                 parent=None,
             )
         elif query and query.lower() == 'only-feature':
-            queryset = self.queryset.filter(is_active=True, is_featured=True)
+            queryset = self.queryset.filter(is_active=True, is_featured=True, is_deleted=False)
         else:
-            queryset = self.queryset.filter(is_active=True)
+            queryset = self.queryset.filter(is_active=True, is_deleted=False)
 
         serializer = self.serializer_class(queryset, many=True)
         
