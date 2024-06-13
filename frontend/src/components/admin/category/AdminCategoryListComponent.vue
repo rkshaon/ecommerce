@@ -53,12 +53,59 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="saveCategory">Save changes</button>
+                        <button type="button" class="btn btn-primary" @click="saveCategory">Save</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Add category modal -->
+        <!-- Update category modal -->
+        <div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateCategoryModalLabel">Update Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-start">
+                        <form action="">
+                            <div class="mb-3">
+                                <label for="exampleInputText1" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="exampleInputText1"
+                                    aria-describedby="textHelp1" v-model="updateForm.title">
+                                <div id="textHelp1" class="form-text">Category name must be unique.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputText2" class="form-label">Short Title</label>
+                                <input type="text" class="form-control" id="exampleInputText2"
+                                    v-model="updateForm.short_title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputText3" class="form-label">Icon</label>
+                                <img v-if="updateForm.icon" :src="`${API_BASE_URL}${updateForm.icon}`"
+                                    :alt="updateForm.title" height="50" />
+                                <input type="file" class="form-control" id="exampleInputText3"
+                                    @change="handleFileChange">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleTextarea" class="form-label">Description</label>
+                                <textarea class="form-control" id="exampleTextarea" rows="3"
+                                    v-model="updateForm.description" maxlength="255">
+                                </textarea>
+                                <div class="ms-3 text-end">
+                                    <span class="text-muted small">{{ updateForm.description.length }} / 255</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="updateCategory(updateForm.id)">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Delete category modal -->
         <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -167,7 +214,8 @@
                             <div v-else>Upload Icon</div>
                         </td>
                         <td>
-                            <font-awesome-icon :icon="['fas', 'file-pen']" style="" />
+                            <font-awesome-icon :icon="['fas', 'file-pen']" style="" data-bs-toggle="modal"
+                                data-bs-target="#updateCategoryModal" @click="setUpdateCategoryId(category.id)" />
                             <font-awesome-icon :icon="['fas', 'trash']" style="padding-left: 10px;"
                                 data-bs-toggle="modal" data-bs-target="#deleteCategoryModal"
                                 @click="setDeleteCategoryId(category.id)" />
@@ -191,6 +239,13 @@ export default {
         return {
             API_BASE_URL: API_BASE_URL,
             categoryForm: {
+                title: '',
+                short_title: '',
+                icon: null,
+                description: '',
+            },
+            updateForm: {
+                id: '',
                 title: '',
                 short_title: '',
                 icon: null,
@@ -294,13 +349,8 @@ export default {
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
             };
 
-            console.log('Delete...', this.deleteCategoryId);
-            console.log(URL);
-            console.log(headers);
-
             try {
                 const response = await axios.delete(URL, { headers });
-                console.log(response.status);
                 if (response.status === 202) {
                     this.successMessage = 'Category deleted successfully!';
                     this.getCategoryList();
@@ -322,7 +372,75 @@ export default {
             // let deleteModal = Modal.getInstance(document.getElementById('deleteCategoryModal'));
             // deleteModal.hide();
         },
-        
+
+        findCategory(id) {
+            this.updateForm = this.categoryList.find(obj => obj.id === id);
+            return this.updateForm;
+        },
+
+        setUpdateCategoryId(id) {
+            console.log(id);
+            // console.log(this.categoryList);
+            // id = 100;
+            let categoryData = this.findCategory(id);
+            console.log(categoryData);
+            if (categoryData) {
+                this.updateForm.id = id;
+                this.updateForm.title = categoryData.title;
+                this.updateForm.short_title = categoryData.short_title;
+                this.updateForm.icon = categoryData.icon;
+                this.updateForm.description = categoryData.description;
+            } else {
+                console.log('Not found...');
+            }
+            
+        },
+
+        async updateCategory(id) {
+            const URL = `${this.API_BASE_URL}/api/v1/categories/${id}`;
+            const headers = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+                }
+            }
+            console.log(URL);
+            console.log(headers);
+            console.log(this.updateForm);
+            // const formData = new FormData();
+
+            // formData.append('title', this.categoryForm.title);
+            // formData.append('short_title', this.categoryForm.short_title);
+            // formData.append('description', this.categoryForm.description);
+
+            // if (this.categoryForm.icon) {
+            //     console.log('Icon is not empty.');
+            //     formData.append('icon', this.categoryForm.icon);
+            // }
+
+            // formData.append('is_active', true);
+
+            // await axios.post(
+            //     URL, formData, headers,
+            // ).then(response => {
+            //     console.log('Success', response);
+            //     this.successMessage = 'Category created successfully!';
+            // }).catch(error => {
+            //     if (error.response.status === 401) {
+            //         refreshToken();
+            //         this.saveCategory();
+            //     } else if (error.response.status === 500) {
+            //         this.errorMessages = 'Server issue';
+            //     } else {
+            //         for (const [field, messages] of Object.entries(error.response.data.errors)) {
+            //             this.errorMessages.push({
+            //                 'title': field,
+            //                 'message': messages[0],
+            //             })
+            //         }
+            //     }
+            // });
+        },
     }
 }
 </script>

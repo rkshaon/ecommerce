@@ -74,23 +74,6 @@ class CategoryViewSet(ViewSet):
                 'status': False,
                 'errors': serializer.errors,
             }, status=status.HTTP_400_BAD_REQUEST)
-    
-
-    # def details(self, request, category_id):
-    #     data = {
-    #         'status': True,
-    #     }
-
-    #     category = get_object_or_404(Category, id=category_id)
-    #     category_serializer = CategorySerializer(category, many=False)
-
-    #     data['data'] = category_serializer.data
-        
-    #     return Response(data, status=status.HTTP_200_OK)
-
-
-    # def delete(self, request, *args, **kwargs):
-    #     return 
 
 
 class CategoryView(APIView):    
@@ -134,3 +117,32 @@ class CategoryView(APIView):
         return Response({
             'message': 'Successfully deleted.',
         }, status=status.HTTP_202_ACCEPTED)
+    
+
+    @authentication_classes([SessionAuthentication, JWTAuthentication])
+    @permission_classes([IsAuthenticated])
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
+
+        if not pk:
+            return Response({
+                'error': 'Category ID is required.',
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            category = Category.objects.get(
+                pk=pk, is_active=True, is_deleted=False)
+        except Category.DoesNotExist:
+            return Response({
+                'error': 'Category does not exist.'
+            }, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = CategorySerializer(category, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'message': 'Successfully updated.',
+            }, status=status.HTTP_202_ACCEPTED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
