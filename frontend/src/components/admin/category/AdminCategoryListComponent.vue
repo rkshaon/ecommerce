@@ -38,7 +38,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputText3" class="form-label">Icon</label>
                                 <input type="file" class="form-control" id="exampleInputText3"
-                                    @change="handleFileChange">
+                                    @change="handleFileChangeOnInsert">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleTextarea" class="form-label">Description</label>
@@ -261,8 +261,12 @@ export default {
         this.getCategoryList();
     },
     methods: {
-        handleFileChange(event) {
+        handleFileChangeOnInsert(event) {
             this.categoryForm.icon = event.target.files[0];
+        },
+
+        handleFileChangeOnUpdate(event) {
+            this.updateForm.icon = event.target.files[0];
         },
 
         async saveCategory() {
@@ -380,10 +384,7 @@ export default {
 
         setUpdateCategoryId(id) {
             console.log(id);
-            // console.log(this.categoryList);
-            // id = 100;
             let categoryData = this.findCategory(id);
-            console.log(categoryData);
             if (categoryData) {
                 this.updateForm.id = id;
                 this.updateForm.title = categoryData.title;
@@ -404,42 +405,41 @@ export default {
                     'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
                 }
             }
-            console.log(URL);
-            console.log(headers);
-            console.log(this.updateForm);
-            // const formData = new FormData();
+            const formData = new FormData();
 
-            // formData.append('title', this.categoryForm.title);
-            // formData.append('short_title', this.categoryForm.short_title);
-            // formData.append('description', this.categoryForm.description);
+            formData.append('title', this.updateForm.title);
+            formData.append('short_title', this.updateForm.short_title);
+            formData.append('description', this.updateForm.description);
 
-            // if (this.categoryForm.icon) {
-            //     console.log('Icon is not empty.');
-            //     formData.append('icon', this.categoryForm.icon);
-            // }
+            if (this.updateForm.icon) {
+                console.log('Icon is not empty.');
+                formData.append('icon', this.updateForm.icon);
+            }
+
+            console.log('this is the updated form data', formData);
 
             // formData.append('is_active', true);
 
-            // await axios.post(
-            //     URL, formData, headers,
-            // ).then(response => {
-            //     console.log('Success', response);
-            //     this.successMessage = 'Category created successfully!';
-            // }).catch(error => {
-            //     if (error.response.status === 401) {
-            //         refreshToken();
-            //         this.saveCategory();
-            //     } else if (error.response.status === 500) {
-            //         this.errorMessages = 'Server issue';
-            //     } else {
-            //         for (const [field, messages] of Object.entries(error.response.data.errors)) {
-            //             this.errorMessages.push({
-            //                 'title': field,
-            //                 'message': messages[0],
-            //             })
-            //         }
-            //     }
-            // });
+            await axios.put(
+                URL, formData, headers,
+            ).then(response => {
+                console.log('Success', response);
+                this.successMessage = 'Category updated successfully!';
+            }).catch(error => {
+                if (error.response.status === 401) {
+                    refreshToken();
+                    this.saveCategory();
+                } else if (error.response.status === 500) {
+                    this.errorMessages = 'Server issue';
+                } else {
+                    for (const [field, messages] of Object.entries(error.response.errors)) {
+                        this.errorMessages.push({
+                            'title': field,
+                            'message': messages[0],
+                        })
+                    }
+                }
+            });
         },
     }
 }
