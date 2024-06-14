@@ -231,7 +231,6 @@
 import axios from "axios";
 import { API_BASE_URL } from '@/config';
 import { refreshToken } from "@/services/refreshToken";
-// import { Modal } from 'bootstrap';
 
 export default {
     name: "AdminCategoryListComponent",
@@ -255,6 +254,7 @@ export default {
             successMessage: '',
             categoryList: [],
             deleteCategoryId: null,
+            originalIcon: null,
         }
     },
     created() {
@@ -384,7 +384,6 @@ export default {
         },
 
         setUpdateCategoryId(id) {
-            console.log(id);
             let categoryData = this.findCategory(id);
             if (categoryData) {
                 this.updateForm.id = id;
@@ -392,6 +391,7 @@ export default {
                 this.updateForm.short_title = categoryData.short_title;
                 this.updateForm.icon = categoryData.icon;
                 this.updateForm.description = categoryData.description;
+                this.originalIcon = categoryData.icon;
             } else {
                 console.log('Not found...');
             }
@@ -412,14 +412,13 @@ export default {
             formData.append('short_title', this.updateForm.short_title);
             formData.append('description', this.updateForm.description);
 
-            if (this.updateForm.icon) {
-                console.log('Icon is not empty.');
+            console.log('Update form: ', this.updateForm);
+            console.log('Original icon', this.originalIcon);
+
+            if (this.updateForm.icon && this.originalIcon !== this.updateForm.icon) {
+                console.log('Icon is not empty.', this.updateForm.icon, this.updateForm.icon.type);
                 formData.append('icon', this.updateForm.icon);
             }
-
-            console.log('this is the updated form data', formData);
-
-            // formData.append('is_active', true);
 
             await axios.put(
                 URL, formData, headers,
