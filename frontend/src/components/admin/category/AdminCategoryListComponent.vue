@@ -266,7 +266,6 @@ export default {
         },
 
         handleFileChangeOnUpdate(event) {
-            console.log('Event', event);
             this.updateForm.icon = event.target.files[0];
         },
 
@@ -285,7 +284,6 @@ export default {
             formData.append('description', this.categoryForm.description);
 
             if (this.categoryForm.icon) {
-                console.log('Icon is not empty.');
                 formData.append('icon', this.categoryForm.icon);
             }
 
@@ -357,7 +355,7 @@ export default {
             try {
                 const response = await axios.delete(URL, { headers });
                 if (response.status === 202) {
-                    this.successMessage = 'Category deleted successfully!';
+                    this.successMessage = response.data.message;
                     this.getCategoryList();
                 }
             } catch (error) {
@@ -373,9 +371,6 @@ export default {
                     });
                 }
             }
-
-            // let deleteModal = Modal.getInstance(document.getElementById('deleteCategoryModal'));
-            // deleteModal.hide();
         },
 
         findCategory(id) {
@@ -412,19 +407,14 @@ export default {
             formData.append('short_title', this.updateForm.short_title);
             formData.append('description', this.updateForm.description);
 
-            console.log('Update form: ', this.updateForm);
-            console.log('Original icon', this.originalIcon);
-
             if (this.updateForm.icon && this.originalIcon !== this.updateForm.icon) {
-                console.log('Icon is not empty.', this.updateForm.icon, this.updateForm.icon.type);
                 formData.append('icon', this.updateForm.icon);
             }
 
             await axios.put(
                 URL, formData, headers,
             ).then(response => {
-                console.log('Success', response);
-                this.successMessage = 'Category updated successfully!';
+                this.successMessage = response.data.message;
             }).catch(error => {
                 if (error.response.status === 401) {
                     refreshToken();
