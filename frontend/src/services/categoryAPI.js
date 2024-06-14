@@ -49,7 +49,11 @@ export default {
   },
   
   createCategoryForAdmin(categoryData) {
-    return apiClient.get('/api/v1/categories/', categoryData);
+    return apiClient.post('/api/v1/categories/', categoryData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
 };
 

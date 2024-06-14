@@ -277,25 +277,27 @@ export default {
         },
 
         async createCategory() {
-            console.log('Hello...');
             const formData = new FormData();
 
             formData.append('title', this.categoryForm.title);
             formData.append('short_title', this.categoryForm.short_title);
             formData.append('description', this.categoryForm.description);
+            formData.append('is_active', true);
 
             if (this.categoryForm.icon) {
                 formData.append('icon', this.categoryForm.icon);
             }
 
-            console.log(this.categoryForm);
-            console.log(formData);
-
             try {
                 const response = await categoryAPI.createCategoryForAdmin(formData);
                 console.log('Create...', response.data);
+                this.successMessage = 'Category created successfully!';
             } catch(error) {
-                console.error('Failed...');
+                console.error('Failed...', error);
+                this.errorMessages.push({
+                    'title': 'Create Category',
+                    'message': 'Failed to create a new category.',
+                });
             }
         },
 
@@ -306,48 +308,6 @@ export default {
         handleFileChangeOnUpdate(event) {
             this.updateForm.icon = event.target.files[0];
         },
-
-        // async saveCategory() {
-        //     const URL = API_BASE_URL + '/api/v1/categories/';
-        //     const headers = {
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data',
-        //             'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-        //         }
-        //     }
-        //     const formData = new FormData();
-
-        //     formData.append('title', this.categoryForm.title);
-        //     formData.append('short_title', this.categoryForm.short_title);
-        //     formData.append('description', this.categoryForm.description);
-
-        //     if (this.categoryForm.icon) {
-        //         formData.append('icon', this.categoryForm.icon);
-        //     }
-
-        //     formData.append('is_active', true);
-
-        //     await axios.post(
-        //         URL, formData, headers,
-        //     ).then(response => {
-        //         console.log('Success', response);
-        //         this.successMessage = 'Category created successfully!';
-        //     }).catch(error => {
-        //         if (error.response.status === 401) {
-        //             refreshToken();
-        //             this.saveCategory();
-        //         } else if (error.response.status === 500) {
-        //             this.errorMessages = 'Server issue';
-        //         } else {
-        //             for (const [field, messages] of Object.entries(error.response.data.errors)) {
-        //                 this.errorMessages.push({
-        //                     'title': field,
-        //                     'message': messages[0],
-        //                 })
-        //             }
-        //         }
-        //     });
-        // },
 
         setDeleteCategoryId(id) {
             this.deleteCategoryId = id;
