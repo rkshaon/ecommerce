@@ -53,7 +53,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="saveCategory">Save</button>
+                        <button type="button" class="btn btn-primary" @click="createCategory">Save</button>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="updateCategory(updateForm.id)">Save changes</button>
+                        <button type="button" class="btn btn-primary" @click="updateCategory(updateForm.id)">Save
+                            changes</button>
                     </div>
                 </div>
             </div>
@@ -231,6 +232,7 @@
 import axios from "axios";
 import { API_BASE_URL } from '@/config';
 import { refreshToken } from "@/services/refreshToken";
+import categoryAPI from "@/services/categoryAPI";
 
 export default {
     name: "AdminCategoryListComponent",
@@ -258,82 +260,53 @@ export default {
         }
     },
     created() {
-        this.getCategoryList();
+        this.fetchCategories();
     },
     methods: {
+        async fetchCategories() {
+            try {
+                const response = await categoryAPI.getCategoriesForAdmin();
+                this.categoryList = response.data;
+            } catch (error) {
+                console.error('Failed to fetch categories:', error);
+                this.errorMessages.push({
+                    'title': 'Fetch Category',
+                    'message': 'Failed to fetch categories.',
+                });
+            }
+        },
+
+        async createCategory() {
+            const formData = new FormData();
+
+            formData.append('title', this.categoryForm.title);
+            formData.append('short_title', this.categoryForm.short_title);
+            formData.append('description', this.categoryForm.description);
+            formData.append('is_active', true);
+
+            if (this.categoryForm.icon) {
+                formData.append('icon', this.categoryForm.icon);
+            }
+
+            try {
+                const response = await categoryAPI.createCategoryForAdmin(formData);
+                console.log('Create...', response.data);
+                this.successMessage = 'Category created successfully!';
+            } catch(error) {
+                console.error('Failed...', error);
+                this.errorMessages.push({
+                    'title': 'Create Category',
+                    'message': 'Failed to create a new category.',
+                });
+            }
+        },
+
         handleFileChangeOnInsert(event) {
             this.categoryForm.icon = event.target.files[0];
         },
 
         handleFileChangeOnUpdate(event) {
             this.updateForm.icon = event.target.files[0];
-        },
-
-        async saveCategory() {
-            const URL = API_BASE_URL + '/api/v1/categories/';
-            const headers = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-                }
-            }
-            const formData = new FormData();
-
-            formData.append('title', this.categoryForm.title);
-            formData.append('short_title', this.categoryForm.short_title);
-            formData.append('description', this.categoryForm.description);
-
-            if (this.categoryForm.icon) {
-                formData.append('icon', this.categoryForm.icon);
-            }
-
-            formData.append('is_active', true);
-
-            await axios.post(
-                URL, formData, headers,
-            ).then(response => {
-                console.log('Success', response);
-                this.successMessage = 'Category created successfully!';
-            }).catch(error => {
-                if (error.response.status === 401) {
-                    refreshToken();
-                    this.saveCategory();
-                } else if (error.response.status === 500) {
-                    this.errorMessages = 'Server issue';
-                } else {
-                    for (const [field, messages] of Object.entries(error.response.data.errors)) {
-                        this.errorMessages.push({
-                            'title': field,
-                            'message': messages[0],
-                        })
-                    }
-                }
-            });
-        },
-
-        async getCategoryList() {
-            const URL = API_BASE_URL + '/api/v1/categories/';
-            const headers = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-                }
-            }
-
-            await axios.get(
-                URL, headers
-            ).then(response => {
-                if (response.status === 200) {
-                    this.categoryList = response.data.data;
-                }
-            }).catch(error => {
-                if (error.response.status === 401) {
-                    refreshToken();
-                    this.saveCategory();
-                } else if (error.response.status === 500) {
-                    this.errorMessages = 'Server issue';
-                }
-            })
         },
 
         setDeleteCategoryId(id) {

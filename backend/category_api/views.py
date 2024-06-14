@@ -41,10 +41,7 @@ class CategoryViewSet(ViewSet):
 
         serializer = self.serializer_class(queryset, many=True)
         
-        data = {
-            'status': True,
-            'data': serializer.data,
-        }
+        data = serializer.data
         
         return Response(data)
     
