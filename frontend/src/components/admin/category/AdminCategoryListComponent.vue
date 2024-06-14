@@ -85,7 +85,7 @@
                                 <img v-if="updateForm.icon" :src="`${API_BASE_URL}${updateForm.icon}`"
                                     :alt="updateForm.title" height="50" />
                                 <input type="file" class="form-control" id="exampleInputText3"
-                                    @change="handleFileChange">
+                                    @change="handleFileChangeOnUpdate">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleTextarea" class="form-label">Description</label>
@@ -266,6 +266,7 @@ export default {
         },
 
         handleFileChangeOnUpdate(event) {
+            console.log('Event', event);
             this.updateForm.icon = event.target.files[0];
         },
 
