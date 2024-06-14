@@ -231,6 +231,7 @@
 import axios from "axios";
 import { API_BASE_URL } from '@/config';
 import { refreshToken } from "@/services/refreshToken";
+import api from "@/services/categoryAPI";
 
 export default {
     name: "AdminCategoryListComponent",
@@ -258,9 +259,20 @@ export default {
         }
     },
     created() {
-        this.getCategoryList();
+        // this.getCategoryList();
+        this.fetchCategories();
     },
     methods: {
+        async fetchCategories() {
+            console.log('fetchCategories function called');
+            try {
+                const response = await api.getCategoriesForAdmin();
+                this.categoryList = response.data;
+            } catch (error) {
+                console.error('Failed to fetch categories:', error);
+            }
+        },
+
         handleFileChangeOnInsert(event) {
             this.categoryForm.icon = event.target.files[0];
         },
@@ -311,30 +323,30 @@ export default {
             });
         },
 
-        async getCategoryList() {
-            const URL = API_BASE_URL + '/api/v1/categories/';
-            const headers = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-                }
-            }
+        // async getCategoryList() {
+        //     const URL = API_BASE_URL + '/api/v1/categories/';
+        //     const headers = {
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+        //         }
+        //     }
 
-            await axios.get(
-                URL, headers
-            ).then(response => {
-                if (response.status === 200) {
-                    this.categoryList = response.data.data;
-                }
-            }).catch(error => {
-                if (error.response.status === 401) {
-                    refreshToken();
-                    this.saveCategory();
-                } else if (error.response.status === 500) {
-                    this.errorMessages = 'Server issue';
-                }
-            })
-        },
+        //     await axios.get(
+        //         URL, headers
+        //     ).then(response => {
+        //         if (response.status === 200) {
+        //             this.categoryList = response.data.data;
+        //         }
+        //     }).catch(error => {
+        //         if (error.response.status === 401) {
+        //             refreshToken();
+        //             this.saveCategory();
+        //         } else if (error.response.status === 500) {
+        //             this.errorMessages = 'Server issue';
+        //         }
+        //     })
+        // },
 
         setDeleteCategoryId(id) {
             this.deleteCategoryId = id;
