@@ -52,3 +52,4 @@ export default {
     return apiClient.get('/api/v1/categories/', categoryData);
   }
 };
+

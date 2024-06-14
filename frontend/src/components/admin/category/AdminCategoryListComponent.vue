@@ -53,7 +53,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="saveCategory">Save</button>
+                        <button type="button" class="btn btn-primary" @click="createCategory">Save</button>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="updateCategory(updateForm.id)">Save changes</button>
+                        <button type="button" class="btn btn-primary" @click="updateCategory(updateForm.id)">Save
+                            changes</button>
                     </div>
                 </div>
             </div>
@@ -276,7 +277,26 @@ export default {
         },
 
         async createCategory() {
+            console.log('Hello...');
+            const formData = new FormData();
 
+            formData.append('title', this.categoryForm.title);
+            formData.append('short_title', this.categoryForm.short_title);
+            formData.append('description', this.categoryForm.description);
+
+            if (this.categoryForm.icon) {
+                formData.append('icon', this.categoryForm.icon);
+            }
+
+            console.log(this.categoryForm);
+            console.log(formData);
+
+            try {
+                const response = await categoryAPI.createCategoryForAdmin(formData);
+                console.log('Create...', response.data);
+            } catch(error) {
+                console.error('Failed...');
+            }
         },
 
         handleFileChangeOnInsert(event) {
