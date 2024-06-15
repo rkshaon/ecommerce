@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { API_BASE_URL } from '@/config';
+import categoryAPI from '@/services/categoryAPI';
 
 export default {
     name: 'NavBarComponent',
@@ -99,17 +99,16 @@ export default {
         };
     },
     created() {
-        this.fetchData();
+        this.fetchCategories();
     },
     methods: {
-        async fetchData() {
+        async fetchCategories() {
             try {
-                const URL = API_BASE_URL + '/api/v1/categories/'
-                const response = await fetch(URL);
-                const data = await response.json();
-                this.categoriesData = data.data;
-            } catch (error) {
-                console.error('Error fetching data:', error);
+                const response = await categoryAPI.getCategories();
+                console.log(response.data);
+                this.categoriesData = response.data;
+            } catch(error) {
+                console.log('Error: ', error);
             } finally {
                 this.loading = false;
             }

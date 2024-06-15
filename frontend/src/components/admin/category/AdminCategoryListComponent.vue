@@ -229,10 +229,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import { API_BASE_URL } from '@/config';
-import { refreshToken } from "@/services/refreshToken";
-import categoryAPI from "@/services/categoryAPI";
+import adminCategoryAPI from "@/services/adminCategoryAPI";
 
 export default {
     name: "AdminCategoryListComponent",
@@ -265,7 +263,7 @@ export default {
     methods: {
         async fetchCategories() {
             try {
-                const response = await categoryAPI.getCategoriesForAdmin();
+                const response = await adminCategoryAPI.getCategoriesForAdmin();
                 this.categoryList = response.data;
             } catch (error) {
                 console.error('Failed to fetch categories:', error);
@@ -289,7 +287,7 @@ export default {
             }
 
             try {
-                const response = await categoryAPI.createCategoryForAdmin(formData);
+                const response = await adminCategoryAPI.createCategoryForAdmin(formData);
                 console.log('Create...', response.data);
                 this.successMessage = 'Category created successfully!';
             } catch(error) {
@@ -297,6 +295,25 @@ export default {
                 this.errorMessages.push({
                     'title': 'Create Category',
                     'message': 'Failed to create a new category.',
+                });
+            }
+        },
+
+        async deleteCategory() {
+            if (!this.deleteCategoryId) {
+                console.error('Category ID is not set');
+                return;
+            }
+
+            try {
+                const response = await adminCategoryAPI.deleteCategoryForAdmin(this.deleteCategoryId);
+                console.log('Create...', response.data);
+                this.successMessage = response.data.message;
+            } catch (error) {
+                console.error('Failed...', error);
+                this.errorMessages.push({
+                    'title': 'Delete Category',
+                    'message': 'Failed to delete an existing category.',
                 });
             }
         },
@@ -311,40 +328,7 @@ export default {
 
         setDeleteCategoryId(id) {
             this.deleteCategoryId = id;
-        },
-
-        async deleteCategory() { 
-            if (!this.deleteCategoryId) {
-                console.error('Category ID is not set');
-                return;
-            }
-
-            const URL = `${this.API_BASE_URL}/api/v1/categories/${this.deleteCategoryId}`;
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-            };
-
-            try {
-                const response = await axios.delete(URL, { headers });
-                if (response.status === 202) {
-                    this.successMessage = response.data.message;
-                    this.getCategoryList();
-                }
-            } catch (error) {
-                if (error.response && error.response.status === 401) {
-                    refreshToken();
-                    this.deleteCategory();
-                } else if (error.response && error.response.status === 500) {
-                    this.errorMessages = 'Server issue';
-                } else {
-                    this.errorMessages.push({
-                        'title': 'Error',
-                        'message': 'Could not delete the category',
-                    });
-                }
-            }
-        },
+        },        
 
         findCategory(id) {
             this.updateForm = this.categoryList.find(obj => obj.id === id);
@@ -353,6 +337,7 @@ export default {
 
         setUpdateCategoryId(id) {
             let categoryData = this.findCategory(id);
+
             if (categoryData) {
                 this.updateForm.id = id;
                 this.updateForm.title = categoryData.title;
@@ -362,18 +347,10 @@ export default {
                 this.originalIcon = categoryData.icon;
             } else {
                 console.log('Not found...');
-            }
-            
+            }            
         },
 
         async updateCategory(id) {
-            const URL = `${this.API_BASE_URL}/api/v1/categories/${id}`;
-            const headers = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-                }
-            }
             const formData = new FormData();
 
             formData.append('title', this.updateForm.title);
@@ -384,25 +361,19 @@ export default {
                 formData.append('icon', this.updateForm.icon);
             }
 
-            await axios.put(
-                URL, formData, headers,
-            ).then(response => {
+            try { 
+                console.log('Ok', id);
+                const response = await adminCategoryAPI.updateCategoryForAdmin(id, formData);
                 this.successMessage = response.data.message;
-            }).catch(error => {
-                if (error.response.status === 401) {
-                    refreshToken();
-                    this.saveCategory();
-                } else if (error.response.status === 500) {
-                    this.errorMessages = 'Server issue';
-                } else {
-                    for (const [field, messages] of Object.entries(error.response.errors)) {
-                        this.errorMessages.push({
-                            'title': field,
-                            'message': messages[0],
-                        })
-                    }
+            } catch (error) {
+                console.log('Error while updating...', error);
+                for (const [field, messages] of Object.entries(error.response.errors)) {
+                    this.errorMessages.push({
+                        'title': field,
+                        'message': messages[0],
+                    });
                 }
-            });
+            }
         },
     }
 }
