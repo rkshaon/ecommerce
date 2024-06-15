@@ -229,9 +229,7 @@
 </template>
 
 <script>
-import axios from "axios";
 import { API_BASE_URL } from '@/config';
-import { refreshToken } from "@/services/refreshToken";
 import adminCategoryAPI from "@/services/adminCategoryAPI";
 
 export default {
@@ -330,9 +328,7 @@ export default {
 
         setDeleteCategoryId(id) {
             this.deleteCategoryId = id;
-        },
-
-        
+        },        
 
         findCategory(id) {
             this.updateForm = this.categoryList.find(obj => obj.id === id);
@@ -341,6 +337,7 @@ export default {
 
         setUpdateCategoryId(id) {
             let categoryData = this.findCategory(id);
+
             if (categoryData) {
                 this.updateForm.id = id;
                 this.updateForm.title = categoryData.title;
@@ -350,18 +347,10 @@ export default {
                 this.originalIcon = categoryData.icon;
             } else {
                 console.log('Not found...');
-            }
-            
+            }            
         },
 
         async updateCategory(id) {
-            const URL = `${this.API_BASE_URL}/api/v1/categories/${id}`;
-            const headers = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-                }
-            }
             const formData = new FormData();
 
             formData.append('title', this.updateForm.title);
@@ -372,25 +361,19 @@ export default {
                 formData.append('icon', this.updateForm.icon);
             }
 
-            await axios.put(
-                URL, formData, headers,
-            ).then(response => {
+            try { 
+                console.log('Ok', id);
+                const response = await adminCategoryAPI.updateCategoryForAdmin(id, formData);
                 this.successMessage = response.data.message;
-            }).catch(error => {
-                if (error.response.status === 401) {
-                    refreshToken();
-                    this.saveCategory();
-                } else if (error.response.status === 500) {
-                    this.errorMessages = 'Server issue';
-                } else {
-                    for (const [field, messages] of Object.entries(error.response.errors)) {
-                        this.errorMessages.push({
-                            'title': field,
-                            'message': messages[0],
-                        })
-                    }
+            } catch (error) {
+                console.log('Error while updating...', error);
+                for (const [field, messages] of Object.entries(error.response.errors)) {
+                    this.errorMessages.push({
+                        'title': field,
+                        'message': messages[0],
+                    });
                 }
-            });
+            }
         },
     }
 }

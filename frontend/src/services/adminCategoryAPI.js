@@ -59,5 +59,13 @@ export default {
   deleteCategoryForAdmin(category_id) {
     return apiClient.delete(`/api/v1/categories/${category_id}`);
   },
+
+  updateCategoryForAdmin(category_id, categoryData) {
+    return apiClient.put(`/api/v1/categories/${category_id}`, categoryData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    });
+  },
 };
 
