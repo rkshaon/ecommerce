@@ -232,7 +232,7 @@
 import axios from "axios";
 import { API_BASE_URL } from '@/config';
 import { refreshToken } from "@/services/refreshToken";
-import categoryAPI from "@/services/categoryAPI";
+import adminCategoryAPI from "@/services/adminCategoryAPI";
 
 export default {
     name: "AdminCategoryListComponent",
@@ -265,7 +265,7 @@ export default {
     methods: {
         async fetchCategories() {
             try {
-                const response = await categoryAPI.getCategoriesForAdmin();
+                const response = await adminCategoryAPI.getCategoriesForAdmin();
                 this.categoryList = response.data;
             } catch (error) {
                 console.error('Failed to fetch categories:', error);
@@ -289,7 +289,7 @@ export default {
             }
 
             try {
-                const response = await categoryAPI.createCategoryForAdmin(formData);
+                const response = await adminCategoryAPI.createCategoryForAdmin(formData);
                 console.log('Create...', response.data);
                 this.successMessage = 'Category created successfully!';
             } catch(error) {
