@@ -54,6 +54,10 @@ export default {
         'Content-Type': 'multipart/form-data'
       }
     });
-  }
+  },
+
+  deleteCategoryForAdmin(category_id) {
+    return apiClient.delete(`/api/v1/categories/${category_id}`);
+  },
 };
 

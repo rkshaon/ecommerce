@@ -301,6 +301,25 @@ export default {
             }
         },
 
+        async deleteCategory() {
+            if (!this.deleteCategoryId) {
+                console.error('Category ID is not set');
+                return;
+            }
+
+            try {
+                const response = await adminCategoryAPI.deleteCategoryForAdmin(this.deleteCategoryId);
+                console.log('Create...', response.data);
+                this.successMessage = response.data.message;
+            } catch (error) {
+                console.error('Failed...', error);
+                this.errorMessages.push({
+                    'title': 'Delete Category',
+                    'message': 'Failed to delete an existing category.',
+                });
+            }
+        },
+
         handleFileChangeOnInsert(event) {
             this.categoryForm.icon = event.target.files[0];
         },
@@ -313,38 +332,7 @@ export default {
             this.deleteCategoryId = id;
         },
 
-        async deleteCategory() { 
-            if (!this.deleteCategoryId) {
-                console.error('Category ID is not set');
-                return;
-            }
-
-            const URL = `${this.API_BASE_URL}/api/v1/categories/${this.deleteCategoryId}`;
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-            };
-
-            try {
-                const response = await axios.delete(URL, { headers });
-                if (response.status === 202) {
-                    this.successMessage = response.data.message;
-                    this.getCategoryList();
-                }
-            } catch (error) {
-                if (error.response && error.response.status === 401) {
-                    refreshToken();
-                    this.deleteCategory();
-                } else if (error.response && error.response.status === 500) {
-                    this.errorMessages = 'Server issue';
-                } else {
-                    this.errorMessages.push({
-                        'title': 'Error',
-                        'message': 'Could not delete the category',
-                    });
-                }
-            }
-        },
+        
 
         findCategory(id) {
             this.updateForm = this.categoryList.find(obj => obj.id === id);
