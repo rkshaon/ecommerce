@@ -132,7 +132,7 @@
             data-bs-target="#addCategoryModal">
             <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
             Add Category
-        </button>
+        </button>        
         <div class="row">
             <div class="col-md-4">
                 <div class="shadow-lg">
@@ -231,9 +231,12 @@
 <script>
 import { API_BASE_URL } from '@/config';
 import adminCategoryAPI from "@/services/adminCategoryAPI";
+import { Modal } from 'bootstrap';
 
 export default {
     name: "AdminCategoryListComponent",
+    components: {
+    },
     data() {
         return {
             API_BASE_URL: API_BASE_URL,
@@ -255,6 +258,7 @@ export default {
             categoryList: [],
             deleteCategoryId: null,
             originalIcon: null,
+            showAddModal: false,
         }
     },
     created() {
@@ -297,6 +301,10 @@ export default {
                     'message': 'Failed to create a new category.',
                 });
             }
+
+            let createCategoryModalElement = document.getElementById('addCategoryModal');
+            let modal = Modal.getInstance(createCategoryModalElement);
+            modal.hide();
         },
 
         async deleteCategory() {
@@ -307,7 +315,7 @@ export default {
 
             try {
                 const response = await adminCategoryAPI.deleteCategoryForAdmin(this.deleteCategoryId);
-                console.log('Create...', response.data);
+                console.log('Deleted...', response.data);
                 this.successMessage = response.data.message;
             } catch (error) {
                 console.error('Failed...', error);
@@ -316,6 +324,10 @@ export default {
                     'message': 'Failed to delete an existing category.',
                 });
             }
+
+            let deleteCategoryModalElement = document.getElementById('deleteCategoryModal');
+            let modal = Modal.getInstance(deleteCategoryModalElement);
+            modal.hide();
         },
 
         handleFileChangeOnInsert(event) {
