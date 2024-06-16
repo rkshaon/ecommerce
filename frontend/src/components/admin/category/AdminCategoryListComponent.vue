@@ -362,11 +362,9 @@ export default {
             }
 
             try { 
-                console.log('Ok', id);
                 const response = await adminCategoryAPI.updateCategoryForAdmin(id, formData);
                 this.successMessage = response.data.message;
             } catch (error) {
-                console.log('Error while updating...', error);
                 for (const [field, messages] of Object.entries(error.response.errors)) {
                     this.errorMessages.push({
                         'title': field,
