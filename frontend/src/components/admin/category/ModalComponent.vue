@@ -1,14 +1,22 @@
 <template>
     <div>
-        <b-button id="show-btn" @click="showTestModal">Open Modal</b-button>
-
-        <b-modal ref="testModal" hide-footer title="Using Component Methods">
-            <div class="d-block text-center">
-                <h3>Hello From My Modal!</h3>
+        <div class="modal" tabindex="-1" id="testModal" ref="testModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal Title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="submit">Submit</button>
+                    </div>
+                </div>
             </div>
-            <b-button class="mt-3" variant="outline-danger" block>Close Me</b-button>
-            <b-button class="mt-2" variant="outline-warning" block>Toggle Me</b-button>
-        </b-modal>
+        </div>
     </div>
 </template>
 
@@ -34,6 +42,7 @@ export default {
                 // const modal = new bootstrap.Modal(modalElement);
                 const modal = new Modal(modalElement);
                 console.log(typeof modal);
+                modal.show();
                 // modal.show();
                 // modal._showElement;
                 // modal.show
@@ -44,12 +53,22 @@ export default {
                 console.log('404');
             }
         },
-        // submit() {
-        //     const modal = bootstrap.Modal.getInstance(this.$refs.exampleModal);
-        //     setTimeout(() => {
-        //         modal.hide();
-        //     }, 3000);
-        // },
+        submit() {
+            const modalElement = this.$refs.testModal;
+            const modal = new Modal(modalElement);
+            console.log('Submit button...');
+            // modal.hide();
+            // modal.dispose();
+
+            modal._hideModal();
+            modal._backdrop;
+            // modal.hide();
+
+            // setTimeout(() => {
+            //     modal.hide();
+            // }, 3000);
+            console.log('Submit button closing...');
+        },
     },
 }
 </script>
