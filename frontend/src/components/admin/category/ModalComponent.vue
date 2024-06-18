@@ -14,7 +14,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Yes, delete</button>
+                    <button type="button" class="btn btn-danger" @click="submit">Yes, delete</button>
                 </div>
             </div>
         </div>
@@ -28,9 +28,18 @@ export default {
     name: 'ModalComponent',
     methods: {
         showTestModal() {
-            let testModal = new bootstrap.Modal.getInstance(this.$refs.testModal);
+            console.log('Hello...');
+            // let testModal = new bootstrap.Modal(this.$refs.testModal);
+            let testModal = new bootstrap.Modal(document.getElementById('testModal'));
+            // let testModal = new bootstrap.Modal.getInstance(this.$refs.testModal);
             testModal.show();
-        },        
+        },
+        submit() {
+            const modal = bootstrap.Modal.getInstance(this.$refs.exampleModal);
+            setTimeout(() => {
+                modal.hide();
+            }, 3000);
+        },
     },
 }
 </script>

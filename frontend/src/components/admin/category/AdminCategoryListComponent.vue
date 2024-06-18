@@ -125,7 +125,6 @@
             Add Category
         </button>
         <button type="button" class="btn btn-success" @click="showTestModal">Test me!</button>
-        <!-- <ModalComponent></ModalComponent> -->
         <ModalComponent ref="modalComponent" />
         <div class="row">
             <div class="col-md-4">
@@ -228,24 +227,12 @@ import adminCategoryAPI from "@/services/adminCategoryAPI";
 import ModalComponent from '@/components/admin/category/ModalComponent.vue';
 
 import { Modal } from 'bootstrap';
-// import bootstrap from 'bootstrap';
-
-// let testModal;
 
 export default {
     name: "AdminCategoryListComponent",
     components: {
         ModalComponent,
     },
-    // onMounted
-    // mounted() {
-    //     // () => {
-    //     //     testModal = new bootstrap.Modal(document.getElementById('testModal'));
-    //     //     console.log(testModal);
-    //     // }
-    //     testModal = new bootstrap.Modal(document.getElementById('testModal'));
-    //     // console.log(testModal);
-    // },
     setup() {},
     data() {
         return {
