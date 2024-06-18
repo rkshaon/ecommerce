@@ -21,34 +21,17 @@
 </template>
 
 <script>
-// import bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
 
 export default {
     name: 'ModalComponent',
     methods: {
         showTestModal() {
-            console.log('Hello...');
-            // let testModal = new bootstrap.Modal(this.$refs.testModal);
-            // let testModal = new bootstrap.Modal(document.getElementById('testModal'));
-            // let testModal = new bootstrap.Modal.getInstance(this.$refs.testModal);
-            // testModal.show();
-            // this.$refs['testModal'].show();
             const modalElement = this.$refs.testModal;
-            // console.log(modalElement);
 
             if (modalElement) {
-                console.log('Found');
-                // const modal = new bootstrap.Modal(modalElement);
                 const modal = new Modal(modalElement);
-                console.log(typeof modal);
                 modal.show();
-                // modal.show();
-                // modal._showElement;
-                // modal.show
-                // const modal = new bootstrap.Modal(modalElement);
-                // modal.show();
-                // this.$refs['testModal'].show();
             } else {
                 console.log('404');
             }
@@ -56,18 +39,7 @@ export default {
         submit() {
             const modalElement = this.$refs.testModal;
             const modal = new Modal(modalElement);
-            console.log('Submit button...');
-            // modal.hide();
-            // modal.dispose();
-
             modal._hideModal();
-            modal._backdrop;
-            // modal.hide();
-
-            // setTimeout(() => {
-            //     modal.hide();
-            // }, 3000);
-            console.log('Submit button closing...');
         },
     },
 }
