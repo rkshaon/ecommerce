@@ -125,7 +125,8 @@
             Add Category
         </button>
         <button type="button" class="btn btn-success" @click="showTestModal">Test me!</button>
-        <ModalComponent></ModalComponent>
+        <!-- <ModalComponent></ModalComponent> -->
+        <ModalComponent ref="modalComponent" />
         <div class="row">
             <div class="col-md-4">
                 <div class="shadow-lg">

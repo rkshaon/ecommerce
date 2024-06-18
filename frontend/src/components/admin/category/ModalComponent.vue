@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// import { ref } from 'vue';
 import bootstrap from 'bootstrap';
 
 export default {
