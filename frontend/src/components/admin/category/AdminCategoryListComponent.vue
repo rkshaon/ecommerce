@@ -14,6 +14,7 @@
             </ul>
         </div>
         <!-- Add category modal -->
+        <!-- Add Category Modal -->
         <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -22,38 +23,28 @@
                         <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body text-start">
-                        <form action="">
+                    <div class="modal-body">
+                        <form @submit.prevent="createCategory">
                             <div class="mb-3">
-                                <label for="exampleInputText1" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="exampleInputText1"
-                                    aria-describedby="textHelp1" v-model="categoryForm.title">
-                                <div id="textHelp1" class="form-text">Category name must be unique.</div>
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" v-model="categoryForm.title">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputText2" class="form-label">Short Title</label>
-                                <input type="text" class="form-control" id="exampleInputText2"
+                                <label for="shortTitle" class="form-label">Short Title</label>
+                                <input type="text" class="form-control" id="shortTitle"
                                     v-model="categoryForm.short_title">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputText3" class="form-label">Icon</label>
-                                <input type="file" class="form-control" id="exampleInputText3"
-                                    @change="handleFileChangeOnInsert">
+                                <label for="icon" class="form-label">Icon</label>
+                                <input type="file" class="form-control" id="icon" @change="handleFileChangeOnInsert">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleTextarea" class="form-label">Description</label>
-                                <textarea class="form-control" id="exampleTextarea" rows="3"
-                                    v-model="categoryForm.description" maxlength="255">
-                                </textarea>
-                                <div class="ms-3 text-end">
-                                    <span class="text-muted small">{{ categoryForm.description.length }} / 255</span>
-                                </div>
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" rows="3"
+                                    v-model="categoryForm.description" maxlength="255"></textarea>
                             </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="createCategory">Save</button>
                     </div>
                 </div>
             </div>
@@ -132,7 +123,9 @@
             data-bs-target="#addCategoryModal">
             <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
             Add Category
-        </button>        
+        </button>
+        <button type="button" class="btn btn-success" @click="showTestModal">Test me!</button>
+        <ModalComponent></ModalComponent>
         <div class="row">
             <div class="col-md-4">
                 <div class="shadow-lg">
@@ -231,12 +224,28 @@
 <script>
 import { API_BASE_URL } from '@/config';
 import adminCategoryAPI from "@/services/adminCategoryAPI";
+import ModalComponent from '@/components/admin/category/ModalComponent.vue';
+
 import { Modal } from 'bootstrap';
+// import bootstrap from 'bootstrap';
+
+// let testModal;
 
 export default {
     name: "AdminCategoryListComponent",
     components: {
+        ModalComponent,
     },
+    // onMounted
+    // mounted() {
+    //     // () => {
+    //     //     testModal = new bootstrap.Modal(document.getElementById('testModal'));
+    //     //     console.log(testModal);
+    //     // }
+    //     testModal = new bootstrap.Modal(document.getElementById('testModal'));
+    //     // console.log(testModal);
+    // },
+    setup() {},
     data() {
         return {
             API_BASE_URL: API_BASE_URL,
@@ -265,6 +274,14 @@ export default {
         this.fetchCategories();
     },
     methods: {
+        showTestModal() {
+            // console.log('Hello...');
+            // let testModal = new bootstrap.Modal(document.getElementById('testModal'));
+            // // console.log(testModal);
+            // testModal.show();
+            this.$refs.modalComponent.showTestModal();
+        },
+
         async fetchCategories() {
             try {
                 const response = await adminCategoryAPI.getCategoriesForAdmin();
