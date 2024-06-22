@@ -27,8 +27,14 @@ const actions = {
     },
     
     async addCategory({ commit }, category) {
-        const response = await createCategoryForAdmin(category);
-        commit("addCategory", response.data);
+        try {
+            const response = await createCategoryForAdmin(category);
+            commit("addCategory", response.data);
+            return response.data;
+        } catch (error) {
+            console.error('Error adding category:', error);
+            throw error;
+        }
     },
     
     async deleteCategory({ commit }, id) {

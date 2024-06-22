@@ -36,7 +36,7 @@
 
 <script>
 import { Modal } from 'bootstrap';
-import adminCategoryAPI from "@/services/adminCategoryAPI";
+import { mapActions } from 'vuex';
 
 export default {
     name: 'AdminAddCategoryComponent',
@@ -51,9 +51,10 @@ export default {
         }
     },
     methods: {
+        ...mapActions('category', ['addCategory']),
+
         showAddCategoryModal() {
             const modalElement = this.$refs.addCategoryModal;
-            console.log(modalElement);
 
             if (modalElement) {
                 const modal = new Modal(modalElement);
@@ -78,18 +79,12 @@ export default {
             if (this.categoryForm.icon) {
                 formData.append('icon', this.categoryForm.icon);
             }
-
-            console.log(formData);
-            try {
-                const response = await adminCategoryAPI.createCategoryForAdmin(formData);
-                console.log('Create...', response.data);
-                this.successMessage = 'Category created successfully!';
+            
+            try { 
+                const addedCategory = await this.addCategory(formData);
+                this.$emit('categoryAdded', addedCategory);
             } catch (error) {
-                console.error('Failed...', error);
-                this.errorMessages.push({
-                    'title': 'Create Category',
-                    'message': 'Failed to create a new category.',
-                });
+                console.log('Failed:', error);
             }
 
             const modalElement = this.$refs.addCategoryModal;

@@ -7,7 +7,6 @@
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Status</th>
                     <th scope="col">Icon</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -18,22 +17,14 @@
                     <td>{{ cat.title }}</td>
                     <td>{{ cat.description }}</td>
                     <td>
-                        <div class="alert alert-warning" role="alert">
-                            Active: {{ cat.is_active }}
-                        </div>
-                        <div class="alert alert-danger" role="alert">
-                            Delete: {{ cat.is_deleted }}
-                        </div>
-                    </td>
-                    <td>
                         <img v-if="cat.icon" :src="`${API_BASE_URL}${cat.icon}`" :alt="cat.title"
                             height="50" />
                         <div v-else>Upload Icon</div>
                     </td>
                     <td>
-                        <font-awesome-icon :icon="['fas', 'file-pen']" style="" data-bs-toggle="modal"
+                        <font-awesome-icon class="text-warning" :icon="['fas', 'file-pen']" style="" data-bs-toggle="modal"
                             data-bs-target="#updateCategoryModal" />
-                        <font-awesome-icon :icon="['fas', 'trash']" style="padding-left: 10px;" data-bs-toggle="modal"
+                        <font-awesome-icon class="text-danger" :icon="['fas', 'trash']" style="padding-left: 10px;" data-bs-toggle="modal"
                             data-bs-target="#deleteCategoryModal" />
                     </td>
                 </tr>
