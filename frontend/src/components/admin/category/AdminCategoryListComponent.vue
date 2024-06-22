@@ -1,5 +1,6 @@
 <template>
     <AdminDeleteCategoryComponent ref="deleteComponentModal" />
+    <AdminUpdateCategoryComponent ref="updateComponentModal" />
     <div class="pt-5">
         <table class="table caption-top table-hover table-bordered">
             <caption>List of categories</caption>
@@ -22,12 +23,14 @@
                         <div v-else>Upload Icon</div>
                     </td>
                     <td>
+                        <!-- <font-awesome-icon class="text-warning" :icon="['fas', 'file-pen']" style=""
+                            data-bs-toggle="modal" data-bs-target="#updateCategoryModal" /> -->
                         <font-awesome-icon class="text-warning" :icon="['fas', 'file-pen']" style=""
-                            data-bs-toggle="modal" data-bs-target="#updateCategoryModal" />
+                            @click="showUpdateCategoryModal(cat.id)" />
                         <!-- <font-awesome-icon class="text-danger" :icon="['fas', 'trash']" style="padding-left: 10px;"
                             data-bs-toggle="modal" data-bs-target="#deleteCategoryModal" /> -->
                         <font-awesome-icon class="text-danger" :icon="['fas', 'trash']" style="padding-left: 10px;"
-                            @click="showDeleteCategoryModal(cat.id)"/>
+                            @click="showDeleteCategoryModal(cat.id)" />
                     </td>
                 </tr>
             </tbody>
@@ -39,11 +42,13 @@
 import { mapState, mapActions } from 'vuex';
 import { API_BASE_URL } from '@/config';
 import AdminDeleteCategoryComponent from '@/components/admin/category/AdminDeleteCategoryComponent.vue';
+import AdminUpdateCategoryComponent from '@/components/admin/category/AdminUpdateCategoryComponent.vue';
 
 export default {
     name: "AdminCategoryListComponent",
     components: {
         AdminDeleteCategoryComponent,
+        AdminUpdateCategoryComponent
     },
     setup() { },
     data() {
@@ -62,6 +67,10 @@ export default {
         showDeleteCategoryModal(id) {
             this.$refs.deleteComponentModal.showDeleteCategoryModal(id);
         },
+
+        showUpdateCategoryModal(id) {
+            this.$refs.updateComponentModal.showUpdateCategoryModal(id);
+        }
 
     },
     created() {

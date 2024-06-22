@@ -50,6 +50,7 @@ export default {
         async confirmDelete() {
             try {
                 await this.deleteCategory(this.deleteCategoryId);
+                this.$emit('categoryDeleted', this.deleteCategoryId);
             } catch (error) {
                 console.log('Failed:', error);
             }
