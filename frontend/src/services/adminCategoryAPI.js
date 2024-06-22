@@ -43,22 +43,35 @@ apiClient.interceptors.response.use(
   }
 );
 
-export default {
-  getCategoriesForAdmin() {
-    return apiClient.get('/api/v1/categories/');
-  },
-  
-  createCategoryForAdmin(categoryData) {
-    return apiClient.post('/api/v1/categories/', categoryData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-  },
+export const getCategoriesForAdmin = () => {
+  // return axios.get(`${API_URL}/categories`);
+  return apiClient.get("/api/v1/categories/");
+};
 
-  deleteCategoryForAdmin(category_id) {
-    return apiClient.delete(`/api/v1/categories/${category_id}`);
-  },
+export const createCategoryForAdmin = (categoryData) => {
+  return apiClient.post('/api/v1/categories/', categoryData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+};
+
+export const deleteCategoryForAdmin = (category_id) => {
+  return apiClient.delete(`/api/v1/categories/${category_id}`);
+};
+
+export default {  
+  // createCategoryForAdmin(categoryData) {
+  //   return apiClient.post('/api/v1/categories/', categoryData, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  //   });
+  // },
+
+  // deleteCategoryForAdmin(category_id) {
+  //   return apiClient.delete(`/api/v1/categories/${category_id}`);
+  // },
 
   updateCategoryForAdmin(category_id, categoryData) {
     return apiClient.put(`/api/v1/categories/${category_id}`, categoryData, {

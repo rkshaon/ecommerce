@@ -22,7 +22,9 @@ const mutations = {
 
 const actions = {
     async fetchCategories({ commit }) {
+        console.log('Hello');
         const response = await getCategoriesForAdmin();
+        console.log(response.data);
         commit("setCategories", response.data);
     },
     
@@ -42,8 +44,9 @@ const getters = {
 };
 
 export default {
-    state,
-    mutations,
-    actions,
-    getters,
+  namespaced: true,
+  state,
+  mutations,
+  actions,
+  getters,
 };

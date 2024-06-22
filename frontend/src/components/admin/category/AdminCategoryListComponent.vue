@@ -13,20 +13,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(category, index) in categoryList" :key="index">
+                <tr v-for="(cat, index) in categoryList" :key="index">
                     <th scope="row">{{ index + 1 }}</th>
-                    <td>{{ category.title }}</td>
-                    <td>{{ category.description }}</td>
+                    <td>{{ cat.title }}</td>
+                    <td>{{ cat.description }}</td>
                     <td>
                         <div class="alert alert-warning" role="alert">
-                            Active: {{ category.is_active }}
+                            Active: {{ cat.is_active }}
                         </div>
                         <div class="alert alert-danger" role="alert">
-                            Delete: {{ category.is_deleted }}
+                            Delete: {{ cat.is_deleted }}
                         </div>
                     </td>
                     <td>
-                        <img v-if="category.icon" :src="`${API_BASE_URL}${category.icon}`" :alt="category.title"
+                        <img v-if="cat.icon" :src="`${API_BASE_URL}${cat.icon}`" :alt="cat.title"
                             height="50" />
                         <div v-else>Upload Icon</div>
                     </td>
@@ -50,15 +50,20 @@ export default {
     name: "AdminCategoryListComponent",
     components: {
     },
-    computed: {
-        ...mapState('category', ['categories'])
-    },
     setup() { },
     data() {
         return {
             API_BASE_URL: API_BASE_URL,
             categoryList: [],
         }
+    },
+    // computed: {
+    //     ...mapState('category', {
+    //         categoryList: 'categories'
+    //     })
+    // },
+    computed: {
+        ...mapState('category', ['categories'])
     },
     methods: {
         ...mapActions('category', ['fetchCategories']),
