@@ -60,12 +60,12 @@ export default {
             categoryList: [],
         }
     },
+    methods: {
+        ...mapActions('category', ['fetchCategories']),
+    },
     created() {
         this.fetchCategories();
     },
-    methods: {
-        ...mapActions('category', ['fetchCategories']),
-    }
 }
 </script>
 

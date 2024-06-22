@@ -1,4 +1,4 @@
-import { getCategoriesForAdmin, createCategoryForAdmin, deleteCategoryForAdmin, updateCategoryForAdmin } from '@/services/adminCategoryAPI';
+import { getCategoriesForAdmin, createCategoryForAdmin, deleteCategoryForAdmin } from '@/services/adminCategoryAPI';
 
 const state = {
   categories: [],
@@ -31,8 +31,8 @@ const actions = {
         commit("addCategory", response.data);
     },
     
-    async deleteCategoryForAdmin({ commit }, id) {
-        await deleteCategory(id);
+    async deleteCategory({ commit }, id) {
+        await deleteCategoryForAdmin(id);
         commit("removeCategory", id);
     },
 };
