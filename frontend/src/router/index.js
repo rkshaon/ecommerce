@@ -10,7 +10,7 @@ import NotFoundComponent from '@/components/NotFoundComponent';
 import AdminBaseComponent from "@/components/admin/AdminBaseComponent";
 import AdminDashboardComponent from '@/components/admin/AdminDashboardComponent';
 import AdminLoginComponent from '@/components/admin/AdminLoginComponent.vue';
-import AdminCategoryListComponent from "@/components/admin/category/AdminCategoryListComponent.vue";
+import AdminCategoryComponent from "@/components/admin/category/AdminCategoryComponent.vue";
 
 
 
@@ -49,7 +49,7 @@ const routes = [
       {
         path: "category",
         name: "admin-category",
-        component: AdminCategoryListComponent,
+        component: AdminCategoryComponent,
       },
     ],
   },
