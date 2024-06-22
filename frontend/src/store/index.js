@@ -1,14 +1,26 @@
-import { createStore } from "vuex";
-import auth from "./modules/auth";
+import Vue from "vue";
+import Vuex from "vuex";
+import category from "./modules/category";
 
-const store = createStore({
+Vue.use(Vuex);
+
+export default new Vuex.Store({
   modules: {
-    auth,
+    category,
   },
 });
 
-export default store;
+// Old codes
+// import { createStore } from "vuex";
+// import auth from "./modules/auth";
 
+// const store = createStore({
+//   modules: {
+//     auth,
+//   },
+// });
+
+// export default store;
 
 // import Vue from "vue";
 // import Vuex from "vuex";
