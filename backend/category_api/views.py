@@ -62,10 +62,7 @@ class CategoryViewSet(ViewSet):
 
         if serializer.is_valid():
             serializer.save()
-            return Response({
-                'status': True,
-                'data': serializer.data,
-            }, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response({
                 'status': False,
