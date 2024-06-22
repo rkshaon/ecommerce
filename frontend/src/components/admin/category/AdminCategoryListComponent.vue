@@ -54,16 +54,12 @@ export default {
     data() {
         return {
             API_BASE_URL: API_BASE_URL,
-            categoryList: [],
         }
     },
-    // computed: {
-    //     ...mapState('category', {
-    //         categoryList: 'categories'
-    //     })
-    // },
     computed: {
-        ...mapState('category', ['categories'])
+        ...mapState('category', {
+            categoryList: 'categories'
+        }),
     },
     methods: {
         ...mapActions('category', ['fetchCategories']),
