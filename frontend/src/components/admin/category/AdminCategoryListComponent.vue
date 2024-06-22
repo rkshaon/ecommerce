@@ -13,42 +13,7 @@
                 </li>
             </ul>
         </div>
-        <!-- Add category modal -->
-        <!-- Add Category Modal -->
-        <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form @submit.prevent="createCategory">
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="title" v-model="categoryForm.title">
-                            </div>
-                            <div class="mb-3">
-                                <label for="shortTitle" class="form-label">Short Title</label>
-                                <input type="text" class="form-control" id="shortTitle"
-                                    v-model="categoryForm.short_title">
-                            </div>
-                            <div class="mb-3">
-                                <label for="icon" class="form-label">Icon</label>
-                                <input type="file" class="form-control" id="icon" @change="handleFileChangeOnInsert">
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" rows="3"
-                                    v-model="categoryForm.description" maxlength="255"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <AdminAddCategoryComponent ref="addComponentModal" />
         <!-- Update category modal -->
         <div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryModalLabel"
             aria-hidden="true">
@@ -98,12 +63,34 @@
             </div>
         </div>
         <!-- Delete category modal -->
-        
+        <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-start">
+                        <div class="mb-3">
+                            <label for="exampleInputText1" class="form-label">Are you sure?</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" @click="deleteCategory">Yes, delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Add category button -->
-        <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal"
+        <!-- <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal"
             data-bs-target="#addCategoryModal">
             <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
             Add Category
+        </button> -->
+        <button type="button" class="btn btn-primary btn-lg mb-2" @click="showAddCategoryModal">
+            <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />Add Category
         </button>
         <button type="button" class="btn btn-success" @click="showTestModal">Test me!</button>
         <ModalComponent ref="modalComponent" />
@@ -206,6 +193,7 @@
 import { API_BASE_URL } from '@/config';
 import adminCategoryAPI from "@/services/adminCategoryAPI";
 import ModalComponent from '@/components/admin/category/ModalComponent.vue';
+import AdminAddCategoryComponent from '@/components/admin/category/AdminAddCategoryComponent.vue';
 
 import { Modal } from 'bootstrap';
 
@@ -213,17 +201,12 @@ export default {
     name: "AdminCategoryListComponent",
     components: {
         ModalComponent,
+        AdminAddCategoryComponent,
     },
     setup() {},
     data() {
         return {
             API_BASE_URL: API_BASE_URL,
-            categoryForm: {
-                title: '',
-                short_title: '',
-                icon: null,
-                description: '',
-            },
             updateForm: {
                 id: '',
                 title: '',
@@ -251,6 +234,10 @@ export default {
             this.$refs.modalComponent.showTestModal();
         },
 
+        showAddCategoryModal() {
+            this.$refs.addComponentModal.showAddCategoryModal();
+        },
+
         async fetchCategories() {
             try {
                 const response = await adminCategoryAPI.getCategoriesForAdmin();
@@ -263,36 +250,7 @@ export default {
                 });
             }
         },
-
-        async createCategory() {
-            const formData = new FormData();
-
-            formData.append('title', this.categoryForm.title);
-            formData.append('short_title', this.categoryForm.short_title);
-            formData.append('description', this.categoryForm.description);
-            formData.append('is_active', true);
-
-            if (this.categoryForm.icon) {
-                formData.append('icon', this.categoryForm.icon);
-            }
-
-            try {
-                const response = await adminCategoryAPI.createCategoryForAdmin(formData);
-                console.log('Create...', response.data);
-                this.successMessage = 'Category created successfully!';
-            } catch(error) {
-                console.error('Failed...', error);
-                this.errorMessages.push({
-                    'title': 'Create Category',
-                    'message': 'Failed to create a new category.',
-                });
-            }
-
-            let createCategoryModalElement = document.getElementById('addCategoryModal');
-            let modal = Modal.getInstance(createCategoryModalElement);
-            modal.hide();
-        },
-
+        
         async deleteCategory() {
             if (!this.deleteCategoryId) {
                 console.error('Category ID is not set');
@@ -314,10 +272,6 @@ export default {
             let deleteCategoryModalElement = document.getElementById('deleteCategoryModal');
             let modal = Modal.getInstance(deleteCategoryModalElement);
             modal.hide();
-        },
-
-        handleFileChangeOnInsert(event) {
-            this.categoryForm.icon = event.target.files[0];
         },
 
         handleFileChangeOnUpdate(event) {
