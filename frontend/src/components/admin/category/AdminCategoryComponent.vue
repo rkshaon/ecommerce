@@ -92,8 +92,6 @@
         <button type="button" class="btn btn-primary btn-lg mb-2" @click="showAddCategoryModal">
             <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />Add Category
         </button>
-        <button type="button" class="btn btn-success" @click="showTestModal">Test me!</button>
-        <ModalComponent ref="modalComponent" />
         <div class="row">
             <div class="col-md-4">
                 <div class="shadow-lg">
@@ -151,7 +149,6 @@
 <script>
 import { API_BASE_URL } from '@/config';
 import adminCategoryAPI from "@/services/adminCategoryAPI";
-import ModalComponent from '@/components/admin/category/ModalComponent.vue';
 import AdminAddCategoryComponent from '@/components/admin/category/AdminAddCategoryComponent.vue';
 import AdminCategoryListComponent from '@/components/admin/category/AdminCategoryListComponent.vue';
 
@@ -160,7 +157,6 @@ import { Modal } from 'bootstrap';
 export default {
     name: "AdminCategoryComponent",
     components: {
-        ModalComponent,
         AdminAddCategoryComponent,
         AdminCategoryListComponent
     },
@@ -186,14 +182,6 @@ export default {
 
     },
     methods: {
-        showTestModal() {
-            // console.log('Hello...');
-            // let testModal = new bootstrap.Modal(document.getElementById('testModal'));
-            // // console.log(testModal);
-            // testModal.show();
-            this.$refs.modalComponent.showTestModal();
-        },
-
         showAddCategoryModal() {
             this.$refs.addComponentModal.showAddCategoryModal();
         },
