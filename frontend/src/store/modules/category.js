@@ -1,3 +1,5 @@
+// /src/store/modules/category.js
+
 import {
     getCategoryForAdmin,
     getCategoriesForAdmin,
@@ -72,10 +74,8 @@ const actions = {
         commit("removeCategory", id);
     },
 
-    async updateCategory({ commit }, id, category) {
-        console.log("before update: ", id, category);
+    async updateCategory({ commit }, {id, category}) {
         const response = await updateCategoryForAdmin(id, category);
-        console.log("after response: ", response.data);
         commit("updateCategory", response.data);
     },
 };

@@ -79,11 +79,8 @@
 
 <script>
 import { API_BASE_URL } from '@/config';
-import adminCategoryAPI from "@/services/adminCategoryAPI";
 import AdminAddCategoryComponent from '@/components/admin/category/AdminAddCategoryComponent.vue';
 import AdminCategoryListComponent from '@/components/admin/category/AdminCategoryListComponent.vue';
-
-import { Modal } from 'bootstrap';
 
 export default {
     name: "AdminCategoryComponent",
@@ -95,18 +92,8 @@ export default {
     data() {
         return {
             API_BASE_URL: API_BASE_URL,
-            updateForm: {
-                id: '',
-                title: '',
-                short_title: '',
-                icon: null,
-                description: '',
-            },
             errorMessages: [],
             successMessage: '',
-            deleteCategoryId: null,
-            originalIcon: null,
-            showAddModal: false,
         }
     },
     created() {
@@ -115,79 +102,6 @@ export default {
     methods: {
         showAddCategoryModal() {
             this.$refs.addComponentModal.showAddCategoryModal();
-        },
-
-        async deleteCategory() {
-            if (!this.deleteCategoryId) {
-                console.error('Category ID is not set');
-                return;
-            }
-
-            try {
-                const response = await adminCategoryAPI.deleteCategoryForAdmin(this.deleteCategoryId);
-                console.log('Deleted...', response.data);
-                this.successMessage = response.data.message;
-            } catch (error) {
-                console.error('Failed...', error);
-                this.errorMessages.push({
-                    'title': 'Delete Category',
-                    'message': 'Failed to delete an existing category.',
-                });
-            }
-
-            let deleteCategoryModalElement = document.getElementById('deleteCategoryModal');
-            let modal = Modal.getInstance(deleteCategoryModalElement);
-            modal.hide();
-        },
-
-        
-
-        setDeleteCategoryId(id) {
-            this.deleteCategoryId = id;
-        },
-
-        findCategory(id) {
-            this.updateForm = this.categoryList.find(obj => obj.id === id);
-            return this.updateForm;
-        },
-
-        setUpdateCategoryId(id) {
-            let categoryData = this.findCategory(id);
-
-            if (categoryData) {
-                this.updateForm.id = id;
-                this.updateForm.title = categoryData.title;
-                this.updateForm.short_title = categoryData.short_title;
-                this.updateForm.icon = categoryData.icon;
-                this.updateForm.description = categoryData.description;
-                this.originalIcon = categoryData.icon;
-            } else {
-                console.log('Not found...');
-            }
-        },
-
-        async updateCategory(id) {
-            const formData = new FormData();
-
-            formData.append('title', this.updateForm.title);
-            formData.append('short_title', this.updateForm.short_title);
-            formData.append('description', this.updateForm.description);
-
-            if (this.updateForm.icon && this.originalIcon !== this.updateForm.icon) {
-                formData.append('icon', this.updateForm.icon);
-            }
-
-            try {
-                const response = await adminCategoryAPI.updateCategoryForAdmin(id, formData);
-                this.successMessage = response.data.message;
-            } catch (error) {
-                for (const [field, messages] of Object.entries(error.response.errors)) {
-                    this.errorMessages.push({
-                        'title': field,
-                        'message': messages[0],
-                    });
-                }
-            }
         },
     }
 }

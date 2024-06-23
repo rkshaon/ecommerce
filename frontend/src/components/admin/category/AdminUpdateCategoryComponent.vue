@@ -41,7 +41,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="confirmUpdate(updateForm.id)">Save
+                    <button type="button" class="btn btn-primary" @click="confirmUpdate">Save
                         changes</button>
                 </div>
             </div>
@@ -67,6 +67,7 @@ export default {
                 icon: null,
                 description: '',
             },
+            originalIcon: null,
         }
     },
     methods: {
@@ -77,6 +78,7 @@ export default {
 
             try {
                 this.updateForm = await this.fetchCategory(this.updateCategoryId);
+                this.originalIcon = this.updateForm.icon;
             } catch (error) {
                 console.log('Failed:', error);
             }
@@ -95,25 +97,24 @@ export default {
             this.updateForm.icon = event.target.files[0];
         },
 
-        async confirmUpdate(id) {
-            console.log(id);
+        async confirmUpdate() {
             const formData = new FormData();
 
             formData.append('title', this.updateForm.title);
             formData.append('short_title', this.updateForm.short_title);
             formData.append('description', this.updateForm.description);
 
-            // if (this.updateForm.icon && this.originalIcon !== this.updateForm.icon) {
-            //     formData.append('icon', this.updateForm.icon);
-            // }
+            if (this.updateForm.icon && this.originalIcon !== this.updateForm.icon) {
+                formData.append('icon', this.updateForm.icon);
+            }
 
             console.log('Title: ', this.updateForm.title);
             console.log(formData);
 
             try {
-                const updatededCategory = await this.updateCategory(id, formData);
-                // this.$emit('categoryAdded', updatededCategory);
-                console.log("in component after response: ", updatededCategory);
+                await this.updateCategory({
+                    id: this.updateCategoryId, category: formData
+                });
             } catch (error) {
                 console.log('Failed:', error);
             }
