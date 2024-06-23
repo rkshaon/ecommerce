@@ -3,6 +3,8 @@ import App from './App.vue';
 import router from '@/router';
 // import { BootstrapVueNext } from "bootstrap-vue-next";
 import store from "@/store";
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -50,5 +52,9 @@ const app = createApp(App);
 // app.use(BootstrapVueNext);
 app.use(router);
 app.use(store);
+app.use(Toast, {
+  duration: 3000,
+  position: "top-right",
+});
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.mount("#app");

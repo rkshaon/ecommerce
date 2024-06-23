@@ -37,6 +37,7 @@
 <script>
 import { Modal } from 'bootstrap';
 import { mapActions } from 'vuex';
+import { useToast } from "vue-toastification";
 
 export default {
     name: 'AdminAddCategoryComponent',
@@ -79,12 +80,15 @@ export default {
             if (this.categoryForm.icon) {
                 formData.append('icon', this.categoryForm.icon);
             }
-            
+            const toast = useToast();
+
             try { 
                 const addedCategory = await this.addCategory(formData);
                 this.$emit('categoryAdded', addedCategory);
+                toast.success('Category created!');
             } catch (error) {
                 console.log('Failed:', error);
+                toast.error('Failed to create category.');
             }
 
             const modalElement = this.$refs.addCategoryModal;

@@ -24,6 +24,7 @@
 <script>
 import { mapActions } from 'vuex';
 import { Modal } from 'bootstrap';
+import { useToast } from "vue-toastification";
 
 export default {
     name: 'AdminDeleteCategoryComponent',
@@ -48,11 +49,15 @@ export default {
         },
 
         async confirmDelete() {
+            const toast = useToast();
+
             try {
                 await this.deleteCategory(this.deleteCategoryId);
                 this.$emit('categoryDeleted', this.deleteCategoryId);
+                toast.warning("Category deleted successfully.");
             } catch (error) {
                 console.log('Failed:', error);
+                toast.error("Failed to delete category.");
             }
 
             const modalElement = this.$refs.deleteCategoryModal;
