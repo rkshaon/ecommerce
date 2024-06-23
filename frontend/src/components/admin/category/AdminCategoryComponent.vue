@@ -1,18 +1,5 @@
 <template>
     <div class="container mt-5">
-        <div v-if="successMessage" class="alert alert-success mt-3">
-            {{ successMessage }}
-        </div>
-        <div v-if="errorMessages.length > 0" class="">
-            <ul class="list-unstyled">
-                <li v-for="message in errorMessages" :key="message">
-                    <div class="alert alert-danger">
-                        <h5 class="text-capitalize">{{ message.title }}</h5>
-                        <p>{{ message.message }}</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
         <AdminAddCategoryComponent ref="addComponentModal" />
         <!-- Add category button -->
         <!-- <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal"
@@ -92,8 +79,6 @@ export default {
     data() {
         return {
             API_BASE_URL: API_BASE_URL,
-            errorMessages: [],
-            successMessage: '',
         }
     },
     created() {

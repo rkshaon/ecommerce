@@ -19,60 +19,23 @@ from product_api.serializers import ProductSerializer
 
 
 
-class CategoryViewSet(ViewSet):
-    """ViewSet for managing categories."""
-
-    queryset = Category.objects.all()
+class CategoryView(APIView):
     serializer_class = CategorySerializer
     
-    def list(self, request):
-        """Return a list of categories."""
-        
-        query = request.GET.get('query', None)
-        if query and query.lower() == 'only-parent':
-            queryset = self.queryset.filter(
-                is_active=True,
-                parent=None,
-            )
-        elif query and query.lower() == 'only-feature':
-            queryset = self.queryset.filter(is_active=True, is_featured=True, is_deleted=False)
-        else:
-            queryset = self.queryset.filter(is_active=True, is_deleted=False)
-
-        serializer = self.serializer_class(queryset, many=True)
-        
-        data = serializer.data
-        
-        return Response(data)
-    
-
-    def create(self, request):
-        """
-        Create a new category.
-        """
-        if not request.auth:
-            return Response({
-                'error': 'Authentication credentials were not provided.'
-            }, status=status.HTTP_401_UNAUTHORIZED)
-
-        request_data = copy.deepcopy(request.data)        
+    @authentication_classes([SessionAuthentication, JWTAuthentication])
+    @permission_classes([IsAuthenticated])
+    def post(self, request, *args, **kwargs):
+        request_data = copy.deepcopy(request.data)
         request_data['added_by'] = request.user.id
 
         serializer = self.serializer_class(data=request_data)
-
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response({
-                'status': False,
-                'errors': serializer.errors,
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-
-class CategoryView(APIView):    
-    serializer_class = CategorySerializer    
-
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
     def get(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
 
@@ -84,10 +47,24 @@ class CategoryView(APIView):
                 return Response({
                     'error': 'Category does not exist.'
                 }, status=status.HTTP_404_NOT_FOUND)
+            
+        query = request.GET.get('query', None)
 
-        return Response({
-            'message': 'category list will be there.',
-        })
+        if query and query.lower() == 'only-parent':
+            queryset = Category.objects.filter(
+                is_active=True,
+                parent=None,
+            )
+        elif query and query.lower() == 'only-feature':
+            queryset = Category.objects.filter(
+                is_active=True, is_featured=True, is_deleted=False)
+        else:
+            queryset = Category.objects.filter(
+                is_active=True, is_deleted=False)
+
+        serializer = self.serializer_class(queryset, many=True)
+
+        return Response(serializer.data)
 
     @authentication_classes([SessionAuthentication, JWTAuthentication])
     @permission_classes([IsAuthenticated])
