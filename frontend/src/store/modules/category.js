@@ -38,9 +38,17 @@ const mutations = {
 
 const actions = {
     async fetchCategory({ commit }, id) {
-        const response = await getCategoryForAdmin(id);
-        commit("addCategory", response.data);
-        return response.data;
+        const category = state.categories.find(
+            (category) => category.id === id
+        );
+
+        if (category) {
+          return category;
+        } else {
+            const response = await getCategoryForAdmin(id);
+            commit("addCategory", response.data);
+            return response.data;
+        }
     },
 
     async fetchCategories({ commit }) {
@@ -64,8 +72,10 @@ const actions = {
         commit("removeCategory", id);
     },
 
-    async updateCategory({ commit }, category) {
-        const response = await updateCategoryForAdmin(category);
+    async updateCategory({ commit }, id, category) {
+        console.log("before update: ", id, category);
+        const response = await updateCategoryForAdmin(id, category);
+        console.log("after response: ", response.data);
         commit("updateCategory", response.data);
     },
 };

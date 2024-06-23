@@ -140,9 +140,7 @@ export default {
             modal.hide();
         },
 
-        handleFileChangeOnUpdate(event) {
-            this.updateForm.icon = event.target.files[0];
-        },
+        
 
         setDeleteCategoryId(id) {
             this.deleteCategoryId = id;

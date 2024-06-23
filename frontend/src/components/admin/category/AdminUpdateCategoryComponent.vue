@@ -41,7 +41,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="updateCategory(updateForm.id)">Save
+                    <button type="button" class="btn btn-primary" @click="confirmUpdate(updateForm.id)">Save
                         changes</button>
                 </div>
             </div>
@@ -82,13 +82,45 @@ export default {
             }
 
             const modalElement = this.$refs.updateCategoryModal;
-            
+
             if (modalElement) {
                 const modal = new Modal(modalElement);
                 modal.show();
             } else {
                 console.log('404');
             }
+        },
+
+        handleFileChangeOnUpdate(event) {
+            this.updateForm.icon = event.target.files[0];
+        },
+
+        async confirmUpdate(id) {
+            console.log(id);
+            const formData = new FormData();
+
+            formData.append('title', this.updateForm.title);
+            formData.append('short_title', this.updateForm.short_title);
+            formData.append('description', this.updateForm.description);
+
+            // if (this.updateForm.icon && this.originalIcon !== this.updateForm.icon) {
+            //     formData.append('icon', this.updateForm.icon);
+            // }
+
+            console.log('Title: ', this.updateForm.title);
+            console.log(formData);
+
+            try {
+                const updatededCategory = await this.updateCategory(id, formData);
+                // this.$emit('categoryAdded', updatededCategory);
+                console.log("in component after response: ", updatededCategory);
+            } catch (error) {
+                console.log('Failed:', error);
+            }
+
+            const modalElement = this.$refs.updateCategoryModal;
+            const modal = new Modal(modalElement);
+            modal._hideModal();
         },
     }
 }

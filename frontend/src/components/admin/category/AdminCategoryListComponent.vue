@@ -48,7 +48,7 @@ export default {
     name: "AdminCategoryListComponent",
     components: {
         AdminDeleteCategoryComponent,
-        AdminUpdateCategoryComponent
+        AdminUpdateCategoryComponent,
     },
     setup() { },
     data() {
