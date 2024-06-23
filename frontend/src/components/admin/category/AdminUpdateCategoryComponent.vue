@@ -53,6 +53,7 @@
 import { mapActions } from 'vuex';
 import { API_BASE_URL } from '@/config';
 import { Modal } from 'bootstrap';
+import { useToast } from 'vue-toastification';
 
 export default {
     name: 'AdminUpdateCategoryComponent',
@@ -108,15 +109,16 @@ export default {
                 formData.append('icon', this.updateForm.icon);
             }
 
-            console.log('Title: ', this.updateForm.title);
-            console.log(formData);
+            const toast = useToast();
 
             try {
                 await this.updateCategory({
                     id: this.updateCategoryId, category: formData
                 });
+                toast.info("Category updated.");
             } catch (error) {
                 console.log('Failed:', error);
+                toast.error("Failed to update category.");
             }
 
             const modalElement = this.$refs.updateCategoryModal;
