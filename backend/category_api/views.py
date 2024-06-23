@@ -71,8 +71,14 @@ class CategoryViewSet(ViewSet):
 
 
 class CategoryView(APIView):    
-    serializer_class = CategorySerializer    
-
+    serializer_class = CategorySerializer
+    
+    @authentication_classes([SessionAuthentication, JWTAuthentication])
+    @permission_classes([IsAuthenticated])
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+        return Response()
+    
     def get(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
 
@@ -84,10 +90,24 @@ class CategoryView(APIView):
                 return Response({
                     'error': 'Category does not exist.'
                 }, status=status.HTTP_404_NOT_FOUND)
+            
+        query = request.GET.get('query', None)
 
-        return Response({
-            'message': 'category list will be there.',
-        })
+        if query and query.lower() == 'only-parent':
+            queryset = Category.objects.filter(
+                is_active=True,
+                parent=None,
+            )
+        elif query and query.lower() == 'only-feature':
+            queryset = Category.objects.filter(
+                is_active=True, is_featured=True, is_deleted=False)
+        else:
+            queryset = Category.objects.filter(
+                is_active=True, is_deleted=False)
+
+        serializer = self.serializer_class(queryset, many=True)
+
+        return Response(serializer.data)
 
     @authentication_classes([SessionAuthentication, JWTAuthentication])
     @permission_classes([IsAuthenticated])
