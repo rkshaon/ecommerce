@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import permission_classes, authentication_classes
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -36,6 +37,7 @@ class CategoryView(APIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
     def get(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
 
@@ -62,9 +64,18 @@ class CategoryView(APIView):
             queryset = Category.objects.filter(
                 is_active=True, is_deleted=False)
 
+        paginator = PageNumberPagination()
+        page = paginator.paginate_queryset(queryset, request)
+
+        if page is not None:
+            serializer = self.serializer_class(page, many=True)
+
+            return paginator.get_paginated_response(serializer.data)
+        
         serializer = self.serializer_class(queryset, many=True)
 
         return Response(serializer.data)
+    
 
     @authentication_classes([SessionAuthentication, JWTAuthentication])
     @permission_classes([IsAuthenticated])
