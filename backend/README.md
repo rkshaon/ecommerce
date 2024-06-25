@@ -44,6 +44,13 @@ pip install -r requirements.txt
 ```
 
 ### Step 4:
+Run the `Shell` file like below:
+```
+./migrations.sh
+```
+
+or manually migrate like below:
+
 Migrate
 ```
 python manage.py makemigrations
