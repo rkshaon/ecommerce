@@ -18,7 +18,7 @@
                                 <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" class="pe-3" />
                             </div>
                             <div class="d-flex justify-content-between pb-3">
-                                <h3 class="card-title px-3">2150</h3>
+                                <h3 class="card-title px-3">{{ setupData.categories }}</h3>
                                 <a href="#" class="btn btn-primary me-3">Any state</a>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" class="pe-3" />
                             </div>
                             <div class="d-flex justify-content-between pb-3">
-                                <h3 class="card-title px-3">177</h3>
+                                <h3 class="card-title px-3">{{ setupData.active_categories }}</h3>
                                 <a href="#" class="btn btn-primary me-3">Any state</a>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" class="pe-3" />
                             </div>
                             <div class="d-flex justify-content-between pb-3">
-                                <h3 class="card-title px-3">300547</h3>
+                                <h3 class="card-title px-3">{{ setupData.products }}</h3>
                                 <a href="#" class="btn btn-primary me-3">Any state</a>
                             </div>
                         </div>
@@ -64,6 +64,7 @@
 
 <script>
 import { API_BASE_URL } from '@/config';
+import { mapState, mapActions } from 'vuex';
 import AdminAddCategoryComponent from '@/components/admin/category/AdminAddCategoryComponent.vue';
 import AdminCategoryListComponent from '@/components/admin/category/AdminCategoryListComponent.vue';
 import AdminAddProductComponent from '@/components/admin/product/AdminAddProductComponent.vue';
@@ -81,20 +82,25 @@ export default {
             API_BASE_URL: API_BASE_URL,
         }
     },
-    created() {
-
+    computed: {
+        ...mapState('setup', {
+            setupData: 'setup'
+        }),
     },
     methods: {
+        ...mapActions('setup', ['fetchSetup']),
+
         showAddCategoryModal() {
             this.$refs.addComponentModalForCategory.showAddCategoryModal();
         },
 
         showAddProductModal() {
-            // this.$refs.addComponentModal.showAddCategoryModal();
-            console.log('open product add modal');
             this.$refs.addComponentModalForProduct.showAddProductModal();
         },
-    }
+    },
+    created() {
+        this.fetchSetup();
+    },
 }
 </script>
 

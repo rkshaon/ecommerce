@@ -8,7 +8,7 @@ from product_api.models import Product
 class AdminSetupView(APIView):
     def get(self, request, *args, **kwargs):
         return Response({
-            'categoris': Category.objects.filter(
+            'categories': Category.objects.filter(
                 is_deleted=False
             ).count(),
             'active_categories': Category.objects.filter(

@@ -1,9 +1,11 @@
 import Vuex from "vuex";
 import category from "./modules/category";
+import setup from "./modules/setup";
 
 export default new Vuex.Store({
   modules: {
     category,
+    setup,
   },
 });
 
