@@ -20,9 +20,9 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="{ name: 'admin-category' }" class="nav-link link-dark">
+                    <router-link :to="{ name: 'admin-setup' }" class="nav-link link-dark">
                         <font-awesome-icon :icon="['fas', 'list']" class="pe-3" />
-                        Category
+                        Setup
                     </router-link>
                 </li>
                 <li>

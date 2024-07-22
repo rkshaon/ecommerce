@@ -1,14 +1,12 @@
 <template>
     <div class="container mt-5">
-        <AdminAddCategoryComponent ref="addComponentModal" />
-        <!-- Add category button -->
-        <!-- <button type="button" class="btn btn-primary btn-lg mb-2" data-bs-toggle="modal"
-            data-bs-target="#addCategoryModal">
-            <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />
-            Add Category
-        </button> -->
+        <AdminAddCategoryComponent ref="addComponentModalForCategory" />
+        <AdminAddProductComponent ref="addComponentModalForProduct" />
         <button type="button" class="btn btn-primary btn-lg mb-2" @click="showAddCategoryModal">
             <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />Add Category
+        </button>
+        <button type="button" class="btn btn-success btn-lg mb-2 mx-2" @click="showAddProductModal">
+            <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />Add Product
         </button>
         <div class="row">
             <div class="col-md-4">
@@ -68,12 +66,14 @@
 import { API_BASE_URL } from '@/config';
 import AdminAddCategoryComponent from '@/components/admin/category/AdminAddCategoryComponent.vue';
 import AdminCategoryListComponent from '@/components/admin/category/AdminCategoryListComponent.vue';
+import AdminAddProductComponent from '@/components/admin/product/AdminAddProductComponent.vue';
 
 export default {
-    name: "AdminCategoryComponent",
+    name: "SetupPage",
     components: {
         AdminAddCategoryComponent,
-        AdminCategoryListComponent
+        AdminCategoryListComponent,
+        AdminAddProductComponent
     },
     setup() { },
     data() {
@@ -86,7 +86,13 @@ export default {
     },
     methods: {
         showAddCategoryModal() {
-            this.$refs.addComponentModal.showAddCategoryModal();
+            this.$refs.addComponentModalForCategory.showAddCategoryModal();
+        },
+
+        showAddProductModal() {
+            // this.$refs.addComponentModal.showAddCategoryModal();
+            console.log('open product add modal');
+            this.$refs.addComponentModalForProduct.showAddProductModal();
         },
     }
 }
