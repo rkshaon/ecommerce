@@ -52,16 +52,18 @@ class CategoryView(APIView):
             queryset = Category.objects.filter(
                 is_active=True,
                 parent=None,
-            )
+            ).order_by('-added_date_time')
         elif query and query.lower() == 'only-feature':
             queryset = Category.objects.filter(
                 is_active=True,
                 is_featured=True,
                 is_deleted=False
-            )
+            ).order_by('-added_date_time')
         else:
             queryset = Category.objects.filter(
-                is_active=True, is_deleted=False)
+                is_active=True,
+                is_deleted=False
+            ).order_by('-added_date_time')
 
         paginator = PageNumberPagination()
         page = paginator.paginate_queryset(queryset, request)
