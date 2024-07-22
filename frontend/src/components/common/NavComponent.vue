@@ -105,8 +105,7 @@ export default {
         async fetchCategories() {
             try {
                 const response = await categoryAPI.getCategories();
-                console.log(response.data);
-                this.categoriesData = response.data;
+                this.categoriesData = response.data.results;
             } catch(error) {
                 console.log('Error: ', error);
             } finally {
