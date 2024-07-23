@@ -26,7 +26,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('vendor', 'Vendor'),
         ('admin', 'Admin'),
     )
-
+    name = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
+    picture = models.ImageField(
+        upload_to='profile',
+        null=True,
+        blank=True
+    )
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50, unique=True)
     role = models.CharField(
