@@ -36,6 +36,7 @@ backend/product_api/urls/__pycache__
 backend/product_api/migrations
 backend/user_api/__pycache__
 backend/user_api/urls/__pycache__
+backend/user_api/views/__pycache__
 backend/user_api/migrations
 backend/db.sqlite3
 backend/media

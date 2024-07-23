@@ -1,10 +1,22 @@
 from django.urls import path
 
-from user_api import views
+from user_api.views import v1 as v1_view
 
 
 urlpatterns = [
-    path('registration', views.UserRegistrationView.as_view(), name='register'),
-    path('login', views.UserLoginView.as_view(), name='login'),
-    path('refresh', views.RefreshTokenView.as_view(), name='refresh_tokne'),
+    path(
+        'registration',
+        v1_view.UserRegistrationView.as_view(),
+        name='register'
+    ),
+    path(
+        'login',
+        v1_view.UserLoginView.as_view(),
+        name='login'
+    ),
+    path(
+        'refresh',
+        v1_view.RefreshTokenView.as_view(),
+        name='refresh_token',
+    ),
 ]

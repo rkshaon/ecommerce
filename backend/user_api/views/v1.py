@@ -4,12 +4,11 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from django.contrib.auth import authenticate
+# from django.contrib.auth import authenticate
 
 from user_api.models import User
 
 from user_api.serializers import UserSerializer
-
 
 
 class UserRegistrationView(APIView):
@@ -17,7 +16,7 @@ class UserRegistrationView(APIView):
         serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
-            user = serializer.save()
+            serializer.save()
 
             return Response({
                 'status': True,
@@ -33,22 +32,27 @@ class UserLoginView(APIView):
     def post(self, request):
         user_credential = request.data.get('user_credential')
         password = request.data.get('password')
-        
+
         if not user_credential:
             return Response({
                 'status': False,
-                'errors': ['Please provide either email or username for login.'],
+                'errors': [
+                    'Please provide either email or username for login.'
+                ],
             }, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             try:
                 user = User.objects.get(email=user_credential)
-            except:
+            except Exception as e:
+                print(e)
                 user = User.objects.get(cell_no=user_credential)
-        except:
+        except Exception as e:
+            print(e)
             try:
                 user = User.objects.get(username=user_credential)
-            except:
+            except Exception as e:
+                print(e)
                 user = None
 
         if user is None:
@@ -62,7 +66,7 @@ class UserLoginView(APIView):
                 'status': False,
                 'errors': ['Password is invalid'],
             }, status=status.HTTP_401_UNAUTHORIZED)
-        
+
         if user is not None:
             refresh = RefreshToken.for_user(user)
             return Response({
@@ -70,10 +74,12 @@ class UserLoginView(APIView):
                 'data': {
                     'refresh': str(refresh),
                     'access': str(refresh.access_token),
-                },                
+                },
             })
         else:
-            return Response({'detail': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({
+                'detail': 'Invalid credentials.'
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class RefreshTokenView(APIView):
@@ -86,7 +92,8 @@ class RefreshTokenView(APIView):
             # Attempt to verify the refresh token
             token = RefreshToken(refresh)
             # token.blacklist()  # Revoke the old refresh token
-            # outstanding_token = OutstandingToken.objects.get(token=str(token))
+            # outstanding_token = OutstandingToken.objects.get(
+            # token=str(token))
             # outstanding_token.blacklist()  # Revoke the token
 
             # Generate a new access token
