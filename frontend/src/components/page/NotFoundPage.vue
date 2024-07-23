@@ -16,7 +16,7 @@
 <script>
 
 export default {
-    name: 'NotFoundComponent',
+    name: 'NotFoundPage',
     data() {
         return { }
     },
@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 #background {
-  background: url("../assets/404.jpg") no-repeat center center
+  background: url("../../assets/404.jpg") no-repeat center center
     fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;

@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: 'AdminDashboardComponent',
+    name: 'AdminDashboardPage',
     watch: { },
 }
 </script>

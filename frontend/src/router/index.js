@@ -1,18 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import BaseLayout from '@/BaseLayout';
-import HomeComponent from '@/components/HomeComponent';
-import CategoryWiseProductComponent from "@/components/CategoryWiseProductComponent";
-import ProductDetailsComponent from "@/components/support/ProductDetailsComponent";
+import AdminBaseComponent from "@/AdminBaseComponent";
 
-import NotFoundComponent from '@/components/NotFoundComponent';
+import HomePage from '@/components/page/HomePage.vue';
+import CategoryWiseProductPage from "@/components/page/CategoryWiseProductPage.vue";
+import ProductDetailsPage from "@/components/page/ProductDetailsPage.vue";
+import NotFoundPage from '@/components/page/NotFoundPage';
 
-import AdminBaseComponent from "@/components/admin/AdminBaseComponent";
-import AdminDashboardComponent from '@/components/admin/AdminDashboardComponent';
-import AdminLoginComponent from '@/components/admin/AdminLoginComponent.vue';
-// import AdminCategoryComponent from "@/components/admin/category/AdminCategoryComponent.vue";
-import SetupPage from "@/components/admin/page/SetupPage.vue";
-
+import AdminDashboardPage from '@/components/admin/page/AdminDashboardPage.vue';
+import AdminLoginPage from '@/components/admin/page/AdminLoginPage.vue';
+import AdminSetupPage from "@/components/admin/page/AdminSetupPage.vue";
 
 
 const routes = [
@@ -23,17 +21,17 @@ const routes = [
       {
         path: "",
         name: "home",
-        component: HomeComponent,
+        component: HomePage,
       },
       {
         path: "category/:category_id/:category_slug",
         name: "category",
-        component: CategoryWiseProductComponent,
+        component: CategoryWiseProductPage,
       },
       {
         path: "product/:product_id/:product_slug",
         name: "product",
-        component: ProductDetailsComponent,
+        component: ProductDetailsPage,
       },
     ],
   },
@@ -45,23 +43,23 @@ const routes = [
       {
         path: "",
         name: "admin",
-        component: AdminDashboardComponent,
+        component: AdminDashboardPage,
       },
       {
         path: "setup",
         name: "admin-setup",
-        component: SetupPage,
+        component: AdminSetupPage,
       },
     ],
   },
   {
     path: "/admin/login",
     name: "admin-login",
-    component: AdminLoginComponent,
+    component: AdminLoginPage,
   },
   {
     path: "/:catchAll(.*)",
-    component: NotFoundComponent,
+    component: NotFoundPage,
   },
 ];
 

@@ -70,7 +70,7 @@ import AdminCategoryListComponent from '@/components/admin/category/AdminCategor
 import AdminAddProductComponent from '@/components/admin/product/AdminAddProductComponent.vue';
 
 export default {
-    name: "SetupPage",
+    name: "AdminSetupPage",
     components: {
         AdminAddCategoryComponent,
         AdminCategoryListComponent,

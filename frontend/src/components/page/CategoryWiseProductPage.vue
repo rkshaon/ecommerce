@@ -19,7 +19,7 @@ import ProductCardComponent from '@/components/support/ProductCardComponent';
 import { API_BASE_URL } from '@/config';
 
 export default {  
-  name: 'CategoryWiseProductComponent',
+  name: 'CategoryWiseProductPage',
   data() {
     return {
       categoryDetails: {

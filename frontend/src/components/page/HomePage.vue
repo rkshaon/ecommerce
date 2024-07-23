@@ -12,7 +12,7 @@ import FeaturedCategoryComponent from '@/components/utility/FeaturedCategoryComp
 import ProductGridViewComponent from '@/components/utility/ProductGridViewComponent.vue'
 
 export default {
-  name: 'HomeComponent',
+  name: 'HomePage',
   props: {},
   components: {
     BannerComponent,

@@ -314,7 +314,7 @@
 import { API_BASE_URL } from '@/config';
 
 export default {
-    name: 'ProductDetailsComponent',
+    name: 'ProductDetailsPage',
     data() {
         return {
             API_BASE_URL: API_BASE_URL,

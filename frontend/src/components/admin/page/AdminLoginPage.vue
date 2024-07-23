@@ -53,7 +53,7 @@ import { API_BASE_URL } from '@/config';
 import axios from 'axios';
 
 export default {
-    name: 'AdminLoginComponent',
+    name: 'AdminLoginPage',
     data() {
         return {
             user_credential: '',
