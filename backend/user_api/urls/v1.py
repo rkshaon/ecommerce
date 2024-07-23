@@ -7,16 +7,21 @@ urlpatterns = [
     path(
         'registration',
         v1_view.UserRegistrationView.as_view(),
-        name='register'
+        name='register',
     ),
     path(
         'login',
         v1_view.UserLoginView.as_view(),
-        name='login'
+        name='login',
     ),
     path(
         'refresh',
         v1_view.RefreshTokenView.as_view(),
         name='refresh_token',
+    ),
+    path(
+        'profile',
+        v1_view.UserProfileView.as_view(),
+        name='profile',
     ),
 ]

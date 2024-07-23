@@ -3,7 +3,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from rest_framework.decorators import permission_classes
+from rest_framework.decorators import authentication_classes
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 # from django.contrib.auth import authenticate
 
 from user_api.models import User
@@ -115,3 +119,10 @@ class RefreshTokenView(APIView):
                 'status': False,
                 'errors': ['Invalid refresh token'],
             }, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@authentication_classes([SessionAuthentication, JWTAuthentication])
+@permission_classes([IsAuthenticated])
+class UserProfileView(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response(UserSerializer(request.user).data)
