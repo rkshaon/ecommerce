@@ -1,4 +1,4 @@
-// /src/store/modules/setup.js
+// src/store/modules/setup.js
 
 import {
   getSetupForAdmin,

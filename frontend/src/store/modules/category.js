@@ -1,4 +1,4 @@
-// /src/store/modules/category.js
+// src/store/modules/category.js
 
 import {
     getCategoryForAdmin,

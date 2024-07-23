@@ -1,3 +1,5 @@
+// src/store/modules/auth.js
+
 export const state = () => ({
   token: localStorage.getItem("token"),
   refreshToken: localStorage.getItem("refresh_token"),
