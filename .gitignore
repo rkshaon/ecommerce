@@ -43,3 +43,4 @@ backend/configure_api/__pycache__
 backend/configure_api/migrations
 backend/configure_api/urls/__pycache__
 backend/configure_api/views/__pycache__
+__pycache__
