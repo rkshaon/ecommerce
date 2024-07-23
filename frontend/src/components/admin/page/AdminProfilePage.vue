@@ -5,6 +5,7 @@
         <p>Email: {{ profileData.email }}</p>
         <p>Username: {{ profileData.username }}</p>
         <button class="btn btn-warning">Change Password</button>
+        <button class="btn btn-info">Edit Profile</button>
     </div>
 </template>
 

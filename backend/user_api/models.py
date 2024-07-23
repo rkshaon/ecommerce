@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import PermissionsMixin
 
 
 class UserManager(BaseUserManager):
@@ -10,7 +11,6 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save()
         return user
-    
 
     def create_superuser(self, email, password=None, **extra_fields):
         user = self.create_user(email, password, **extra_fields)
@@ -29,7 +29,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50, unique=True)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='customer')
+    role = models.CharField(
+        max_length=20,
+        choices=ROLE_CHOICES,
+        default='customer'
+    )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -37,11 +41,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'role']
-
-    # def save(self, *args, **kwargs):
-    #     if not self.pk:
-    #         self.set_password(self.password)
-    #     super().save(*args, **kwargs)
 
     def __str__(self):
         return self.email
