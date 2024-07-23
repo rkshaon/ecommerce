@@ -1,28 +1,41 @@
 <template>
     <div class="shadow-lg rounded">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
-            <a href="/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <router-link to="/admin"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                 <img src="@/assets/company-logo.png" alt="Company Logo" height="" width="75" />
                 <span class="fs-4">E-Commerce</span>
-            </a>
+            </router-link>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
                     <router-link to="/admin" class="nav-link active">
                         <font-awesome-icon :icon="['fas', 'house']" class="text-white pe-3" />
-                        Home
+                        Home / Dashboard
                     </router-link>
                 </li>
-                <li>
+                <!-- <li>
                     <router-link to="/admin" class="nav-link link-dark">
                         <font-awesome-icon :icon="['fas', 'gauge']" class="pe-3" />
                         Dashboard
                     </router-link>
-                </li>
+                </li> -->
                 <li>
                     <router-link :to="{ name: 'admin-setup' }" class="nav-link link-dark">
                         <font-awesome-icon :icon="['fas', 'list']" class="pe-3" />
                         Setup
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/admin" class="nav-link link-dark">
+                        <font-awesome-icon :icon="['fab', 'product-hunt']" class="pe-3" />
+                        Inventory
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/admin" class="nav-link link-dark">
+                        <font-awesome-icon :icon="['fab', 'product-hunt']" class="pe-3" />
+                        Accounts
                     </router-link>
                 </li>
                 <li>
