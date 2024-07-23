@@ -1,5 +1,5 @@
 <template>    
-    <div>Admin Dash Board Component</div>
+    <div>Dashboard Page</div>
 </template>
 
 <script>

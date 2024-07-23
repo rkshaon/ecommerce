@@ -8,9 +8,13 @@ import CategoryWiseProductPage from "@/components/page/CategoryWiseProductPage.v
 import ProductDetailsPage from "@/components/page/ProductDetailsPage.vue";
 import NotFoundPage from '@/components/page/NotFoundPage';
 
+import AdminLoginPage from "@/components/admin/page/AdminLoginPage.vue";
 import AdminDashboardPage from '@/components/admin/page/AdminDashboardPage.vue';
-import AdminLoginPage from '@/components/admin/page/AdminLoginPage.vue';
 import AdminSetupPage from "@/components/admin/page/AdminSetupPage.vue";
+import AdminInventoryPage from '@/components/admin/page/AdminInventoryPage.vue';
+import AdminAccountingPage from "@/components/admin/page/AdminAccountingPage.vue";
+import AdminOrderPage from "@/components/admin/page/AdminOrderPage.vue";
+import AdminCustomerPage from "@/components/admin/page/AdminCustomerPage.vue";
 
 
 const routes = [
@@ -49,6 +53,26 @@ const routes = [
         path: "setup",
         name: "admin-setup",
         component: AdminSetupPage,
+      },
+      {
+        path: "inventory",
+        name: "admin-inventory",
+        component: AdminInventoryPage,
+      },
+      {
+        path: "accounting",
+        name: "admin-accounting",
+        component: AdminAccountingPage,
+      },
+      {
+        path: "order",
+        name: "admin-order",
+        component: AdminOrderPage,
+      },
+      {
+        path: "customer",
+        name: "admin-customer",
+        component: AdminCustomerPage,
       },
     ],
   },

@@ -27,31 +27,31 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/admin" class="nav-link link-dark">
+                    <router-link :to="{ name: 'admin-inventory'}" class="nav-link link-dark">
                         <font-awesome-icon :icon="['fab', 'product-hunt']" class="pe-3" />
                         Inventory
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/admin" class="nav-link link-dark">
+                    <router-link :to="{ name: 'admin-accounting'}" class="nav-link link-dark">
                         <font-awesome-icon :icon="['fab', 'product-hunt']" class="pe-3" />
                         Accounts
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/admin" class="nav-link link-dark">
+                    <router-link :to="{ name: 'admin-order'}" class="nav-link link-dark">
                         <font-awesome-icon :icon="['fas', 'table-cells-large']" class="pe-3" />
                         Orders
                     </router-link>
                 </li>
-                <li>
+                <!-- <li>
                     <router-link to="/admin" class="nav-link link-dark">
                         <font-awesome-icon :icon="['fab', 'product-hunt']" class="pe-3" />
                         Products
                     </router-link>
-                </li>
+                </li> -->
                 <li>
-                    <router-link to="/admin" class="nav-link link-dark">
+                    <router-link :to="{ name: 'admin-customer' }" class="nav-link link-dark">
                         <font-awesome-icon :icon="['fas', 'address-card']" class="pe-3" />
                         Customers
                     </router-link>
