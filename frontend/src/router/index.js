@@ -15,6 +15,7 @@ import AdminInventoryPage from '@/components/admin/page/AdminInventoryPage.vue';
 import AdminAccountingPage from "@/components/admin/page/AdminAccountingPage.vue";
 import AdminOrderPage from "@/components/admin/page/AdminOrderPage.vue";
 import AdminCustomerPage from "@/components/admin/page/AdminCustomerPage.vue";
+import AdminProfilePage from "@/components/admin/page/AdminProfilePage.vue";
 
 
 const routes = [
@@ -44,6 +45,11 @@ const routes = [
     component: AdminBaseComponent,
     meta: { requiresAuth: true }, // Add meta field to indicate that authentication is required for admin routes
     children: [
+      {
+        path: "profile",
+        name: "admin-profile",
+        component: AdminProfilePage,
+      },
       {
         path: "",
         name: "admin",
