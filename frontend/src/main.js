@@ -53,7 +53,7 @@ const app = createApp(App);
 app.use(router);
 app.use(store);
 app.use(Toast, {
-  duration: 3000,
+  duration: 1000,
   position: "top-right",
 });
 app.component('font-awesome-icon', FontAwesomeIcon);

@@ -53,9 +53,13 @@ import { mapActions } from 'vuex';
 import { API_BASE_URL } from '@/config';
 import { Modal } from 'bootstrap';
 import { useToast } from 'vue-toastification';
+import AdminProfileCardComponent from '@/components/admin/user/AdminProfileCardComponent.vue';
 
 export default {
     name: 'AdminUpdateCategoryComponent',
+    components: {
+        AdminProfileCardComponent,
+    },
     data() {
         return {
             API_BASE_URL: API_BASE_URL,
