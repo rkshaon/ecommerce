@@ -43,8 +43,8 @@
 </template>
 
 <script>
+
 import { Modal } from 'bootstrap';
-// import { mapActions } from 'vuex';
 import { mapState, mapActions } from 'vuex';
 import { useToast } from "vue-toastification";
 
@@ -67,10 +67,8 @@ export default {
     },
     methods: {
         ...mapActions('category', ['fetchCategories']),
-        // ...mapActions('category', ['addCategory']),
 
         showAddProductModal() {
-            console.log(this.categoryList);
             const modalElement = this.$refs.addProductModal;
 
             if (modalElement) {
