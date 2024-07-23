@@ -72,7 +72,7 @@
 import categoryAPI from '@/services/categoryAPI';
 
 export default {
-    name: 'NavBarComponent',
+    name: 'NavBarLayout',
     data() {
         return {
             categoriesData: [],

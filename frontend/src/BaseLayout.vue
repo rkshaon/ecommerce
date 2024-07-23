@@ -1,20 +1,20 @@
 <template>
     <div>
-        <NavComponent />
+        <NavBarLayout />
         <router-view></router-view>
-        <FooterComponent />
+        <FooterLayout />
     </div>
 </template>
 
 <script>
-import NavComponent from '@/components/common/NavComponent.vue';
-import FooterComponent from '@/components/common/FooterComponent.vue'
+import NavBarLayout from '@/components/layout/NavBarLayout.vue';
+import FooterLayout from '@/components/layout/FooterLayout.vue'
 
 export default {
     name: 'BaseLayout',
     components: {
-        NavComponent,
-        FooterComponent,
+        NavBarLayout,
+        FooterLayout,
     }
 }
 </script>

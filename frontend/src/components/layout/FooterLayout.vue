@@ -74,7 +74,7 @@
                 <div class="text-center">Experience us on PlayStore and AppStore</div>
             </div>
             <div class="row pt-3 pb-3">
-                <div class="text-center">&copy; 2023 by Rezaul Karim Shaon</div>
+                <div class="text-center">&copy; 2024 by Rezaul Karim Shaon</div>
             </div>
         </div>
     </div>
@@ -82,7 +82,7 @@
 
 <script>
 export default {
-    name: 'FooterComponent'
+    name: 'FooterLayout',
 }
 </script>
 
