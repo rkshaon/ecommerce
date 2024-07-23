@@ -11,7 +11,6 @@
           <img src="@/assets/profile.jpg" height="25">
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownProfile">
-          <!-- <li><a class="dropdown-item" href="#">Profile</a></li> -->
           <router-link :to="{ name: 'admin-profile' }" class="dropdown-item">
             Profile
           </router-link>

@@ -1,6 +1,6 @@
 import Vuex from "vuex";
-import category from "./modules/category";
-import setup from "./modules/setup";
+import category from "@/store/modules/category";
+import setup from "@/store/modules/setup";
 import user from "@/store/modules/user";
 
 export default new Vuex.Store({
