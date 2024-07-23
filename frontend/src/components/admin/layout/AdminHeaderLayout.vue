@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "AdminHeaderComponent",
+  name: "AdminHeaderLayout",
 };
 </script>
 

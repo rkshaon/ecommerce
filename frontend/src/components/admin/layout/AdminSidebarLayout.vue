@@ -71,7 +71,7 @@
 // import { logOut } from '@/services/logOutService';
 
 export default {
-    name: 'AdminSidebarComponent',
+    name: 'AdminSidebarLayout',
     watch: {},
     methods: {
         logOut() {

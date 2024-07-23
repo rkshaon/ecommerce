@@ -1,22 +1,22 @@
 <template>
     <div class="d-flex">
-        <AdminSidebarComponent />
+        <AdminSidebarLayout />
         <div class="flex-grow-1">
-            <AdminHeaderComponent />
+            <AdminHeaderLayout />
           <router-view></router-view>
         </div>
     </div>
 </template>
 
 <script>
-import AdminSidebarComponent from '@/components/admin/AdminSidebarComponent.vue';
-import AdminHeaderComponent from '@/components/admin/AdminHeaderComponent.vue';
+import AdminSidebarLayout from '@/components/admin/layout/AdminSidebarLayout.vue';
+import AdminHeaderLayout from '@/components/admin/layout/AdminHeaderLayout.vue';
 
 export default {
     name: 'AdminBaseComponent',
     components: {
-        AdminSidebarComponent,
-        AdminHeaderComponent
+        AdminSidebarLayout,
+        AdminHeaderLayout,
     },
 }
 </script>
