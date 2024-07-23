@@ -27,7 +27,7 @@ import { Modal } from 'bootstrap';
 import { useToast } from "vue-toastification";
 
 export default {
-    name: 'AdminDeleteCategoryComponent',
+    name: 'AdminDeleteCategoryModal',
     data() { 
         return {
             deleteCategoryId: null,

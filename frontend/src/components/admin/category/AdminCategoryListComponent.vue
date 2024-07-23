@@ -1,6 +1,6 @@
 <template>
-    <AdminDeleteCategoryComponent ref="deleteComponentModal" />
-    <AdminUpdateCategoryComponent ref="updateComponentModal" />
+    <AdminDeleteCategoryModal ref="deleteComponentModal" />
+    <AdminUpdateCategoryModal ref="updateComponentModal" />
     <div class="pt-5">
         <table class="table caption-top table-hover table-bordered">
             <caption>List of categories</caption>
@@ -41,14 +41,14 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { API_BASE_URL } from '@/config';
-import AdminDeleteCategoryComponent from '@/components/admin/category/AdminDeleteCategoryComponent.vue';
-import AdminUpdateCategoryComponent from '@/components/admin/category/AdminUpdateCategoryComponent.vue';
+import AdminDeleteCategoryModal from '@/components/admin/category/AdminDeleteCategoryModal.vue';
+import AdminUpdateCategoryModal from '@/components/admin/category/AdminUpdateCategoryModal.vue';
 
 export default {
     name: "AdminCategoryListComponent",
     components: {
-        AdminDeleteCategoryComponent,
-        AdminUpdateCategoryComponent,
+        AdminDeleteCategoryModal,
+        AdminUpdateCategoryModal,
     },
     setup() { },
     data() {

@@ -49,7 +49,7 @@ import { mapState, mapActions } from 'vuex';
 import { useToast } from "vue-toastification";
 
 export default {
-    name: 'AdminAddProductComponent',
+    name: 'AdminAddProductModal',
     data() {
         return {
             productForm: {

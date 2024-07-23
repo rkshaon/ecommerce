@@ -1,7 +1,7 @@
 <template>
     <div class="container mt-5">
-        <AdminAddCategoryComponent ref="addComponentModalForCategory" />
-        <AdminAddProductComponent ref="addComponentModalForProduct" />
+        <AdminAddCategoryModal ref="addComponentModalForCategory" />
+        <AdminAddProductModal ref="addComponentModalForProduct" />
         <button type="button" class="btn btn-primary btn-lg mb-2" @click="showAddCategoryModal">
             <font-awesome-icon :icon="['fas', 'plus']" class="me-2" />Add Category
         </button>
@@ -65,16 +65,16 @@
 <script>
 import { API_BASE_URL } from '@/config';
 import { mapState, mapActions } from 'vuex';
-import AdminAddCategoryComponent from '@/components/admin/category/AdminAddCategoryComponent.vue';
+import AdminAddCategoryModal from '@/components/admin/category/AdminAddCategoryModal.vue';
 import AdminCategoryListComponent from '@/components/admin/category/AdminCategoryListComponent.vue';
-import AdminAddProductComponent from '@/components/admin/product/AdminAddProductComponent.vue';
+import AdminAddProductModal from '@/components/admin/product/AdminAddProductModal.vue';
 
 export default {
     name: "AdminSetupPage",
     components: {
-        AdminAddCategoryComponent,
+        AdminAddCategoryModal,
         AdminCategoryListComponent,
-        AdminAddProductComponent
+        AdminAddProductModal,
     },
     setup() { },
     data() {

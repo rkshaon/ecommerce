@@ -56,7 +56,7 @@ import { Modal } from 'bootstrap';
 import { useToast } from 'vue-toastification';
 
 export default {
-    name: 'AdminUpdateCategoryComponent',
+    name: 'AdminUpdateCategoryModal',
     data() {
         return {
             API_BASE_URL: API_BASE_URL,

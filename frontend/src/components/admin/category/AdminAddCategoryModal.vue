@@ -40,7 +40,7 @@ import { mapActions } from 'vuex';
 import { useToast } from "vue-toastification";
 
 export default {
-    name: 'AdminAddCategoryComponent',
+    name: 'AdminAddCategoryModal',
     data() {
         return {
             categoryForm: {
