@@ -1,8 +1,12 @@
 <template>
     <div class="container mt-5">
-        <AdminProfileCardComponent :profileData="profileData" class="mb-3" />
-        <button class="btn btn-warning">Change Password</button>
-        <button class="btn btn-info">Edit Profile</button>
+        <div class="row">
+            <div class="col-4">
+                <AdminProfileCardComponent :profileData="profileData" class="mb-3" />
+            </div>
+        </div>
+        <button type="button" class="btn btn-warning" @click="showChangePasswordModal">Change Password</button>
+        <button type="button" class="btn btn-info" @click="showUpdateProfileModal">Edit Profile</button>
     </div>
 </template>
 
@@ -28,6 +32,14 @@ export default {
     },
     methods: {
         ...mapActions('user', ['fetchUserProfile']),
+
+        showChangePasswordModal() {
+            console.log('change password modal clicked');
+        },
+
+        showUpdateProfileModal() {
+            console.log('update profile clicked.');
+        },
     },
     created() {
         this.fetchUserProfile();
