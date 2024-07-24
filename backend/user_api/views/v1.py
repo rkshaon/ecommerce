@@ -126,3 +126,8 @@ class RefreshTokenView(APIView):
 class UserProfileView(APIView):
     def get(self, request, *args, **kwargs):
         return Response(UserSerializer(request.user).data)
+
+
+class ChangeUserPasswordView(APIView):
+    def put(self, request, *args, **kwargs):
+        return Response({})

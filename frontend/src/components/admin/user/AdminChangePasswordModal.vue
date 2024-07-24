@@ -19,6 +19,11 @@
                             <input type="text" class="form-control" id="exampleInputText2"
                                 v-model="changePasswordData.newPassword">
                         </div>
+                        <div class="mb-3">
+                            <label for="exampleInputText2" class="form-label">Confirm Password</label>
+                            <input type="text" class="form-control" id="exampleInputText2"
+                                v-model="changePasswordData.confirmPassword">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -48,6 +53,7 @@ export default {
             changePasswordData: {
                 currentPassword: '',
                 newPassword: '',
+                confirmPassword: '',
             }
         }
     },
