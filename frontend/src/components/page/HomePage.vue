@@ -9,7 +9,7 @@
 <script>
 import BannerComponent from '@/components/utility/BannerComponent.vue'
 import FeaturedCategoryComponent from '@/components/utility/FeaturedCategoryComponent.vue'
-import ProductGridViewComponent from '@/components/utility/ProductGridViewComponent.vue'
+import ProductGridViewComponent from '@/components/product/ProductGridViewComponent.vue'
 
 export default {
   name: 'HomePage',

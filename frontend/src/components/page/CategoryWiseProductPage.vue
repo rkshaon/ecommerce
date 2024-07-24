@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ProductCardComponent from '@/components/support/ProductCardComponent';
+import ProductCardComponent from '@/components/product/ProductCardComponent';
 import { API_BASE_URL } from '@/config';
 
 export default {  

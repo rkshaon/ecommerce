@@ -24,4 +24,9 @@ urlpatterns = [
         v1_view.UserProfileView.as_view(),
         name='profile',
     ),
+    path(
+        'changepassword',
+        v1_view.ChangeUserPasswordView.as_view(),
+        name='change_password',
+    )
 ]
