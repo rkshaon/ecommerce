@@ -1,5 +1,5 @@
 <template>
-    <div>Customer Page</div>
+    <div class="container mt-5">Customer Page</div>
 </template>
 
 <script>

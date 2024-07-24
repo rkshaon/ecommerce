@@ -1,5 +1,5 @@
 <template>
-    <div>Inventory Page</div>
+    <div class="container mt-5">Inventory Page</div>
 </template>
 
 <script>

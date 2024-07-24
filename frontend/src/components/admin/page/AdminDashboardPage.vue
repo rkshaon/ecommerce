@@ -1,5 +1,5 @@
 <template>    
-    <div>Dashboard Page</div>
+    <div class="container mt-5">Dashboard Page</div>
 </template>
 
 <script>

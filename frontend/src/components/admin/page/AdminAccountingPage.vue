@@ -1,5 +1,5 @@
 <template>
-    <div>Accounting Page</div>
+    <div class="container mt-5">Accounting Page</div>
 </template>
 
 <script>
