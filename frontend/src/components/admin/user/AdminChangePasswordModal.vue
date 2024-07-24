@@ -39,6 +39,7 @@
 <script>
 import { API_BASE_URL } from '@/config';
 import { Modal } from 'bootstrap';
+import { mapActions } from 'vuex';
 import { useToast } from 'vue-toastification';
 
 export default {
@@ -58,6 +59,8 @@ export default {
         }
     },
     methods: {
+        ...mapActions('user', ['changePassword']),
+
         async showChangePasswordModal() {
             const modalElement = this.$refs.changePasswordModal;
 
@@ -74,7 +77,19 @@ export default {
         async confirmUpdate() {
             console.log('Confirm update function called.');
             const toast = useToast();
+            console.log(this.changePasswordData);
             toast.info("work in progress");
+
+            try {
+                const changePasswordResponse = await this.changePassword(this.changePasswordData);
+                console.log(changePasswordResponse.data);
+                this.$emit('changePassword', changePasswordResponse);
+                toast.success('Category created!');
+            } catch (error) {
+                console.log('Failed:', error);
+                console.log(error.data);
+                toast.error('Failed to create category.');
+            }
 
             const modalElement = this.$refs.changePasswordModal;
             const modal = new Modal(modalElement);

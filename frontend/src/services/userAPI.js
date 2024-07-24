@@ -47,4 +47,8 @@ export const getUserProfile = () => {
   return apiClient.get("/api/v1/users/profile");
 };
 
+export const changePassword = () => { 
+  return apiClient.put("/api/v1/users/changepassword");
+};
+
 export default {};
