@@ -128,6 +128,39 @@ class UserProfileView(APIView):
         return Response(UserSerializer(request.user).data)
 
 
+@authentication_classes([SessionAuthentication, JWTAuthentication])
+@permission_classes([IsAuthenticated])
 class ChangeUserPasswordView(APIView):
     def put(self, request, *args, **kwargs):
-        return Response({})
+        old_password = request.data.get('old_password', None)
+        new_password = request.data.get('new_password', None)
+
+        if not old_password or not new_password:
+            return Response({
+                'errors': [
+                    'Old password or new password can not be empty',
+                ]
+            }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+        user = request.user
+
+        if not user.check_password(old_password):
+            return Response({
+                'errors': [
+                    'Old password does not matched!',
+                ]
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        if old_password == new_password:
+            return Response({
+                'errors': [
+                    'Old password is used!',
+                ]
+            }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+        user.set_password(new_password)
+        user.save()
+
+        return Response({
+            'message': 'Password updated.'
+        }, status=status.HTTP_202_ACCEPTED)
