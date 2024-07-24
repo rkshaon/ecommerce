@@ -1,5 +1,7 @@
 <template>
-    <div>Order Page</div>
+    <div class="container mt-5">
+        Order Page
+    </div>
 </template>
 
 <script>
