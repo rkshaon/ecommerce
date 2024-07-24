@@ -2,6 +2,7 @@
 
 import {
   getUserProfile,
+  changePassword,
 } from "@/services/userAPI";
 
 const state = {
@@ -18,6 +19,11 @@ const actions = {
   async fetchUserProfile({ commit }) {
     const response = await getUserProfile();
     commit("setUserProfile", response.data);
+  },
+
+  async changePassword() {
+    const response = await changePassword();
+    console.log(response.data);
   },
 };
 
