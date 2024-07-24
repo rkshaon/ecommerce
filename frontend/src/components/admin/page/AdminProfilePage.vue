@@ -5,11 +5,14 @@
                 <AdminProfileCardComponent :profileData="profileData" class="mb-3" />
             </div>
         </div>
+        <AdminChangePasswordModal ref="changePasswordModal" />
         <AdminUpdateUserProfileModal :profileData="profileData" ref="updateModalForUser" />
         <button type="button" class="btn btn-warning" @click="showChangePasswordModal">
             Change Password
         </button>
-        <button type="button" class="btn btn-info" @click="showUpdateProfileModal">Edit Profile</button>
+        <button type="button" class="btn btn-info" @click="showUpdateProfileModal">
+            Edit Profile
+        </button>
     </div>
 </template>
 
@@ -17,6 +20,7 @@
 import { API_BASE_URL } from '@/config';
 import { mapState, mapActions } from 'vuex';
 import AdminProfileCardComponent from '@/components/admin/user/AdminProfileCardComponent.vue';
+import AdminChangePasswordModal from '@/components/admin/user/AdminChangePasswordModal.vue';
 import AdminUpdateUserProfileModal from '@/components/admin/user/AdminUpdateUserProfileModal.vue';
 
 export default {
@@ -24,6 +28,7 @@ export default {
     components: {
         AdminProfileCardComponent,
         AdminUpdateUserProfileModal,
+        AdminChangePasswordModal,
     },
     data() {
         return {
@@ -40,6 +45,7 @@ export default {
 
         showChangePasswordModal() {
             console.log('change password modal clicked');
+            this.$refs.changePasswordModal.showChangePasswordModal();
         },
 
         showUpdateProfileModal() {
