@@ -1,4 +1,4 @@
-// src/services/adminCategoryAPI.js
+// src/services/userAPI.js
 
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
@@ -43,32 +43,8 @@ apiClient.interceptors.response.use(
   }
 );
 
-export const getCategoryForAdmin = (category_id) => { 
-  return apiClient.get(`/api/v1/categories/${category_id}`);
+export const getUserProfile = () => {
+  return apiClient.get("/api/v1/users/profile");
 };
 
-export const getCategoriesForAdmin = () => {
-  return apiClient.get("/api/v1/categories/");
-};
-
-export const createCategoryForAdmin = (categoryData) => {
-  return apiClient.post('/api/v1/categories/', categoryData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  });
-};
-
-export const deleteCategoryForAdmin = (category_id) => {
-  return apiClient.delete(`/api/v1/categories/${category_id}`);
-};
-
-export const updateCategoryForAdmin = (category_id, categoryData) => {
-  return apiClient.put(`/api/v1/categories/${category_id}`, categoryData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    }
-  });
-};
-
-export default { };
+export default {};

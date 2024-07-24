@@ -1,4 +1,4 @@
-// /src/store/modules/category.js
+// src/store/modules/category.js
 
 import {
     getCategoryForAdmin,
@@ -47,7 +47,7 @@ const actions = {
         if (category) {
           return category;
         } else {
-            const response = await getCategoryForAdmin(id);
+            const response = await getCategoryForAdmin(id);            
             commit("addCategory", response.data);
             return response.data;
         }
@@ -55,7 +55,7 @@ const actions = {
 
     async fetchCategories({ commit }) {
         const response = await getCategoriesForAdmin();
-        commit("setCategories", response.data);
+        commit("setCategories", response.data.results);
     },
 
     async addCategory({ commit }, category) {

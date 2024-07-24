@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'category_api',
     'product_api',
     'user_api',
+    'configure_api',
 ]
 
 MIDDLEWARE = [

@@ -1,9 +1,6 @@
 from django.db import models
-from django.utils.text import slugify
 
 from user_api.models import User
-
-
 
 
 class Category(models.Model):
@@ -17,11 +14,9 @@ class Category(models.Model):
     is_deleted = models.BooleanField(default=False)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE)
     added_date_time = models.DateTimeField(auto_now_add=True)
-    
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-
 
     def __str__(self):
         return f"ID: {self.id}, Title: {self.title}"

@@ -1,17 +1,21 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import BaseLayout from '@/BaseLayout';
-import HomeComponent from '@/components/HomeComponent';
-import CategoryWiseProductComponent from "@/components/CategoryWiseProductComponent";
-import ProductDetailsComponent from "@/components/support/ProductDetailsComponent";
+import AdminBaseComponent from "@/AdminBaseComponent";
 
-import NotFoundComponent from '@/components/NotFoundComponent';
+import HomePage from '@/components/page/HomePage.vue';
+import CategoryWiseProductPage from "@/components/page/CategoryWiseProductPage.vue";
+import ProductDetailsPage from "@/components/page/ProductDetailsPage.vue";
+import NotFoundPage from '@/components/page/NotFoundPage';
 
-import AdminBaseComponent from "@/components/admin/AdminBaseComponent";
-import AdminDashboardComponent from '@/components/admin/AdminDashboardComponent';
-import AdminLoginComponent from '@/components/admin/AdminLoginComponent.vue';
-import AdminCategoryComponent from "@/components/admin/category/AdminCategoryComponent.vue";
-
+import AdminLoginPage from "@/components/admin/page/AdminLoginPage.vue";
+import AdminDashboardPage from '@/components/admin/page/AdminDashboardPage.vue';
+import AdminSetupPage from "@/components/admin/page/AdminSetupPage.vue";
+import AdminInventoryPage from '@/components/admin/page/AdminInventoryPage.vue';
+import AdminAccountingPage from "@/components/admin/page/AdminAccountingPage.vue";
+import AdminOrderPage from "@/components/admin/page/AdminOrderPage.vue";
+import AdminCustomerPage from "@/components/admin/page/AdminCustomerPage.vue";
+import AdminProfilePage from "@/components/admin/page/AdminProfilePage.vue";
 
 
 const routes = [
@@ -22,17 +26,17 @@ const routes = [
       {
         path: "",
         name: "home",
-        component: HomeComponent,
+        component: HomePage,
       },
       {
         path: "category/:category_id/:category_slug",
         name: "category",
-        component: CategoryWiseProductComponent,
+        component: CategoryWiseProductPage,
       },
       {
         path: "product/:product_id/:product_slug",
         name: "product",
-        component: ProductDetailsComponent,
+        component: ProductDetailsPage,
       },
     ],
   },
@@ -42,25 +46,50 @@ const routes = [
     meta: { requiresAuth: true }, // Add meta field to indicate that authentication is required for admin routes
     children: [
       {
-        path: "",
-        name: "admin",
-        component: AdminDashboardComponent,
+        path: "profile",
+        name: "admin-profile",
+        component: AdminProfilePage,
       },
       {
-        path: "category",
-        name: "admin-category",
-        component: AdminCategoryComponent,
+        path: "",
+        name: "admin",
+        component: AdminDashboardPage,
+      },
+      {
+        path: "setup",
+        name: "admin-setup",
+        component: AdminSetupPage,
+      },
+      {
+        path: "inventory",
+        name: "admin-inventory",
+        component: AdminInventoryPage,
+      },
+      {
+        path: "accounting",
+        name: "admin-accounting",
+        component: AdminAccountingPage,
+      },
+      {
+        path: "order",
+        name: "admin-order",
+        component: AdminOrderPage,
+      },
+      {
+        path: "customer",
+        name: "admin-customer",
+        component: AdminCustomerPage,
       },
     ],
   },
   {
     path: "/admin/login",
     name: "admin-login",
-    component: AdminLoginComponent,
+    component: AdminLoginPage,
   },
   {
     path: "/:catchAll(.*)",
-    component: NotFoundComponent,
+    component: NotFoundPage,
   },
 ];
 
