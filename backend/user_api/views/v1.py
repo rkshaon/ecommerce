@@ -136,6 +136,8 @@ class ChangeUserPasswordView(APIView):
         new_password = request.data.get('new_password', None)
 
         if not old_password or not new_password:
+            print(request.data)
+            print("old and new same")
             return Response({
                 'errors': [
                     'Old password or new password can not be empty',
@@ -145,6 +147,7 @@ class ChangeUserPasswordView(APIView):
         user = request.user
 
         if not user.check_password(old_password):
+            print("old password does not match.")
             return Response({
                 'errors': [
                     'Old password does not matched!',
@@ -152,6 +155,8 @@ class ChangeUserPasswordView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
 
         if old_password == new_password:
+            print(request.data)
+            print("old is used")
             return Response({
                 'errors': [
                     'Old password is used!',

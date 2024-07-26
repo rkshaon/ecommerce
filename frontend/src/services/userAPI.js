@@ -47,8 +47,14 @@ export const getUserProfile = () => {
   return apiClient.get("/api/v1/users/profile");
 };
 
-export const changePassword = () => { 
-  return apiClient.put("/api/v1/users/changepassword");
+export const changePassword = (data) => { 
+  console.log('service: ', data);
+  return apiClient.put("/api/v1/users/changepassword", data);
+  // return apiClient.post("/api/v1/categories/", categoryData, {
+  //   headers: {
+  //     "Content-Type": "multipart/form-data",
+  //   },
+  // });
 };
 
 export default {};
