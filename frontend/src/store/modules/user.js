@@ -23,7 +23,7 @@ const actions = {
 
   async changePassword() {
     const response = await changePassword();
-    console.log(response.data);
+    console.log("response in store: ", response.data);
   },
 };
 

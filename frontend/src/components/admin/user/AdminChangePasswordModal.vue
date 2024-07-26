@@ -77,7 +77,7 @@ export default {
         async confirmUpdate() {
             console.log('Confirm update function called.');
             const toast = useToast();
-            console.log(this.changePasswordData);
+            console.log('data:', this.changePasswordData);
             toast.info("work in progress");
 
             try {
@@ -91,9 +91,9 @@ export default {
                 toast.error('Failed to create category.');
             }
 
-            const modalElement = this.$refs.changePasswordModal;
-            const modal = new Modal(modalElement);
-            modal._hideModal();
+            // const modalElement = this.$refs.changePasswordModal;
+            // const modal = new Modal(modalElement);
+            // modal._hideModal();
         },
     }
 }
